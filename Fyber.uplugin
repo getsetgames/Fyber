@@ -1,0 +1,23 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.0",
+	"FriendlyName": "Fyber",
+	"Description": "This plugin serves interstitial ads and rewarded videos via Fyber.",
+	"Category": "Advertising",
+	"CreatedBy": "Get Set Games Inc.",
+	"CreatedByURL": "http://getsetgames.com",
+	"DocsURL": "https://github.com/getsetgames/Fyber",
+	"MarketplaceURL": "",
+	"Modules": [
+		{
+			"Name": "Fyber",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		}
+	],
+	"EnabledByDefault": false,
+	"CanContainContent": false,
+	"IsBetaVersion": false,
+	"Installed": false
+}
