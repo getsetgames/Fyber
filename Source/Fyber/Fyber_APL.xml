@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root xmlns:android="http://schemas.android.com/apk/res/android">
+	<!-- init section is always evaluated once per architecture -->
+	<init>
+		<log text="Fyber init"/>
+	</init>
+
+	<androidManifestUpdates>
+
+	</androidManifestUpdates>
+
+	<!-- optional additions to proguard -->
+	<proguardAdditions>
+		<insert>
+
+# Fyber Mediation
+
+-keep class com.fyber.mediation.MediationConfigProvider {
+    public static *;
+}
+-keep class com.fyber.mediation.MediationAdapterStarter {
+    public static *;
+}
+
+-keepclassmembers class com.fyber.ads.videos.mediation.RewardedVideoMediationJSInterface {
+    void setValue(java.lang.String);
+}
+
+		</insert>
+	</proguardAdditions>
+	
+	<!-- optional files or directories to copy to Intermediate/Android/APK -->
+ 	<resourceCopies>
+		<copyDir src="$S(EngineDir)/Plugins/GSG/Fyber/lib/Android/" dst="$S(BuildDir)/libs/" />
+	</resourceCopies>
+
+	<!-- optional additions to the GameActivity imports in GameActivity.java -->
+	<gameActivityImportAdditions>
+		<insert>
+import com.fyber.Fyber;
+
+# For interstitials
+#
+import com.fyber.requesters.InterstitialRequester;
+import com.fyber.requesters.RequestCallback;
+	</insert>
+	</gameActivityImportAdditions>
+	
+
+	<!-- optional additions to the GameActivity class in GameActivity.java -->
+	<gameActivityClassAdditions>
+		<insert>
+        
+
+		</insert>
+	</gameActivityClassAdditions>
+	
+	<!-- optional additions to GameActivity onCreate metadata reading in GameActivity.java -->
+	<gameActivityReadMetadataAdditions>
+
+	</gameActivityReadMetadataAdditions>
+	
+	<!-- optional additions to GameActivity onCreate in GameActivity.java -->
+	<gameActivityOnCreateAdditions>
+	</gameActivityOnCreateAdditions>
+
+	<!-- optional additions to GameActivity onDestroy in GameActivity.java -->
+	<gameActivityOnDestroyAdditions>
+		<insert>
+	
+		</insert>
+	</gameActivityOnDestroyAdditions>
+	
+	
+	<!-- optional additions to GameActivity onStart in GameActivity.java -->
+	<gameActivityOnStartAdditions>
+		<insert>
+			
+		</insert>
+	</gameActivityOnStartAdditions>
+
+	<!-- optional additions to GameActivity onStop in GameActivity.java -->
+	<gameActivityOnStopAdditions>
+		<insert>
+		
+		</insert>
+	</gameActivityOnStopAdditions>
+	
+
+	<!-- optional additions to GameActivity onPause in GameActivity.java	-->
+	<gameActivityOnPauseAdditions>
+		<insert>
+
+		</insert>
+	</gameActivityOnPauseAdditions>
+
+
+	<!-- optional additions to GameActivity onResume in GameActivity.java	-->
+	<gameActivityOnResumeAdditions>
+		<insert>
+	
+		</insert>
+	</gameActivityOnResumeAdditions>
+
+
+	<!-- optional additions to GameActivity onActivityResult in GameActivity.java -->
+	<gameActivityOnActivityResultAdditions>
+	</gameActivityOnActivityResultAdditions>
+	
+
+	<!-- optional libraries to load in GameActivity.java before libUE4.so -->
+	<soLoadLibrary>
+
+	</soLoadLibrary>
+</root>
