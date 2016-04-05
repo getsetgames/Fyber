@@ -3,6 +3,8 @@
 //  Copyright (c) 2016 Get Set Games Inc. All rights reserved.
 //
 
+using System.IO;
+
 namespace UnrealBuildTool.Rules
 {
 	public class Fyber : ModuleRules
