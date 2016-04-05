@@ -14,7 +14,6 @@
 	<!-- optional additions to proguard -->
 	<proguardAdditions>
 		<insert>
-
 # Fyber Mediation
 
 -keep class com.fyber.mediation.MediationConfigProvider {
@@ -27,7 +26,6 @@
 -keepclassmembers class com.fyber.ads.videos.mediation.RewardedVideoMediationJSInterface {
     void setValue(java.lang.String);
 }
-
 		</insert>
 	</proguardAdditions>
 	
