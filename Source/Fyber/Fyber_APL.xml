@@ -4,6 +4,7 @@
 	<!-- init section is always evaluated once per architecture -->
 	<init>
 		<log text="Fyber init"/>
+		<setStringFromProperty result="sFyberAppId" ini="Engine" section="/Script/Fyber.FyberSettings" property="FyberAddId" default=""/>
 	</init>
 
 	<androidManifestUpdates>
