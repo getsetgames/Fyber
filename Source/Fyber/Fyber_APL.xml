@@ -100,7 +100,8 @@ import com.fyber.requesters.RequestCallback;
 	<!-- optional additions to GameActivity onResume in GameActivity.java	-->
 	<gameActivityOnResumeAdditions>
 		<insert>
-	
+			String fyberAppId = "</insert><insertValue value="$S(sFyberAppId)" /><insert>";
+			Fyber.with(fyberAppId, this).start();
 		</insert>
 	</gameActivityOnResumeAdditions>
 
