@@ -9,6 +9,11 @@ namespace UnrealBuildTool.Rules
 {
 	public class Fyber : ModuleRules
 	{
+		private string ModulePath
+		{
+			get { return Path.GetDirectoryName( RulesCompiler.GetModuleFilename( this.GetType().Name ) ); }
+		}
+
 		public Fyber(TargetInfo Target)
 		{
 			PublicIncludePaths.AddRange(
@@ -55,9 +60,13 @@ namespace UnrealBuildTool.Rules
 			);
 
 
-			if (Target.Platform == UnrealTargetPlatform.IOS) {
+			if (Target.Platform == UnrealTargetPlatform.IOS) 
+			{
+				var LibDir = Path.Combine(ModulePath,"..","..","lib","iOS");
+				PrivateIncludePaths.Add(LibDir);
 
-				PublicAdditionalLibraries.Add("libFyberSDK-8.2.1.a");
+				var Lib = Path.Combine(LibDir,"libFyberSDK-8.2.1.a");
+				PublicAdditionalLibraries.Add(Lib);
 
 				PublicFrameworks.AddRange( 
 					new string[] 
