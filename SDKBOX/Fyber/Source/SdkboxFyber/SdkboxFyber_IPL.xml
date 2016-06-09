@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root xmlns:android="http://schemas.ios.com/apk/res/ios">
+
+  <init>
+	<log text="SDKBOX Fyber IPL Init"/>
+    <setIntFromProperty  result="iCloseButtonDelay" ini="Engine" section="/Script/SdkboxFyber.SdkboxFyberSettings" property="VideoCloseButtonDelayLength" default="0"/>
+  </init>
+
+  <infoPlist>
+    <dumpvars/>
+    <infoAppend result="none">
+        <![CDATA[
+          -insert FYBVideoPlayerOptionCloseButtonDelay -integer $I(iCloseButtonDelay)
+        ]]>
+    </infoAppend>
+  </infoPlist>
+
+</root>

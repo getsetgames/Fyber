@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <init>
+	<log text="SDKBOX Fyber APL Init"/>
+	<setBoolFromProperty result="bDisableVideoPreCaching" ini="Engine" section="/Script/SdkboxFyber.SdkboxFyberSettings" property="DisableVideoPreCaching" default="false"/>
+    <setIntFromProperty  result="iCloseButtonDelay" ini="Engine" section="/Script/SdkboxFyber.SdkboxFyberSettings" property="VideoCloseButtonDelayLength" default="0"/>
+  </init>
+
+  <androidManifestUpdates>
+
+      <if condition="bDisableVideoPreCaching">
+          <false>
+              <setElement result="serviceAddition" value="service"/>
+              <addAttribute tag="$serviceAddition" name="android:name" value="com.fyber.cache.CacheVideoDownloadService"/>
+              <addAttribute tag="$serviceAddition" name="android:exported" value="false"/>
+              <addElement tag="application" name="serviceAddition"/>
+          </false>
+      </if>
+
+      <setElement result="RewardedVideoActivity" value="activity"/>
+      <addAttribute  tag="$RewardedVideoActivity"  name="android:name"  value="com.fyber.ads.videos.RewardedVideoActivity"/>
+      <addAttribute  tag="$RewardedVideoActivity"  name="android:configChanges" value="screenSize|orientation"/>
+      <addAttribute  tag="$RewardedVideoActivity"  name="android:hardwareAccelerated" value="true"/>
+      <addAttribute  tag="$RewardedVideoActivity"  name="android:theme" value="@android:style/Theme.Translucent"/>
+      <addElement    tag="application"         name="RewardedVideoActivity"/>
+
+	  <setElement result="OfferWallActivity" value="activity"/>
+      <addAttribute  tag="$OfferWallActivity"  name="android:name"  value="com.fyber.ads.ofw.OfferWallActivity"/>
+      <addAttribute  tag="$OfferWallActivity"  name="android:configChanges" value="screenSize|orientation"/>
+      <addElement    tag="application"         name="OfferWallActivity"/>
+
+      <setElement result="InterstitialActivity" value="activity"/>
+      <addAttribute  tag="$InterstitialActivity"  name="android:name"  value="com.fyber.ads.interstitials.InterstitialActivity"/>
+      <addAttribute  tag="$InterstitialActivity"  name="android:configChanges" value="screenSize|orientation"/>
+      <addAttribute  tag="$InterstitialActivity"  name="android:theme" value="@android:style/Theme.Translucent"/>
+      <addElement    tag="application"         name="InterstitialActivity"/>
+
+      <setElement result="CacheVideoDownloadService" value="activity"/>
+      <addAttribute  tag="$CacheVideoDownloadService"  name="android:name"  value="com.fyber.cache.CacheVideoDownloadService"/>
+      <addAttribute  tag="$CacheVideoDownloadService"  name="android:exported" value="false"/>
+      <addElement    tag="application"         name="CacheVideoDownloadService"/>
+
+      <addPermission android:name="android.permission.INTERNET" />
+      <addPermission android:name="android.permission.READ_PHONE_STATE" />
+      <addPermission android:name="android.permission.ACCESS_NETWORK_STATE" />
+      <addPermission android:name="android.permission.ACCESS_WIFI_STATE" />
+      <addPermission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+      <setElement result="UnityAdsActivity" value="activity"/>
+      <addAttribute tag="$UnityAdsActivity"  name="android:name" value="com.unity3d.ads.android.view.UnityAdsFullscreenActivity"/>
+      <addAttribute tag="$UnityAdsActivity"  name="android:configChanges" value="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen"/>
+      <addAttribute tag="$UnityAdsActivity"  name="android:theme" value="@android:style/Theme.NoTitleBar.Fullscreen"/>
+      <addAttribute tag="$UnityAdsActivity"  name="android:hardwareAccelerated" value="true"/>
+      <addElement    tag="application"       name="UnityAdsActivity"/>
+
+      <setElement result="CloseButtonDelayMetaData" value="meta-data"/>
+      <addAttribute tag="$CloseButtonDelayMetaData" name="android:name" value="FYBVideoPlayerOptionCloseButtonDelay"/>
+      <addAttribute tag="$CloseButtonDelayMetaData" name="android:value" value="$I(iCloseButtonDelay)"/>
+      <addElement tag="application" name="CloseButtonDelayMetaData"/>
+
+  </androidManifestUpdates>
+
+  <prebuildCopies>
+  </prebuildCopies>
+
+  <resourceCopies>
+   	<copyDir  src="$S(PluginDir)/../../lib/Android/JavaLibs/fyber-unityads-1.5.6-r2" dst="$S(BuildDir)/JavaLibs/fyber-unityads-1.5.6-r2" />
+    <copyFile src="$S(PluginDir)/../../lib/Android/PluginFyber.jar" dst="$S(BuildDir)/libs/PluginFyber.jar" />
+    <copyFile src="$S(PluginDir)/../../lib/Android/JavaLibs/fyber-unityads-1.5.6-r2/annotation_libs/fyber-annotations-compiler-1.2.0.jar" dst="$S(BuildDir)/libs/fyber-annotations-compiler-1.2.0.jar" />
+    <copyFile src="$S(PluginDir)/../../lib/Android/JavaLibs/fyber-unityads-1.5.6-r2/annotation_libs/fyber-annotations-1.1.0.jar" dst="$S(BuildDir)/libs/fyber-annotations-1.1.0.jar" />
+    <copyFile src="$S(PluginDir)/../../lib/Android/JavaLibs/fyber-unityads-1.5.6-r2/annotation_libs/fyber-sdk.jar" dst="$S(BuildDir)/libs/fyber-sdk.jar" />
+    <copyFile src="$S(PluginDir)/../../lib/Android/JavaLibs/fyber-unityads-1.5.6-r2/annotation_libs/fyber-unityads-1.5.6-r2.jar" dst="$S(BuildDir)/libs/fyber-unityads-1.5.6-r2.jar" />
+    <copyFile src="$S(PluginDir)/../../lib/Android/JavaLibs/fyber-unityads-1.5.6-r2/annotation_libs/guava-18.0.jar" dst="$S(BuildDir)/libs/guava-18.0.jar" />
+    <copyFile src="$S(PluginDir)/../../lib/Android/JavaLibs/fyber-unityads-1.5.6-r2/annotation_libs/javapoet-1.5.1.jar" dst="$S(BuildDir)/libs/javapoet-1.5.1.jar" />
+    <copyFile src="$S(PluginDir)/../../lib/Android/JavaLibs/fyber-unityads-1.5.6-r2/annotation_libs/javassist-3.18.2-GA.jar" dst="$S(BuildDir)/libs/javassist-3.18.2-GA.jar" />
+    <copyFile src="$S(PluginDir)/../../lib/Android/JavaLibs/fyber-unityads-1.5.6-r2/annotation_libs/reflections-0.9.10.jar" dst="$S(BuildDir)/libs/reflections-0.9.10.jar" />
+    <copyFile src="$S(PluginDir)/../../lib/Android/JavaLibs/fyber-unityads-1.5.6-r2/annotation_libs/unityads-1.5.6.jar" dst="$S(BuildDir)/libs/unityads-1.5.6.jar" />
+  </resourceCopies>
+
+
+  <buildXmlPropertyAdditions>
+    <insert>
+<![CDATA[
+    <property name="java.target" value="1.7" />
+    <property name="java.source" value="1.7" />
+]]>
+    </insert>
+  </buildXmlPropertyAdditions>
+
+
+  <gameActivityPostImportAdditions>
+    <insert>
+<![CDATA[
+import com.fyber.annotations.FyberSDK;
+@FyberSDK
+]]>
+    </insert>
+  </gameActivityPostImportAdditions>
+
+  <gameActivityOnCreateAdditions>
+    <insert>
+    </insert>
+  </gameActivityOnCreateAdditions>
+
+  <gameActivityOnStartAdditions>
+    <insert>
+    </insert>
+  </gameActivityOnStartAdditions>
+
+  <gameActivityOnStopAdditions>
+    <insert>
+    </insert>
+  </gameActivityOnStopAdditions>
+
+  <gameActivityOnPauseAdditions>
+    <insert>
+    </insert>
+  </gameActivityOnPauseAdditions>
+
+  <gameActivityOnResumeAdditions>
+    <insert>
+    </insert>
+  </gameActivityOnResumeAdditions>
+
+  <gameActivityOnActivityResultAdditions>
+    <insert>
+    </insert>
+  </gameActivityOnActivityResultAdditions>
+  
+  <proguardAdditions>
+    <insert>
+<![CDATA[
+# Fyber
+
+-keep class com.fyber.** { *; }
+-dontwarn com.fyber.**
+-keep class com.sponsorpay.mediation.** { *;}
+-keepattributes JavascriptInterface
+-keep class com.sponsorpay.publisher.mbe.mediation.SPBrandEngageMediationJSInterface {
+    void setValue(java.lang.String);
+}
+-keep class android.webkit.JavascriptInterface
+
+-keepattributes SourceFile,LineNumberTable
+-keepattributes JavascriptInterface
+-keep class com.unity3d.ads.android.**
+{ *; }
+
+
+# google play service
+-keep class com.google.android.gms.** { *; }
+-dontwarn com.google.android.gms.**
+
+-keep class * extends java.util.ListResourceBundle {
+    protected Object[][] getContents();
+}
+
+-keep public class com.google.android.gms.common.internal.safeparcel.SafeParcelable {
+    public static final *** NULL;
+}
+
+-keepnames @com.google.android.gms.common.annotation.KeepName class *
+-keepclassmembernames class * {
+    @com.google.android.gms.common.annotation.KeepName *;
+}
+
+-keepnames class * implements android.os.Parcelable {
+    public static final ** CREATOR;
+}
+
+#sdkbox
+-keep class com.sdkbox.** { *; }
+-dontwarn com.sdkbox.**
+]]>
+    </insert>
+  </proguardAdditions>
+  
+</root>
