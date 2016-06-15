@@ -21,14 +21,14 @@ using System.IO;
 
 namespace UnrealBuildTool.Rules
 {
-	public class Sdkbox : ModuleRules
+	public class SdkboxFyber : ModuleRules
 	{
         private string ModulePath
         {
             get { return Path.GetDirectoryName( RulesCompiler.GetModuleFilename( this.GetType().Name ) ); }
         }
-        
-		public Sdkbox(TargetInfo Target)
+
+		public SdkboxFyber(TargetInfo Target)
 		{
 			PublicIncludePaths.AddRange(
 				new string[] {
@@ -66,7 +66,7 @@ namespace UnrealBuildTool.Rules
 					// ... add any modules that your module loads dynamically here ...
 				}
 		    );
-				
+
 			PrivateIncludePathModuleNames.AddRange(
                 new string[] {
                     "Settings"
@@ -74,25 +74,46 @@ namespace UnrealBuildTool.Rules
 			);
 
 
-			if (Target.Platform == UnrealTargetPlatform.IOS) 
+			if (Target.Platform == UnrealTargetPlatform.IOS)
 			{
-                
+
+                PublicAdditionalLibraries.Add(Path.Combine(ModulePath, "../../lib/iOS/PluginFyber.a"));
 			    PublicAdditionalLibraries.Add(Path.Combine(ModulePath, "../../lib/iOS/sdkbox.a"));
-			
+
+				PublicAdditionalFrameworks.Add(
+					new UEBuildFramework(
+						"Fyber_UnityAds_1.5.5-r1", "../../lib/iOS/Fyber_UnityAds_1.5.5-r1.embeddedframework.zip", "Resources/UnityAds.bundle"
+					)
+				);
+
                 PublicFrameworks.AddRange(
-                    new string[] 
-                    { 
+                    new string[]
+                    {
                         "SystemConfiguration",
-                        "Security"
+                        "Security",
+                        "AdSupport",
+                        "CoreGraphics",
+                        "CoreLocation",
+                        "CoreTelephony",
+                        "MediaPlayer",
+                        "QuartzCore",
+                        "StoreKit",
+                        "SystemConfiguration",
+                        "CFNetwork",
+                        "GameController"
                     }
                 );
+
+				PrivateDependencyModuleNames.AddRange(new string[] { "Launch" });
+				AdditionalPropertiesForReceipt.Add(new ReceiptProperty("IOSPlugin", Path.Combine(ModulePath, "SdkboxFyber_IPL.xml")));
 			}
 			else if (Target.Platform == UnrealTargetPlatform.Android)
 			{
+                PublicAdditionalLibraries.Add(Path.Combine(ModulePath, "../../lib/Android/PluginFyber.a"));
 			    PublicAdditionalLibraries.Add(Path.Combine(ModulePath, "../../lib/Android/sdkbox.a"));
-                
+
 				PrivateDependencyModuleNames.AddRange(new string[] { "Launch" });
-				AdditionalPropertiesForReceipt.Add(new ReceiptProperty("AndroidPlugin", Path.Combine(ModulePath, "Sdkbox.xml")));
+				AdditionalPropertiesForReceipt.Add(new ReceiptProperty("AndroidPlugin", Path.Combine(ModulePath, "SdkboxFyber_APL.xml")));
 			}
 		}
 	}
