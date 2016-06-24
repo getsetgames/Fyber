@@ -26,8 +26,8 @@ USdkboxFyberComponent::FVoidDelegate                            USdkboxFyberComp
 USdkboxFyberComponent::FStringDelegate                          USdkboxFyberComponent::OnInterstitialDismissDelegate;
 USdkboxFyberComponent::FVoidDelegate                            USdkboxFyberComponent::OnInterstitialFailedDelegate;
 USdkboxFyberComponent::FBoolDelegate                            USdkboxFyberComponent::OnBrandEngageClientReceiveOffersDelegate;
-USdkboxFyberComponent::FIntStringDelegate                       USdkboxFyberComponent::OnBrandEngageClientChangeStatusDelegate;
-USdkboxFyberComponent::FIntDelegate                             USdkboxFyberComponent::OnOfferWallFinishDelegate;
+USdkboxFyberComponent::FRewardedVideoEnumDelegate               USdkboxFyberComponent::OnBrandEngageClientChangeStatusDelegate;
+USdkboxFyberComponent::FOfferWallEnumDelegate                   USdkboxFyberComponent::OnOfferWallFinishDelegate;
 
 USdkboxFyberComponent::USdkboxFyberComponent(const FObjectInitializer& ObjectInitializer)
     : Super(ObjectInitializer)

@@ -64,7 +64,7 @@ void USdkboxFyberListener::onBrandEngageClientChangeStatus(int status, const std
 {
 	//UE_LOG(SDKBOX, Warning, TEXT("onBrandEngageClientChangeStatus: %d %s"), status, msg.c_str());
 
-	USdkboxFyberComponent::OnBrandEngageClientChangeStatusDelegate.Broadcast(status, msg.c_str());
+	USdkboxFyberComponent::OnBrandEngageClientChangeStatusDelegate.Broadcast(EFyberRewardedVideoEnum(status), msg.c_str());
 	switch (status)
 	{
 	case sdkbox::FYB_REWARDED_VIDEO_STARTED:
@@ -80,7 +80,7 @@ void USdkboxFyberListener::onBrandEngageClientChangeStatus(int status, const std
 
 void USdkboxFyberListener::onOfferWallFinish(int status)
 {
-	USdkboxFyberComponent::OnOfferWallFinishDelegate.Broadcast(status);
+	USdkboxFyberComponent::OnOfferWallFinishDelegate.Broadcast(EFyberOfferWallEnum(status));
 }
 
 //

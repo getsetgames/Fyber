@@ -23,6 +23,23 @@
 
 class USdkboxFyberListener;
 
+UENUM(BlueprintType)
+enum class EFyberOfferWallEnum : uint8
+{
+    OWE_OFFERWALL_PRESENTED = 1 UMETA(DisplayName="OfferWallPresented"),
+	OWE_OFFERWALL_DISMISSED = 2 UMETA(DisplayName="OfferWallDismissed"),
+	OWE_OFFERWALL_ERROR     = 3 UMETA(DisplayName="OfferWallError")
+};
+
+UENUM(BlueprintType)
+enum class EFyberRewardedVideoEnum : uint8
+{
+    RWE_REWARDED_VIDEO_STARTED  = 1 UMETA(DisplayName="RewardedVideoStarted"),
+    RWE_REWARDED_VIDEO_FINISHED = 2 UMETA(DisplayName="RewardedVideoFinished"),
+    RWE_REWARDED_VIDEO_ERROR    = 3 UMETA(DisplayName="RewardedVideoError"),
+    RWE_REWARDED_VIDEO_ABORTED  = 4 UMETA(DisplayName="RewardedVideoAborted")
+};
+
 UCLASS(ClassGroup=SDKBOX, HideCategories=(Activation, "Components|Activation", Collision), meta=(BlueprintSpawnableComponent))
 class USdkboxFyberComponent
     : public UActorComponent
@@ -37,10 +54,10 @@ public:
     void OnUnregister() override;
 
     DECLARE_MULTICAST_DELEGATE(FVoidDelegate);
-    DECLARE_MULTICAST_DELEGATE_OneParam(FIntDelegate, int32);
+    DECLARE_MULTICAST_DELEGATE_OneParam(FOfferWallEnumDelegate, EFyberOfferWallEnum);
     DECLARE_MULTICAST_DELEGATE_OneParam(FBoolDelegate, bool);
    	DECLARE_MULTICAST_DELEGATE_OneParam(FStringDelegate, const FString&);
-    DECLARE_MULTICAST_DELEGATE_TwoParams(FIntStringDelegate, int32, const FString&);
+    DECLARE_MULTICAST_DELEGATE_TwoParams(FRewardedVideoEnumDelegate, EFyberRewardedVideoEnum, const FString&);
 	DECLARE_MULTICAST_DELEGATE_ThreeParams(FVirtualCurrencyConnectorFailedDelegate, int32, const FString&, const FString&);
 	DECLARE_MULTICAST_DELEGATE_FourParams(FVirtualCurrencyConnectorSuccessDelegate, float, const FString&, const FString&, const FString&);
 
@@ -51,14 +68,14 @@ public:
 	static FStringDelegate                          OnInterstitialDismissDelegate;
 	static FVoidDelegate                            OnInterstitialFailedDelegate;
 	static FBoolDelegate                            OnBrandEngageClientReceiveOffersDelegate;
-	static FIntStringDelegate                       OnBrandEngageClientChangeStatusDelegate;
-	static FIntDelegate                             OnOfferWallFinishDelegate;
+	static FRewardedVideoEnumDelegate               OnBrandEngageClientChangeStatusDelegate;
+	static FOfferWallEnumDelegate                   OnOfferWallFinishDelegate;
 
     DECLARE_DYNAMIC_MULTICAST_DELEGATE(FDynVoidDelegate);
-    DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FDynIntDelegate, int32, Status);
+    DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FDynOfferWallEnumDelegate, EFyberOfferWallEnum, Status);
     DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FDynBoolDelegate, bool, Yes);
    	DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FDynStringDelegate, const FString&, Message);
-    DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FDynIntStringDelegate, int32, Status, const FString&, Message);
+    DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FDynRewardedVideoEnumDelegate, EFyberRewardedVideoEnum, Status, const FString&, Message);
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FDynVirtualCurrencyConnectorFailedDelegate, int32, Error, const FString&, ErrorCode, const FString&, Message);
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE_FourParams(FDynVirtualCurrencyConnectorSuccessDelegate, float, DeltaOfCoins, const FString&, CurrencyId, const FString&, CurrencyName, const FString&, TransactionId);
 
@@ -84,10 +101,10 @@ public:
 	FDynBoolDelegate                                OnBrandEngageClientReceiveOffers;
 
     UPROPERTY(BlueprintAssignable)
-	FDynIntStringDelegate                           OnBrandEngageClientChangeStatus;
+	FDynRewardedVideoEnumDelegate                   OnBrandEngageClientChangeStatus;
 
     UPROPERTY(BlueprintAssignable)
-	FDynIntDelegate                                 OnOfferWallFinish;
+	FDynOfferWallEnumDelegate                       OnOfferWallFinish;
 
 protected:
 
@@ -98,6 +115,6 @@ protected:
 	void OnInterstitialDismissDelegate_Handler(const FString& reason) {OnInterstitialDismiss.Broadcast(reason);};
 	void OnInterstitialFailedDelegate_Handler() {OnInterstitialFailed.Broadcast();};
 	void OnBrandEngageClientReceiveOffersDelegate_Handler(bool areOffersAvailable) {OnBrandEngageClientReceiveOffers.Broadcast(areOffersAvailable);};
-	void OnBrandEngageClientChangeStatusDelegate_Handler(int32 status, const FString& message) {OnBrandEngageClientChangeStatus.Broadcast(status, message);};
-	void OnOfferWallFinishDelegate_Handler(int32 status) {OnOfferWallFinish.Broadcast(status);};
+	void OnBrandEngageClientChangeStatusDelegate_Handler(EFyberRewardedVideoEnum status, const FString& message) {OnBrandEngageClientChangeStatus.Broadcast(status, message);};
+	void OnOfferWallFinishDelegate_Handler(EFyberOfferWallEnum status) {OnOfferWallFinish.Broadcast(status);};
 };
