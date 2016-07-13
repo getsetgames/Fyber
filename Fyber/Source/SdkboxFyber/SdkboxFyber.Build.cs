@@ -23,10 +23,10 @@ namespace UnrealBuildTool.Rules
 {
 	public class SdkboxFyber : ModuleRules
 	{
-        private string ModulePath
-        {
-            get { return Path.GetDirectoryName( RulesCompiler.GetModuleFilename( this.GetType().Name ) ); }
-        }
+		private string ModulePath
+		{
+			get { return ModuleDirectory; }
+		}
 
 		public SdkboxFyber(TargetInfo Target)
 		{
