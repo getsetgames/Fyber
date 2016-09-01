@@ -187,6 +187,28 @@ import com.fyber.annotations.FyberSDK;
 #sdkbox
 -keep class com.sdkbox.** { *; }
 -dontwarn com.sdkbox.**
+
+-dontwarn org.reflections.**
+-dontwarn com.google.common.util.concurrent.**
+-dontwarn com.google.common.math.**
+-dontwarn com.google.common.base.**
+-dontwarn com.google.common.collect.**
+-dontwarn com.google.common.reflect.**
+-dontwarn com.google.common.cache.**
+-dontwarn com.google.common.escape.**
+-dontwarn com.google.common.hash.**
+-dontwarn com.google.common.io.**
+-dontwarn com.google.common.net.**
+-dontwarn com.google.common.primitives.**
+-dontwarn com.google.common.eventbus.**
+-dontwarn com.google.common.html.**
+-dontwarn com.google.common.xml.**
+-dontwarn com.squareup.javapoet.**
+-dontwarn javassist.tools.rmi.ObjectImporter.**
+-dontwarn javassist.util.HotSwapper.**
+-dontwarn com.sun.jdi.**
+-dontwarn java.applet.**
+
 ]]>
     </insert>
   </proguardAdditions>
