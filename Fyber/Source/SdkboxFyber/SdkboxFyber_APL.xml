@@ -66,7 +66,7 @@
 
   <resourceCopies>
     <copyFile src="$S(PluginDir)/../../lib/Android/sdkbox.jar" dst="$S(BuildDir)/libs/sdkbox.jar" />
-   	<copyDir  src="$S(PluginDir)/../../lib/Android/JavaLibs/fyber-unityads-1.5.6-r2" dst="$S(BuildDir)/JavaLibs/fyber-unityads-1.5.6-r2" />
+    <copyDir  src="$S(EngineDir)/Plugins/GSG/Fyber/Fyber/lib/Android/JavaLibs/fyber-unityads-1.5.6-r2" dst="$S(BuildDir)/JavaLibs/fyber-unityads-1.5.6-r2" />
     <copyFile src="$S(PluginDir)/../../lib/Android/PluginFyber.jar" dst="$S(BuildDir)/libs/PluginFyber.jar" />
     <copyFile src="$S(PluginDir)/../../lib/Android/JavaLibs/fyber-unityads-1.5.6-r2/annotation_libs/fyber-annotations-compiler-1.2.0.jar" dst="$S(BuildDir)/libs/fyber-annotations-compiler-1.2.0.jar" />
     <copyFile src="$S(PluginDir)/../../lib/Android/JavaLibs/fyber-unityads-1.5.6-r2/annotation_libs/fyber-annotations-1.1.0.jar" dst="$S(BuildDir)/libs/fyber-annotations-1.1.0.jar" />
