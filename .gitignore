@@ -1,2 +1,12 @@
 Intermediate
 Binaries
+Fyber/lib/Android/JavaLibs/guava-annotations/bin
+Fyber/lib/Android/JavaLibs/guava-annotations/gen
+Fyber/lib/Android/JavaLibs/guava-base/bin
+Fyber/lib/Android/JavaLibs/guava-base/gen
+Fyber/lib/Android/JavaLibs/guava-collect-base/bin
+Fyber/lib/Android/JavaLibs/guava-collect-base/gen
+Fyber/lib/Android/JavaLibs/guava-math/bin
+Fyber/lib/Android/JavaLibs/guava-math/gen
+Fyber/lib/Android/JavaLibs/guava-primitives/bin
+Fyber/lib/Android/JavaLibs/guava-primitives/gen
