@@ -66,18 +66,19 @@
 
   <resourceCopies>
     <copyFile src="$S(PluginDir)/../../lib/Android/sdkbox.jar" dst="$S(BuildDir)/libs/sdkbox.jar" />
+    
     <copyDir  src="$S(EngineDir)/Plugins/GSG/Fyber/Fyber/lib/Android/JavaLibs/fyber-unityads-1.5.6-r2" dst="$S(BuildDir)/JavaLibs/fyber-unityads-1.5.6-r2" />
     <copyDir  src="$S(EngineDir)/Plugins/GSG/Fyber/Fyber/lib/Android/JavaLibs/guava-base" dst="$S(BuildDir)/JavaLibs/guava-base" />
     <copyDir  src="$S(EngineDir)/Plugins/GSG/Fyber/Fyber/lib/Android/JavaLibs/guava-collect-base" dst="$S(BuildDir)/JavaLibs/guava-collect-base" />
     <copyDir  src="$S(EngineDir)/Plugins/GSG/Fyber/Fyber/lib/Android/JavaLibs/guava-math" dst="$S(BuildDir)/JavaLibs/guava-math" />
     <copyDir  src="$S(EngineDir)/Plugins/GSG/Fyber/Fyber/lib/Android/JavaLibs/guava-primitives" dst="$S(BuildDir)/JavaLibs/guava-primitives" />
     <copyDir  src="$S(EngineDir)/Plugins/GSG/Fyber/Fyber/lib/Android/JavaLibs/guava-annotations" dst="$S(BuildDir)/JavaLibs/guava-annotations" />
+
     <copyFile src="$S(PluginDir)/../../lib/Android/PluginFyber.jar" dst="$S(BuildDir)/libs/PluginFyber.jar" />
     <copyFile src="$S(PluginDir)/../../lib/Android/JavaLibs/fyber-unityads-1.5.6-r2/annotation_libs/fyber-annotations-compiler-1.2.0.jar" dst="$S(BuildDir)/libs/fyber-annotations-compiler-1.2.0.jar" />
     <copyFile src="$S(PluginDir)/../../lib/Android/JavaLibs/fyber-unityads-1.5.6-r2/annotation_libs/fyber-annotations-1.1.0.jar" dst="$S(BuildDir)/libs/fyber-annotations-1.1.0.jar" />
     <copyFile src="$S(PluginDir)/../../lib/Android/JavaLibs/fyber-unityads-1.5.6-r2/annotation_libs/fyber-sdk.jar" dst="$S(BuildDir)/libs/fyber-sdk.jar" />
-    <copyFile src="$S(PluginDir)/../../lib/Android/JavaLibs/fyber-unityads-1.5.6-r2/annotation_libs/fyber-unityads-1.5.6-r2.jar" dst="$S(BuildDir)/libs/fyber-unityads-1.5.6-r2.jar" />
-    <copyFile src="$S(PluginDir)/../../lib/Android/JavaLibs/fyber-unityads-1.5.6-r2/annotation_libs/guava-18.0.jar" dst="$S(BuildDir)/libs/guava-18.0.jar" />
+
     <copyFile src="$S(PluginDir)/../../lib/Android/JavaLibs/fyber-unityads-1.5.6-r2/annotation_libs/javapoet-1.5.1.jar" dst="$S(BuildDir)/libs/javapoet-1.5.1.jar" />
     <copyFile src="$S(PluginDir)/../../lib/Android/JavaLibs/fyber-unityads-1.5.6-r2/annotation_libs/javassist-3.18.2-GA.jar" dst="$S(BuildDir)/libs/javassist-3.18.2-GA.jar" />
     <copyFile src="$S(PluginDir)/../../lib/Android/JavaLibs/fyber-unityads-1.5.6-r2/annotation_libs/reflections-0.9.10.jar" dst="$S(BuildDir)/libs/reflections-0.9.10.jar" />
