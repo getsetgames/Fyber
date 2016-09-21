@@ -18,9 +18,13 @@ package com.google.common.collect;
 
 import static com.google.common.base.Preconditions.checkState;
 
+import com.google.common.annotations.GwtCompatible;
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
+
 /**
  * Precondition checks useful in collection implementations.
  */
+@GwtCompatible
 final class CollectPreconditions {
 
   static void checkEntryNotNull(Object key, Object value) {
@@ -31,11 +35,18 @@ final class CollectPreconditions {
     }
   }
 
+  @CanIgnoreReturnValue
   static int checkNonnegative(int value, String name) {
     if (value < 0) {
       throw new IllegalArgumentException(name + " cannot be negative but was: " + value);
     }
     return value;
+  }
+
+  static void checkPositive(int value, String name) {
+    if (value <= 0) {
+      throw new IllegalArgumentException(name + " must be positive but was: " + value);
+    }
   }
 
   /**

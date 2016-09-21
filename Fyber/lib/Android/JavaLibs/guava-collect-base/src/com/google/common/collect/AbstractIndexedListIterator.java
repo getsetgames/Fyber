@@ -16,10 +16,12 @@
 
 package com.google.common.collect;
 
+import static com.google.common.base.Preconditions.checkPositionIndex;
+
+import com.google.common.annotations.GwtCompatible;
+
 import java.util.ListIterator;
 import java.util.NoSuchElementException;
-
-import static com.google.common.base.Preconditions.checkPositionIndex;
 
 /**
  * This class provides a skeletal implementation of the {@link ListIterator}
@@ -28,8 +30,8 @@ import static com.google.common.base.Preconditions.checkPositionIndex;
  *
  * @author Jared Levy
  */
-abstract class AbstractIndexedListIterator<E>
-    extends UnmodifiableListIterator<E> {
+@GwtCompatible
+abstract class AbstractIndexedListIterator<E> extends UnmodifiableListIterator<E> {
   private final int size;
   private int position;
 

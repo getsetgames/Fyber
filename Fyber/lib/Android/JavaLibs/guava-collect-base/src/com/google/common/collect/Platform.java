@@ -16,16 +16,18 @@
 
 package com.google.common.collect;
 
+import com.google.common.annotations.GwtCompatible;
+
 import java.lang.reflect.Array;
-import java.util.Collections;
-import java.util.Map;
-import java.util.Set;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 /**
  * Methods factored out so that they can be emulated differently in GWT.
  *
  * @author Hayward Chan
  */
+@GwtCompatible(emulated = true)
 final class Platform {
   /**
    * Returns a new array of the given length with the same type as a reference
@@ -43,10 +45,6 @@ final class Platform {
     T[] result = (T[]) Array.newInstance(type, length);
     return result;
   }
-  
-  static <E> Set<E> newSetFromMap(Map<E, Boolean> map) {
-    return Collections.newSetFromMap(map);
-  }
 
   /**
    * Configures the given map maker to use weak keys, if possible; does nothing
@@ -54,39 +52,14 @@ final class Platform {
    * server-side code could generate enough volume that reclamation becomes
    * important.
    */
-  // TODO romainpiel migrate that to a maps package
-//  static MapMaker tryWeakKeys(MapMaker mapMaker) {
-//    return mapMaker.weakKeys();
-//  }
-//
-//  static <K, V1, V2> SortedMap<K, V2> mapsTransformEntriesSortedMap(
-//      SortedMap<K, V1> fromMap,
-//      EntryTransformer<? super K, ? super V1, V2> transformer) {
-//    return (fromMap instanceof NavigableMap)
-//        ? Maps.transformEntries((NavigableMap<K, V1>) fromMap, transformer)
-//        : Maps.transformEntriesIgnoreNavigable(fromMap, transformer);
-//  }
-//
-//  static <K, V> SortedMap<K, V> mapsAsMapSortedSet(SortedSet<K> set,
-//      Function<? super K, V> function) {
-//    return (set instanceof NavigableSet)
-//        ? Maps.asMap((NavigableSet<K>) set, function)
-//        : Maps.asMapSortedIgnoreNavigable(set, function);
-//  }
-//
-//  static <E> SortedSet<E> setsFilterSortedSet(SortedSet<E> set,
-//      Predicate<? super E> predicate) {
-//    return (set instanceof NavigableSet)
-//        ? Sets.filter((NavigableSet<E>) set, predicate)
-//        : Sets.filterSortedIgnoreNavigable(set, predicate);
-//  }
-//
-//  static <K, V> SortedMap<K, V> mapsFilterSortedMap(SortedMap<K, V> map,
-//      Predicate<? super Map.Entry<K, V>> predicate) {
-//    return (map instanceof NavigableMap)
-//        ? Maps.filterEntries((NavigableMap<K, V>) map, predicate)
-//        : Maps.filterSortedIgnoreNavigable(map, predicate);
-//  }
+  static MapMaker tryWeakKeys(MapMaker mapMaker) {
+    return mapMaker.weakKeys();
+  }
+
+  // TODO(cpovirk): Consider adding an ArrayDeque emulation to GWT.
+  static <E> Deque<E> newFastestDeque(int initialCapacity) {
+    return new ArrayDeque<E>(initialCapacity);
+  }
 
   private Platform() {}
 }
