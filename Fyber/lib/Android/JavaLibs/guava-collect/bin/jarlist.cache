@@ -1,7 +1,0 @@
-# cache for current jar dependency. DO NOT EDIT.
-# format is <lastModified> <length> <SHA-1> <path>
-# Encoding is UTF-8
-1469651327000 19982 10b9d55d43e9d3f23f1d4441709853a4adef9590 /Users/robertsegal/Documents/Unreal Projects/UE4PluginIntegration/Intermediate/Android/APK/JavaLibs/guava-math/libs/android-support-annotations.jar
-1469651327000 19982 10b9d55d43e9d3f23f1d4441709853a4adef9590 /Users/robertsegal/Documents/Unreal Projects/UE4PluginIntegration/Intermediate/Android/APK/JavaLibs/guava-base/libs/android-support-annotations.jar
-1469651327000 19982 10b9d55d43e9d3f23f1d4441709853a4adef9590 /Users/robertsegal/Documents/Unreal Projects/UE4PluginIntegration/Intermediate/Android/APK/JavaLibs/guava-annotations/libs/android-support-annotations.jar
-1469651327000 19982 10b9d55d43e9d3f23f1d4441709853a4adef9590 /Users/robertsegal/Documents/Unreal Projects/UE4PluginIntegration/Intermediate/Android/APK/JavaLibs/guava-collect-base/libs/android-support-annotations.jar
