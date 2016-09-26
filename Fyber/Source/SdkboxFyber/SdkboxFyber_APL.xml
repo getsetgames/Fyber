@@ -214,6 +214,30 @@ import com.fyber.annotations.FyberSDK;
 -dontwarn com.sun.jdi.**
 -dontwarn java.applet.**
 
+
+-dontwarn java.nio.file.**
+-dontwarn java.io.File
+-dontwarn org.slf4j.**
+-dontwarn org.apache.commons.vfs2.**
+-dontwarn org.dom4j.Element
+-dontwarn org.dom4j.Documentpwd
+
+-dontwarn com.google.gson.**
+-dontwarn org.dom4j.**
+-dontwarn com.google.common.**
+-dontwarn com.sun.jdi.**
+-dontwarn javax.lang.model.**
+-dontwarn javax.annotation.processing.**
+-dontwarn javax.tools.**
+-dontwarn java.applet.Applet
+-dontwarn javax.servlet.ServletContext
+-dontwarn com.google.android.gms.**
+-dontwarn com.fyber.mediation.**
+-dontwarn com.google.auto.**
+-dontwarn com.fyber.annotations.processor.MediationAnnotationProcessor
+-dontwarn com.fyber.annotations.processor.MediationConfigAnnotationProcessor
+-dontwarn com.fyber.annotations.processor.BaseMediationProcessor
+
 ]]>
     </insert>
   </proguardAdditions>
