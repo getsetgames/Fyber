@@ -62,87 +62,115 @@
   </androidManifestUpdates>
 
   <prebuildCopies>
+      <copyFile src="$S(PluginDir)/../../lib/Android/libs/fyber-sdk-8.5.1.jar" dst="$S(BuildDir)/libs/fyber-sdk-8.5.1.jar" />
   </prebuildCopies>
 
   <resourceCopies>
-    <copyFile src="$S(PluginDir)/../../lib/Android/sdkbox.jar" dst="$S(BuildDir)/libs/sdkbox.jar" />
-   	<copyDir  src="$S(PluginDir)/../../lib/Android/JavaLibs/fyber-unityads-1.5.6-r2" dst="$S(BuildDir)/JavaLibs/fyber-unityads-1.5.6-r2" />
-    <copyFile src="$S(PluginDir)/../../lib/Android/PluginFyber.jar" dst="$S(BuildDir)/libs/PluginFyber.jar" />
-    <copyFile src="$S(PluginDir)/../../lib/Android/JavaLibs/fyber-unityads-1.5.6-r2/annotation_libs/fyber-annotations-compiler-1.2.0.jar" dst="$S(BuildDir)/libs/fyber-annotations-compiler-1.2.0.jar" />
-    <copyFile src="$S(PluginDir)/../../lib/Android/JavaLibs/fyber-unityads-1.5.6-r2/annotation_libs/fyber-annotations-1.1.0.jar" dst="$S(BuildDir)/libs/fyber-annotations-1.1.0.jar" />
-    <copyFile src="$S(PluginDir)/../../lib/Android/JavaLibs/fyber-unityads-1.5.6-r2/annotation_libs/fyber-sdk.jar" dst="$S(BuildDir)/libs/fyber-sdk.jar" />
-    <copyFile src="$S(PluginDir)/../../lib/Android/JavaLibs/fyber-unityads-1.5.6-r2/annotation_libs/fyber-unityads-1.5.6-r2.jar" dst="$S(BuildDir)/libs/fyber-unityads-1.5.6-r2.jar" />
-    <copyFile src="$S(PluginDir)/../../lib/Android/JavaLibs/fyber-unityads-1.5.6-r2/annotation_libs/guava-18.0.jar" dst="$S(BuildDir)/libs/guava-18.0.jar" />
-    <copyFile src="$S(PluginDir)/../../lib/Android/JavaLibs/fyber-unityads-1.5.6-r2/annotation_libs/javapoet-1.5.1.jar" dst="$S(BuildDir)/libs/javapoet-1.5.1.jar" />
-    <copyFile src="$S(PluginDir)/../../lib/Android/JavaLibs/fyber-unityads-1.5.6-r2/annotation_libs/javassist-3.18.2-GA.jar" dst="$S(BuildDir)/libs/javassist-3.18.2-GA.jar" />
-    <copyFile src="$S(PluginDir)/../../lib/Android/JavaLibs/fyber-unityads-1.5.6-r2/annotation_libs/reflections-0.9.10.jar" dst="$S(BuildDir)/libs/reflections-0.9.10.jar" />
-    <copyFile src="$S(PluginDir)/../../lib/Android/JavaLibs/fyber-unityads-1.5.6-r2/annotation_libs/unityads-1.5.6.jar" dst="$S(BuildDir)/libs/unityads-1.5.6.jar" />
+
   </resourceCopies>
 
 
   <buildXmlPropertyAdditions>
     <insert>
-<![CDATA[
-    <property name="java.target" value="1.7" />
-    <property name="java.source" value="1.7" />
-]]>
+
     </insert>
   </buildXmlPropertyAdditions>
 
 
   <gameActivityPostImportAdditions>
     <insert>
-<![CDATA[
-import com.fyber.annotations.FyberSDK;
-@FyberSDK
-]]>
+
     </insert>
   </gameActivityPostImportAdditions>
 
   <gameActivityImportAdditions>
     <insert>
-      import android.content.Intent;
-      import com.sdkbox.plugin.SDKBox;
+import com.fyber.Fyber;
+import com.fyber.Fyber;
+import com.fyber.requesters.RewardedVideoRequester;
+import com.fyber.ads.AdFormat;
+import com.fyber.requesters.RequestCallback;
+import com.fyber.requesters.RequestError;
     </insert>
   </gameActivityImportAdditions>
 
   <gameActivityOnCreateAdditions>
     <insert>
-      SDKBox.init(this);
+    
     </insert>
   </gameActivityOnCreateAdditions>
 
   <gameActivityOnStartAdditions>
     <insert>
-      SDKBox.onStart();
+  
     </insert>
   </gameActivityOnStartAdditions>
 
   <gameActivityOnStopAdditions>
     <insert>
-      SDKBox.onStop();
+  
     </insert>
   </gameActivityOnStopAdditions>
 
   <gameActivityOnPauseAdditions>
     <insert>
-      SDKBox.onPause();
+    
     </insert>
   </gameActivityOnPauseAdditions>
 
   <gameActivityOnResumeAdditions>
     <insert>
-      SDKBox.onResume();
+      AndroidThunkJava_FyberInit("", "");
     </insert>
   </gameActivityOnResumeAdditions>
 
   <gameActivityOnActivityResultAdditions>
     <insert>
-      if (!SDKBox.onActivityResult(requestCode, resultCode, data))
-          super.onActivityResult(requestCode, resultCode, data);
+
     </insert>
   </gameActivityOnActivityResultAdditions>
+
+<gameActivityClassAdditions>
+    <insert><![CDATA[
+
+   public void AndroidThunkJava_FyberInit(String appID, String securityToken)
+    {
+      Log.debug("Fyber Init!");
+
+        Fyber.with(appID, this)
+                .withSecurityToken(securityToken)
+                .start();
+    }
+
+    public void AndroidThunkJava_FyberRequestVideo(String placementID)
+    {
+        RequestCallback requestCallback = new RequestCallback() {
+            @Override
+            public void onAdAvailable(Intent intent) {
+                Log.debug("Ad is available");
+                startActivityForResult(intent, 0);
+            }
+
+            @Override
+            public void onAdNotAvailable(AdFormat adFormat) {
+              Log.debug("Ad is not available");
+            }
+
+            @Override
+            public void onRequestError(RequestError requestError) {
+                Log.debug("Something went wrong with the request: " + requestError.getDescription());
+            }
+        };
+
+        RewardedVideoRequester.create(requestCallback).request(this);
+    }
+
+
+]]></insert>
+  </gameActivityClassAdditions>
   
+
+
   <proguardAdditions>
     <insert>
 <![CDATA[
