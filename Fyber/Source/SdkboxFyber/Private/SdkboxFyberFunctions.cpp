@@ -19,18 +19,50 @@
 
 #include "SdkboxFyberPrivatePCH.h"
 
+#if PLATFORM_ANDROID
+#include "Android/AndroidJNI.h"
+#include "AndroidApplication.h"
+#endif
+
 USdkboxFyberListener* USdkboxFyberFunctions::_FyberListener = nullptr;
 
-void USdkboxFyberFunctions::FyberInitialize()
+void USdkboxFyberFunctions::FyberInitialize(const FString &appID, const FString &securityToken)
 {
 #if PLATFORM_IOS || PLATFORM_ANDROID
-    sdkbox::PluginFyber::init("123", TCHAR_TO_ANSI(*_SettingsToJSONString()));
-    if (!_FyberListener)
+    //sdkbox::PluginFyber::init("123", TCHAR_TO_ANSI(*_SettingsToJSONString()));
+    
+    
+    // public void AndroidThunkJava_FyberInit(java.lang.String, java.lang.String);
+    // descriptor: (Ljava/lang/String;Ljava/lang/String;)V
+    
+//    if (!_FyberListener)
+//    {
+//        _FyberListener = NewObject<USdkboxFyberListener>(USdkboxFyberListener::StaticClass());
+//        sdkbox::PluginFyber::setListener(_FyberListener);
+//    }
+#endif
+
+#if PLATFORM_ANDROID
+    if (JNIEnv* Env = FAndroidApplication::GetJavaEnv())
     {
-        _FyberListener = NewObject<USdkboxFyberListener>(USdkboxFyberListener::StaticClass());
-        sdkbox::PluginFyber::setListener(_FyberListener);
+        static jmethodID Method = FJavaWrapper::FindMethod(Env,
+                                                           FJavaWrapper::GameActivityClassID,
+                                                           "AndroidThunkJava_FyberInit",
+                                                           "(Ljava/lang/String;Ljava/lang/String;)V",
+                                                           false);
+        
+
+        jstring jAppID         = Env->NewStringUTF(TCHAR_TO_UTF8(*appID));
+        jstring jSecurityToken = Env->NewStringUTF(TCHAR_TO_UTF8(*securityToken));
+        
+        FJavaWrapper::CallVoidMethod(Env, FJavaWrapper::GameActivityThis, Method, jAppID, jSecurityToken);
+        
+        Env->DeleteLocalRef(jAppID);
+        Env->DeleteLocalRef(jSecurityToken);
     }
 #endif
+    
+    
 }
 
 void USdkboxFyberFunctions::FyberShutdown()
@@ -47,42 +79,63 @@ void USdkboxFyberFunctions::FyberShutdown()
 void USdkboxFyberFunctions::FyberShowOfferWall()
 {
 #if PLATFORM_IOS || PLATFORM_ANDROID
-	sdkbox::PluginFyber::showOfferWall();
+	//sdkbox::PluginFyber::showOfferWall();
 #endif
 }
 
 void USdkboxFyberFunctions::FyberRequestRewardedVideo(const FString& placementId)
 {
 #if PLATFORM_IOS || PLATFORM_ANDROID
-	sdkbox::PluginFyber::requestRewardedVideo(TCHAR_TO_ANSI(*placementId));
+	//sdkbox::PluginFyber::requestRewardedVideo(TCHAR_TO_ANSI(*placementId));
 #endif
+    
+//AndroidThunkJava_FyberRequestVideo
+    
+    
+#if PLATFORM_ANDROID
+    if (JNIEnv* Env = FAndroidApplication::GetJavaEnv())
+    {
+        static jmethodID Method = FJavaWrapper::FindMethod(Env,
+                                                           FJavaWrapper::GameActivityClassID,
+                                                           "AndroidThunkJava_FyberRequestVideo",
+                                                           "(Ljava/lang/String;)V",
+                                                           false);
+        
+        jstring jPlacementId = Env->NewStringUTF(TCHAR_TO_UTF8(*placementId));
+
+        FJavaWrapper::CallVoidMethod(Env, FJavaWrapper::GameActivityThis, Method, jPlacementId);
+        
+        Env->DeleteLocalRef(jPlacementId);
+    }
+#endif
+    
 }
 
 void USdkboxFyberFunctions::FyberShowRewardedVideo()
 {
 #if PLATFORM_IOS || PLATFORM_ANDROID
-	sdkbox::PluginFyber::showRewardedVideo();
+	//sdkbox::PluginFyber::showRewardedVideo();
 #endif
 }
 
 void USdkboxFyberFunctions::FyberRequestInterstitial()
 {
 #if PLATFORM_IOS || PLATFORM_ANDROID
-	sdkbox::PluginFyber::requestInterstitial();
+	//sdkbox::PluginFyber::requestInterstitial();
 #endif
 }
 
 void USdkboxFyberFunctions::FyberShowInterstitial()
 {
 #if PLATFORM_IOS || PLATFORM_ANDROID
-	sdkbox::PluginFyber::showInterstitial();
+	//sdkbox::PluginFyber::showInterstitial();
 #endif
 }
 
 void USdkboxFyberFunctions::FyberRequestDeltaOfCoins(const FString& currencyId)
 {
 #if PLATFORM_IOS || PLATFORM_ANDROID
-	sdkbox::PluginFyber::requestDeltaOfCoins(TCHAR_TO_ANSI(*currencyId));
+	//sdkbox::PluginFyber::requestDeltaOfCoins(TCHAR_TO_ANSI(*currencyId));
 #endif
 }
 

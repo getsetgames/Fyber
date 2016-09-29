@@ -31,7 +31,7 @@ class USdkboxFyberFunctions
 public:
 
 	UFUNCTION(BlueprintCallable, meta = (Keywords = "SDKBOX Fyber"), Category = "SDKBOX")
-	static void FyberInitialize();
+	static void FyberInitialize(const FString &appID, const FString &securityToken);
 
 	UFUNCTION(BlueprintCallable, meta = (Keywords = "SDKBOX Fyber"), Category = "SDKBOX")
 	static void FyberShutdown();
