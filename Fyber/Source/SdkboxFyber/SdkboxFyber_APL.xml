@@ -148,39 +148,42 @@ catch(Exception ex)
 
 <gameActivityClassAdditions>
     <insert><![CDATA[
-
-   public void AndroidThunkJava_FyberInit(String appID, String securityToken)
+public void AndroidThunkJava_FyberRequestVideo(String placementID)
+{
+    // Note that _activity is declared by engine in GameActivity.java
+    //
+    _activity.runOnUiThread(new Runnable() 
     {
-      Log.debug("Fyber Init!");
-
-        Fyber.with(appID, this)
-                .withSecurityToken(securityToken)
-                .start();
-    }
-
-    public void AndroidThunkJava_FyberRequestVideo(String placementID)
-    {
-        RequestCallback requestCallback = new RequestCallback() {
+        // Fyber SDK video requests need to be run on the UI thread 
+        // to execute correctly
+        //
+        @Override
+        public void run() 
+        {
+          RewardedVideoRequester.create(new RequestCallback() 
+          {
             @Override
-            public void onAdAvailable(Intent intent) {
-                Log.debug("Ad is available");
-                startActivityForResult(intent, 0);
+            public void onAdAvailable(Intent intent) 
+            {
+              Log.debug("Ad is available.  Attempting to play...")
+              startActivityForResult(intent, 0);
             }
 
             @Override
-            public void onAdNotAvailable(AdFormat adFormat) {
-              Log.debug("Ad is not available");
+            public void onAdNotAvailable(AdFormat adFormat) 
+            {
+              Log.debug("Request for " + adFormat + " not available");
             }
 
             @Override
-            public void onRequestError(RequestError requestError) {
-                Log.debug("Something went wrong with the request: " + requestError.getDescription());
+            public void onRequestError(RequestError requestError) 
+            {
+              Log.debug("Something went wrong with the request: " + requestError.getDescription());   
             }
-        };
-
-        RewardedVideoRequester.create(requestCallback).request(this);
-    }
-
+          }).request(_activity);
+        }
+    });
+}
 
 ]]></insert>
   </gameActivityClassAdditions>
