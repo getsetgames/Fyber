@@ -98,9 +98,13 @@ import com.fyber.utils.FyberLogger;
   </gameActivityImportAdditions>
 
   <gameActivityOnCreateAdditions>
-    <insert>
-    
-    </insert>
+    <if condition="bDistribution">
+      <false>
+        <insert>
+          FyberLogger.enableLogging(true);    
+        </insert>
+      </false>
+    </if>
   </gameActivityOnCreateAdditions>
 
   <gameActivityOnStartAdditions>
