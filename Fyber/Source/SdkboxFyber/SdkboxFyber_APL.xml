@@ -79,7 +79,6 @@
     </insert>
   </buildXmlPropertyAdditions>
 
-
   <gameActivityPostImportAdditions>
     <insert>
 
@@ -188,8 +187,6 @@ public void AndroidThunkJava_FyberRequestVideo(String placementID)
 ]]></insert>
   </gameActivityClassAdditions>
   
-
-
   <proguardAdditions>
     <insert>
 <![CDATA[
