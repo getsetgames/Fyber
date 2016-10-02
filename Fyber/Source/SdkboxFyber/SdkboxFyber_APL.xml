@@ -89,7 +89,6 @@
   <gameActivityImportAdditions>
     <insert>
 import com.fyber.Fyber;
-import com.fyber.Fyber;
 import com.fyber.requesters.RewardedVideoRequester;
 import com.fyber.ads.AdFormat;
 import com.fyber.requesters.RequestCallback;
