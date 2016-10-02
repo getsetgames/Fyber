@@ -127,7 +127,16 @@ import com.fyber.utils.FyberLogger;
 
   <gameActivityOnResumeAdditions>
     <insert>
-      AndroidThunkJava_FyberInit("", "");
+Log.debug("Fyber SDK initialization...");
+
+try
+{
+  Fyber.with(sFyberAppId, this).withSecurityToken(sFyberSecurityToken).start();
+}
+catch(Exception ex)
+{
+  Log.debug(ex.getMessage());
+}     
     </insert>
   </gameActivityOnResumeAdditions>
 
