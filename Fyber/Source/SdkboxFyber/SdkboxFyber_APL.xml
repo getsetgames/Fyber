@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root xmlns:android="http://schemas.android.com/apk/res/android">
-
   <init>
-	<log text="SDKBOX Fyber APL Init"/>
-	<setBoolFromProperty result="bDisableVideoPreCaching" ini="Engine" section="/Script/SdkboxFyber.SdkboxFyberSettings" property="DisableVideoPreCaching" default="false"/>
-    <setIntFromProperty  result="iCloseButtonDelay" ini="Engine" section="/Script/SdkboxFyber.SdkboxFyberSettings" property="VideoCloseButtonDelayLength" default="0"/>
+	   <log text="SDKBOX Fyber APL Init"/>
+
+	   <setBoolFromProperty result="bDisableVideoPreCaching" ini="Engine" section="/Script/SdkboxFyber.SdkboxFyberSettings" property="DisableVideoPreCaching" default="false"/>
+     <setIntFromProperty  result="iCloseButtonDelay" ini="Engine" section="/Script/SdkboxFyber.SdkboxFyberSettings" property="VideoCloseButtonDelayLength" default="0"/>
+
+      <setStringFromProperty result="sFyberAppId"         ini="Engine" section="/Script/SdkboxFyber.SdkboxFyberSettings" property="AppID"         default=""/>
+      <setStringFromProperty result="sFyberSecurityToken" ini="Engine" section="/Script/SdkboxFyber.SdkboxFyberSettings" property="SecurityToken" default=""/>
   </init>
 
   <androidManifestUpdates>
