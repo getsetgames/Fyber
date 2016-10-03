@@ -164,7 +164,7 @@ public void AndroidThunkJava_FyberRequestVideo(String placementID)
             @Override
             public void onAdAvailable(Intent intent) 
             {
-              Log.debug("Ad is available.  Attempting to play...")
+              Log.debug("Ad is available.  Attempting to play...");
               startActivityForResult(intent, 0);
             }
 
