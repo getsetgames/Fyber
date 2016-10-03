@@ -146,7 +146,24 @@ catch(Exception ex)
   </gameActivityOnActivityResultAdditions>
 
 <gameActivityClassAdditions>
-    <insert><![CDATA[
+    <insert>
+public void AndroidThunkJava_FyberInit(String appID, String securityToken)
+{
+  String sFyberAppId         = "</insert><insertValue value="$S(sFyberAppId)" /><insert>";
+  String sFyberSecurityToken = "</insert><insertValue value="$S(sFyberSecurityToken)" /><insert>";
+
+  Log.debug("Fyber SDK initialization...");
+
+  try
+  {
+    Fyber.with(sFyberAppId, this).withSecurityToken(sFyberSecurityToken).start();
+  }
+  catch(Exception ex)
+  {
+    Log.debug(ex.getMessage());
+  }  
+}
+
 public void AndroidThunkJava_FyberRequestVideo(String placementID)
 {
     // Note that _activity is declared by engine in GameActivity.java
@@ -183,8 +200,7 @@ public void AndroidThunkJava_FyberRequestVideo(String placementID)
         }
     });
 }
-
-]]></insert>
+</insert>
   </gameActivityClassAdditions>
   
   <proguardAdditions>
