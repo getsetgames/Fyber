@@ -108,19 +108,19 @@ float USdkboxFyberListener::_setMasterVolume(float Volume)
 		return -1;
 
 	float previousVolume = -1;
-	for (auto i = AudioDevice->SoundClasses.CreateIterator(); i; ++i)
-	{
-		USoundClass* SoundClass = i.Key();
-		FString SoundClassName;
-
-		// Test if the Split function works then, if the name was the right one
-		if (SoundClass->GetFullName().Split(L".", nullptr, &SoundClassName, ESearchCase::CaseSensitive) && SoundClassName.Equals("Master"))
-		{
-			previousVolume = SoundClass->Properties.Volume;
-			SoundClass->Properties.Volume = Volume;
-			break;
-		}
-	}
+//	for (auto i = AudioDevice->SoundClasses.CreateIterator(); i; ++i)
+//	{
+//		USoundClass* SoundClass = i.Key();
+//		FString SoundClassName;
+//
+//		// Test if the Split function works then, if the name was the right one
+//		if (SoundClass->GetFullName().Split(L".", nullptr, &SoundClassName, ESearchCase::CaseSensitive) && SoundClassName.Equals("Master"))
+//		{
+//			previousVolume = SoundClass->Properties.Volume;
+//			SoundClass->Properties.Volume = Volume;
+//			break;
+//		}
+//	}
 
 	//UE_LOG(SDKBOX, Warning, TEXT("previousVolume: %.02f"), previousVolume);
 
