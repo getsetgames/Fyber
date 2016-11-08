@@ -128,6 +128,9 @@ import com.fyber.utils.FyberLogger;
     <insert>
 Log.debug("Fyber SDK initialization...");
 
+String sFyberAppId         = "</insert><insertValue value="$S(sFyberAppId)" /><insert>";
+String sFyberSecurityToken = "</insert><insertValue value="$S(sFyberSecurityToken)" /><insert>";
+
 try
 {
   Fyber.with(sFyberAppId, this).withSecurityToken(sFyberSecurityToken).start();
