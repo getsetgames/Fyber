@@ -73,6 +73,7 @@ namespace UnrealBuildTool.Rules
                 }
 			);
 
+            PrivateDependencyModuleNames.AddRange(new string[] { "Launch" });
 
 			if (Target.Platform == UnrealTargetPlatform.IOS)
 			{
@@ -104,7 +105,6 @@ namespace UnrealBuildTool.Rules
                     }
                 );
 
-				PrivateDependencyModuleNames.AddRange(new string[] { "Launch" });
 				AdditionalPropertiesForReceipt.Add(new ReceiptProperty("IOSPlugin", Path.Combine(ModulePath, "SdkboxFyber_IPL.xml")));
 			}
 			else if (Target.Platform == UnrealTargetPlatform.Android)
@@ -112,7 +112,6 @@ namespace UnrealBuildTool.Rules
                 //PublicAdditionalLibraries.Add(Path.Combine(ModulePath, "../../lib/Android/PluginFyber.a"));
 			    //PublicAdditionalLibraries.Add(Path.Combine(ModulePath, "../../lib/Android/sdkbox.a"));
 
-				PrivateDependencyModuleNames.AddRange(new string[] { "Launch" });
 				AdditionalPropertiesForReceipt.Add(new ReceiptProperty("AndroidPlugin", Path.Combine(ModulePath, "SdkboxFyber_APL.xml")));
 			}
 		}
