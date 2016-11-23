@@ -243,22 +243,22 @@ void USdkboxFyberFunctions::FyberShowRewardedVideo()
 
 void USdkboxFyberFunctions::FyberRequestInterstitial()
 {
-#if PLATFORM_IOS || PLATFORM_ANDROID
-	//sdkbox::PluginFyber::requestInterstitial();
+#if PLATFORM_IOS
+#elif PLATFORM_ANDROID
 #endif
 }
 
 void USdkboxFyberFunctions::FyberShowInterstitial()
 {
-#if PLATFORM_IOS || PLATFORM_ANDROID
-	//sdkbox::PluginFyber::showInterstitial();
+#if PLATFORM_IOS
+#elif PLATFORM_ANDROID
 #endif
 }
 
 void USdkboxFyberFunctions::FyberRequestDeltaOfCoins(const FString& currencyId)
 {
-#if PLATFORM_IOS || PLATFORM_ANDROID
-	//sdkbox::PluginFyber::requestDeltaOfCoins(TCHAR_TO_ANSI(*currencyId));
+#if PLATFORM_IOS
+#elif PLATFORM_ANDROID
 #endif
 }
 
