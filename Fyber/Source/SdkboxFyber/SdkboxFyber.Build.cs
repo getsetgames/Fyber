@@ -90,7 +90,6 @@ namespace UnrealBuildTool.Rules
                     new string[]
                     {
                         "SystemConfiguration",
-                        "Security",
                         "AdSupport",
                         "CoreGraphics",
                         "CoreLocation",
@@ -100,7 +99,7 @@ namespace UnrealBuildTool.Rules
                         "StoreKit",
                         "SystemConfiguration",
                         "CFNetwork",
-                        "GameController"
+                        "UIKit"
                     }
                 );
 
