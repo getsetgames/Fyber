@@ -214,12 +214,6 @@ void USdkboxFyberFunctions::FyberShowOfferWall()
 
 void USdkboxFyberFunctions::FyberRequestRewardedVideo(const FString& placementId)
 {
-#if PLATFORM_IOS || PLATFORM_ANDROID
-	//sdkbox::PluginFyber::requestRewardedVideo(TCHAR_TO_ANSI(*placementId));
-#endif
-    
-//AndroidThunkJava_FyberRequestVideo
-    
     
 #if PLATFORM_ANDROID
     if (JNIEnv* Env = FAndroidApplication::GetJavaEnv())
