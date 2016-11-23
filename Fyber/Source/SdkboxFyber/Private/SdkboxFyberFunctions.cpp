@@ -247,7 +247,6 @@ void USdkboxFyberFunctions::FyberRequestRewardedVideo(const FString& placementId
         Env->DeleteLocalRef(jPlacementId);
     }
 #endif
-    
 }
 
 void USdkboxFyberFunctions::FyberShowRewardedVideo()
