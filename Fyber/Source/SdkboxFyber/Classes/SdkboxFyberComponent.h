@@ -34,10 +34,11 @@ enum class EFyberOfferWallEnum : uint8
 UENUM(BlueprintType)
 enum class EFyberRewardedVideoEnum : uint8
 {
-    RWE_REWARDED_VIDEO_STARTED  = 1 UMETA(DisplayName="RewardedVideoStarted"),
-    RWE_REWARDED_VIDEO_FINISHED = 2 UMETA(DisplayName="RewardedVideoFinished"),
-    RWE_REWARDED_VIDEO_ERROR    = 3 UMETA(DisplayName="RewardedVideoError"),
-    RWE_REWARDED_VIDEO_ABORTED  = 4 UMETA(DisplayName="RewardedVideoAborted")
+    RWE_REWARDED_VIDEO_STARTED      = 1 UMETA(DisplayName="RewardedVideoStarted"),
+    RWE_REWARDED_VIDEO_FINISHED     = 2 UMETA(DisplayName="RewardedVideoFinished"),
+    RWE_REWARDED_VIDEO_ERROR        = 3 UMETA(DisplayName="RewardedVideoError"),
+    RWE_REWARDED_VIDEO_ABORTED      = 4 UMETA(DisplayName="RewardedVideoAborted"),
+    RWE_REWARDED_VIDEO_USER_ENGAGED = 5 UMETA(DisplayName="RewardedVideoUserEngaged")
 };
 
 UCLASS(ClassGroup=SDKBOX, HideCategories=(Activation, "Components|Activation", Collision), meta=(BlueprintSpawnableComponent))
