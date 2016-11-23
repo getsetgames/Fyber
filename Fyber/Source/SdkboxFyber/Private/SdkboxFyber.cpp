@@ -22,6 +22,9 @@
 
 #define LOCTEXT_NAMESPACE "SdkboxFyber" // Needed for LOCTEXT below
 
+DEFINE_LOG_CATEGORY(SDKBOX);
+
+
 class FSdkboxFyber : public ISdkboxFyber
 {
 	virtual void StartupModule() override;
