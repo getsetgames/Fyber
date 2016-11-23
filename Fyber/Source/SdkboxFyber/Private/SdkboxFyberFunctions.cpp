@@ -77,8 +77,8 @@ void USdkboxFyberFunctions::FyberShutdown()
 
 void USdkboxFyberFunctions::FyberShowOfferWall()
 {
-#if PLATFORM_IOS || PLATFORM_ANDROID
-	//sdkbox::PluginFyber::showOfferWall();
+#if PLATFORM_IOS
+#elif PLATFORM_ANDROID
 #endif
 }
 
