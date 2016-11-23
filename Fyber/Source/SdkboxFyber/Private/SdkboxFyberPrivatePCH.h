@@ -21,7 +21,6 @@
 
 #include "CoreUObject.h"
 #include "Engine.h"
-#include "PluginFyber.h"
 
 #include "ISdkboxFyber.h"
 #include "SdkboxFyberSettings.h"
