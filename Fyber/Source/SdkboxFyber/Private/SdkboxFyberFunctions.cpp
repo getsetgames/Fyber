@@ -34,11 +34,6 @@ void USdkboxFyberFunctions::FyberInitialize(const FString &appID, const FString 
     // public void AndroidThunkJava_FyberInit(java.lang.String, java.lang.String);
     // descriptor: (Ljava/lang/String;Ljava/lang/String;)V
     
-//    if (!_FyberListener)
-//    {
-//        _FyberListener = NewObject<USdkboxFyberListener>(USdkboxFyberListener::StaticClass());
-//        sdkbox::PluginFyber::setListener(_FyberListener);
-//    }
 #endif
 
 #if PLATFORM_ANDROID
