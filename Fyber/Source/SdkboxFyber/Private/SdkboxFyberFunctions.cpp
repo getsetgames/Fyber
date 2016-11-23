@@ -251,8 +251,28 @@ void USdkboxFyberFunctions::FyberRequestRewardedVideo(const FString& placementId
 
 void USdkboxFyberFunctions::FyberShowRewardedVideo()
 {
-#if PLATFORM_IOS || PLATFORM_ANDROID
-	//sdkbox::PluginFyber::showRewardedVideo();
+#if PLATFORM_IOS
+    dispatch_async(dispatch_get_main_queue(), ^{
+        FYBRewardedVideoController *rewardedVideoController   = [FyberSDK rewardedVideoController];
+        rewardedVideoController.virtualCurrencyClientDelegate = sfd;
+        rewardedVideoController.delegate                      = sfd;
+     
+        [rewardedVideoController presentRewardedVideoFromViewController:(UIViewController *)[IOSAppDelegate GetDelegate].IOSController];
+        
+        UE_LOG(SDKBOX, Log, TEXT("showing rewarded video..."));
+    });
+        
+#elif PLATFORM_ANDROID
+    if (JNIEnv* Env = FAndroidApplication::GetJavaEnv())
+    {
+        static jmethodID Method = FJavaWrapper::FindMethod(Env,
+                                                           FJavaWrapper::GameActivityClassID,
+                                                           "AndroidThunkJava_FyberShowRewardedVideo",
+                                                           "()V",
+                                                           false);
+        
+        FJavaWrapper::CallVoidMethod(Env, FJavaWrapper::GameActivityThis, Method);
+    }
 #endif
 }
 
