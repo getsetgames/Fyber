@@ -24,11 +24,104 @@
 #include "AndroidApplication.h"
 #endif
 
-
+#if PLATFORM_IOS
+@interface SdkboxFyberFunctionsDelegate : NSObject<FYBRewardedVideoControllerDelegate, FYBVirtualCurrencyClientDelegate, FYBCacheManagerDelegate>
 {
     
+}
+@end
+
+static SdkboxFyberFunctionsDelegate *sfd = [[SdkboxFyberFunctionsDelegate alloc] init];
+
+
+@implementation SdkboxFyberFunctionsDelegate
+
+-(void)rewardedVideoControllerDidReceiveVideo:(FYBRewardedVideoController *)rewardedVideoController
+{
+    UE_LOG(SDKBOX, Log, TEXT("did receive rewarded video"));
     
+    USdkboxFyberComponent::OnBrandEngageClientReceiveOffersDelegate.Broadcast(true);
+}
+
+-(void)rewardedVideoController:(FYBRewardedVideoController *)rewardedVideoController didFailToReceiveVideoWithError:(NSError *)error
+{
+    UE_LOG(SDKBOX, Log, TEXT("did fail to receive rewarded video: error - %s"), *FString([error localizedDescription]));
     
+    USdkboxFyberComponent::OnBrandEngageClientReceiveOffersDelegate.Broadcast(false);
+}
+
+-(void)rewardedVideoControllerDidStartVideo:(FYBRewardedVideoController *)rewardedVideoController
+{
+    UE_LOG(SDKBOX, Log, TEXT("started rewawarded video"));
+    
+    USdkboxFyberComponent::OnBrandEngageClientChangeStatusDelegate.Broadcast(EFyberRewardedVideoEnum::RWE_REWARDED_VIDEO_STARTED, "");
+    USdkboxFyberFunctions::PushVolumeChange();
+}
+
+-(void)rewardedVideoController:(FYBRewardedVideoController *)rewardedVideoController didFailToStartVideoWithError:(NSError *)error
+{
+    UE_LOG(SDKBOX, Log, TEXT("failed to start rewarded video: error - %s"), *FString([error localizedDescription]));
+    
+    USdkboxFyberComponent::OnBrandEngageClientChangeStatusDelegate.Broadcast(EFyberRewardedVideoEnum::RWE_REWARDED_VIDEO_ERROR, "");
+    USdkboxFyberFunctions::PopVolumeChange();
+}
+
+-(void)rewardedVideoController:(FYBRewardedVideoController *)rewardedVideoController didDismissVideoWithReason:(FYBRewardedVideoControllerDismissReason)reason
+{
+    switch (reason) {
+        case FYBRewardedVideoControllerDismissReasonError:
+            UE_LOG(SDKBOX, Log, TEXT("error dismissing video"));
+            USdkboxFyberComponent::OnBrandEngageClientChangeStatusDelegate.Broadcast(EFyberRewardedVideoEnum::RWE_REWARDED_VIDEO_ERROR, "");
+            break;
+            
+        case FYBRewardedVideoControllerDismissReasonUserEngaged:
+            UE_LOG(SDKBOX, Log, TEXT("user engaged with video"));
+            USdkboxFyberComponent::OnBrandEngageClientChangeStatusDelegate.Broadcast(EFyberRewardedVideoEnum::RWE_REWARDED_VIDEO_USER_ENGAGED, "");
+            break;
+            
+        case FYBRewardedVideoControllerDismissReasonAborted:
+            UE_LOG(SDKBOX, Log, TEXT("user aborted video"));
+            USdkboxFyberComponent::OnBrandEngageClientChangeStatusDelegate.Broadcast(EFyberRewardedVideoEnum::RWE_REWARDED_VIDEO_ABORTED, "");
+            break;
+            
+        default:
+            UE_LOG(SDKBOX, Log, TEXT("rewarded video finished"));
+            USdkboxFyberComponent::OnBrandEngageClientChangeStatusDelegate.Broadcast(EFyberRewardedVideoEnum::RWE_REWARDED_VIDEO_FINISHED, "");
+            break;
+    }
+}
+
+// Virtual currency callbacks
+//
+-(void)virtualCurrencyClient:(FYBVirtualCurrencyClient *)client didReceiveResponse:(FYBVirtualCurrencyResponse *)response
+{
+    UE_LOG(SDKBOX, Log, TEXT("received virtual currency reward id:%s, currency name:%s, delta of coins:%f, transactionId:%s"),
+           *FString(response.currencyId), *FString(response.currencyName), response.deltaOfCoins, *FString(response.latestTransactionId));
+    
+    USdkboxFyberComponent::OnVirtualCurrencyConnectorSuccessDelegate.Broadcast(response.deltaOfCoins,
+                                                                               FString(response.currencyId),
+                                                                               FString(response.currencyName),
+                                                                               "");
+}
+
+-(void)virtualCurrencyClient:(FYBVirtualCurrencyClient *)client didFailWithError:(NSError *)error
+{
+    UE_LOG(SDKBOX, Log, TEXT("failed to get currency reward %s"), *FString([error description]));
+    
+    USdkboxFyberComponent::OnVirtualCurrencyConnectorFailedDelegate.Broadcast(1,
+                                                                              FString([[NSNumber numberWithInteger:error.code] stringValue]),
+                                                                              FString(error.localizedDescription));
+}
+
+// Cache manager callbacks
+//
+-(void)cacheManagerDidCompletePrecachingWithVideosAvailable:(BOOL)videosAvailable
+{
+   UE_LOG(SDKBOX, Log, TEXT("completing pre-caching result: %d"), videosAvailable);
+}
+
+@end
+
 #endif
 
 void USdkboxFyberFunctions::FyberInitialize(const FString &appID, const FString &securityToken)
