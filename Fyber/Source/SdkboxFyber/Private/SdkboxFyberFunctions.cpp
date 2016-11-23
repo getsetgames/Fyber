@@ -18,8 +18,12 @@
  ****************************************************************************/
 
 #include "SdkboxFyberPrivatePCH.h"
+#include "AudioDevice.h"
 
-#if PLATFORM_ANDROID
+#if PLATFORM_IOS
+#include "IOSAppDelegate.h"
+#import "FyberSDK.h"
+#elif PLATFORM_ANDROID
 #include "Android/AndroidJNI.h"
 #include "AndroidApplication.h"
 #endif
