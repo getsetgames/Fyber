@@ -71,6 +71,12 @@ public:
 	UFUNCTION(BlueprintCallable, meta = (Keywords = "SDKBOX Fyber"), Category = "SDKBOX")
     static void FyberRequestDeltaOfCoins(const FString& currencyId = "");
 
+    static void PushVolumeChange();
+    static void PopVolumeChange();
+    static float SetMasterVolume(float Volume);
+    
 protected:
+    
+    static float _previousVolume;
 
 };

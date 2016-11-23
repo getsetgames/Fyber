@@ -24,6 +24,8 @@
 #include "AndroidApplication.h"
 #endif
 
+float USdkboxFyberFunctions::_previousVolume = 0;
+
 #if PLATFORM_IOS
 @interface SdkboxFyberFunctionsDelegate : NSObject<FYBRewardedVideoControllerDelegate, FYBVirtualCurrencyClientDelegate, FYBCacheManagerDelegate>
 {
@@ -272,8 +274,49 @@ void USdkboxFyberFunctions::FyberRequestDeltaOfCoins(const FString& currencyId)
 #endif
 }
 
+void USdkboxFyberFunctions::PushVolumeChange()
 {
+    const USdkboxFyberSettings* settings = GetDefault<USdkboxFyberSettings>();
+    if (settings && settings->DisableSoundWhenWatchingVideo && 0 > _previousVolume)
+        _previousVolume = USdkboxFyberFunctions::SetMasterVolume(0);
+}
 
+void USdkboxFyberFunctions::PopVolumeChange()
+{
+    const USdkboxFyberSettings* settings = GetDefault<USdkboxFyberSettings>();
+    if (settings && settings->DisableSoundWhenWatchingVideo && 0 <= _previousVolume)
+        _previousVolume = USdkboxFyberFunctions::SetMasterVolume(_previousVolume);
+}
 
+float USdkboxFyberFunctions::SetMasterVolume(float Volume)
+{
+    FAudioDevice* AudioDevice = GEngine->GetMainAudioDevice();
+    
+    if (!AudioDevice)
+        return -1;
+    
+    float previousVolume = AudioDevice->GetTransientMasterVolume();
+    AudioDevice->SetTransientMasterVolume(Volume);
+    
+    /*
+    const TMap<USoundClass*, FSoundClassProperties> &kSoundClassPropertyMap = AudioDevice->GetSoundClassPropertyMap();
+    
+    	for (auto i = kSoundClassPropertyMap.CreateIterator(); i; ++i)
+    	{
+    		USoundClass* SoundClass = i.Key();
+    		FString SoundClassName;
+    
+    		// Test if the Split function works then, if the name was the right one
+    		if (SoundClass->GetFullName().Split(L".", nullptr, &SoundClassName, ESearchCase::CaseSensitive) && SoundClassName.Equals("Master"))
+    		{
+    			previousVolume = SoundClass->Properties.Volume;
+    			SoundClass->Properties.Volume = Volume;
+    			break;
+            }
+        }*/
+    
+    UE_LOG(SDKBOX, Log, TEXT("previousVolume: %.02f"), previousVolume);
+    
+    return previousVolume;
 }
 
