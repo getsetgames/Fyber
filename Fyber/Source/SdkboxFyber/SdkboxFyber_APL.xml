@@ -93,6 +93,9 @@ import com.fyber.ads.AdFormat;
 import com.fyber.requesters.RequestCallback;
 import com.fyber.requesters.RequestError;
 import com.fyber.utils.FyberLogger;
+
+static Intent gFyberRewardedVideoIntent;
+
     </insert>
   </gameActivityImportAdditions>
 
@@ -184,8 +187,7 @@ public void AndroidThunkJava_FyberRequestVideo(String placementID)
             @Override
             public void onAdAvailable(Intent intent) 
             {
-              Log.debug("Ad is available.  Attempting to play...");
-              startActivityForResult(intent, 0);
+              gFyberRewardedVideoIntent = intent;
             }
 
             @Override
@@ -203,6 +205,28 @@ public void AndroidThunkJava_FyberRequestVideo(String placementID)
         }
     });
 }
+
+public void AndroidThunkJava_FyberShowRewardedVideo()
+{
+  // Will show the last video that was requested
+  //
+  if (gFyberRewardedVideoIntent != null)
+  {          
+    _activity.runOnUiThread(new Runnable() 
+    {
+        @Override
+        public void run() 
+        {
+          startActivityForResult(gFyberRewardedVideoIntent, 0);
+        }
+    });
+  }
+  else
+  {
+    Log.debug("There is no current intent cached for a rewarded video");
+  }
+}
+
 </insert>
   </gameActivityClassAdditions>
   
