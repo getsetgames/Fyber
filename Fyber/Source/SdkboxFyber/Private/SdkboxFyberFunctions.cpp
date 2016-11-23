@@ -67,11 +67,7 @@ void USdkboxFyberFunctions::FyberInitialize(const FString &appID, const FString 
 void USdkboxFyberFunctions::FyberShutdown()
 {
 #if PLATFORM_IOS || PLATFORM_ANDROID
-    if (_FyberListener && _FyberListener->IsValidLowLevel())
-    {
-        _FyberListener->ConditionalBeginDestroy();
-        _FyberListener = nullptr;
-    }
+
 #endif
 }
 
