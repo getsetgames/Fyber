@@ -11,7 +11,6 @@
   </init>
 
   <androidManifestUpdates>
-
       <if condition="bDisableVideoPreCaching">
           <false>
               <setElement result="serviceAddition" value="service"/>
@@ -28,7 +27,7 @@
       <addAttribute  tag="$RewardedVideoActivity"  name="android:theme" value="@android:style/Theme.Translucent"/>
       <addElement    tag="application"         name="RewardedVideoActivity"/>
 
-	  <setElement result="OfferWallActivity" value="activity"/>
+	    <setElement result="OfferWallActivity" value="activity"/>
       <addAttribute  tag="$OfferWallActivity"  name="android:name"  value="com.fyber.ads.ofw.OfferWallActivity"/>
       <addAttribute  tag="$OfferWallActivity"  name="android:configChanges" value="screenSize|orientation"/>
       <addElement    tag="application"         name="OfferWallActivity"/>
