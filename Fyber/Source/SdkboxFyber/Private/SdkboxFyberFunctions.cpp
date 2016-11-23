@@ -138,42 +138,8 @@ void USdkboxFyberFunctions::FyberRequestDeltaOfCoins(const FString& currencyId)
 #endif
 }
 
-//
-// Protected Methods
-//
-
-FString USdkboxFyberFunctions::_SettingsToJSONString()
 {
-#if PLATFORM_IOS || PLATFORM_ANDROID
-	const USdkboxFyberSettings* settings = GetDefault<USdkboxFyberSettings>();
 
-    TSharedPtr<FJsonObject> jo    =  MakeShareable(new FJsonObject);
-    TSharedPtr<FJsonObject> ios[] = {MakeShareable(new FJsonObject), MakeShareable(new FJsonObject)};
-    TSharedPtr<FJsonObject> drd[] = {MakeShareable(new FJsonObject), MakeShareable(new FJsonObject)};
 
-    jo->SetObjectField("ios", ios[0]);
-    ios[0]->SetObjectField("Fyber", ios[1]);
-
-    jo->SetObjectField("android", drd[0]);
-    drd[0]->SetObjectField("Fyber", drd[1]);
-
-    ios[1]->SetBoolField("debug", settings->DebugEnable);
-    ios[1]->SetBoolField("toast", settings->ToastMessages);
-    ios[1]->SetStringField("appid", settings->AppIDiOS);
-    ios[1]->SetStringField("token", settings->TokeniOS);
-
-    drd[1]->SetBoolField("debug", settings->DebugEnable);
-    drd[1]->SetBoolField("toast", settings->ToastMessages);
-    drd[1]->SetStringField("appid", settings->AppIDAndroid);
-    drd[1]->SetStringField("token", settings->TokenAndroid);
-
-    FString OutputString;
-    TSharedRef<TJsonWriter<>> Writer = TJsonWriterFactory<>::Create(&OutputString);
-    FJsonSerializer::Serialize(jo.ToSharedRef(), Writer);
-
-    return OutputString;
-#else
-    return "";
-#endif
 }
 

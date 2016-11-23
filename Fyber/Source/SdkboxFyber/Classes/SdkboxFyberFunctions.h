@@ -73,8 +73,4 @@ public:
 
 protected:
 
-	static FString _SettingsToJSONString();
-
-protected:
-
 };
