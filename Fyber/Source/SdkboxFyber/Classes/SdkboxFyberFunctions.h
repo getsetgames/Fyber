@@ -20,8 +20,6 @@
 
 #include "SdkboxFyberFunctions.generated.h"
 
-class USdkboxFyberListener;
-
 UCLASS(NotBlueprintable)
 class USdkboxFyberFunctions
     : public UObject 
@@ -79,5 +77,4 @@ protected:
 
 protected:
 
-    static USdkboxFyberListener* _FyberListener;
 };

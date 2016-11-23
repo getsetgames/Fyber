@@ -24,7 +24,6 @@
 #include "AndroidApplication.h"
 #endif
 
-USdkboxFyberListener* USdkboxFyberFunctions::_FyberListener = nullptr;
 
 void USdkboxFyberFunctions::FyberInitialize(const FString &appID, const FString &securityToken)
 {

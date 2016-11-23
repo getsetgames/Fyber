@@ -21,8 +21,6 @@
 
 #include "SdkboxFyberComponent.generated.h"
 
-class USdkboxFyberListener;
-
 UENUM(BlueprintType)
 enum class EFyberOfferWallEnum : uint8
 {
