@@ -125,6 +125,60 @@ static SdkboxFyberFunctionsDelegate *sfd = [[SdkboxFyberFunctionsDelegate alloc]
 #endif
 
 void USdkboxFyberFunctions::FyberInitialize(const FString &appID, const FString &securityToken)
+{
+    const USdkboxFyberSettings* settings = GetDefault<USdkboxFyberSettings>();
+  
+    FString sAppID;
+    FString sToken;
+    
+ #if PLATFORM_IOS
+    sAppID = settings->AppIDiOS;
+    sToken = settings->TokeniOS;
+    
+    if (sAppID.Len() == 0)
+    {
+        UE_LOG(SDKBOX, Warning, TEXT("No iOS app ID specified"));
+    }
+    
+    if (sToken.Len() == 0)
+    {
+        UE_LOG(SDKBOX, Warning, TEXT("No iOS security token specified"));
+    }
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (settings->DebugEnable)
+        {
+            [FyberSDK setLoggingLevel:FYBLogLevelDebug];
+        }
+        else
+        {
+            [FyberSDK setLoggingLevel:FYBLogLevelOff];
+        }
+        
+        [FyberSDK cacheManager].delegate = sfd;
+        
+        [FyberSDK instance].shouldShowToastOnReward = settings->ToastMessages;
+
+        FYBSDKOptions *options = [FYBSDKOptions optionsWithAppId:sAppID.GetNSString() securityToken:sToken.GetNSString()];
+        options.startVideoPrecaching = !settings->DisableVideoPreCaching;
+        
+        [FyberSDK startWithOptions:options];
+    });
+    
+#elif PLATFORM_ANDROID
+    sAppID = settings->AppIDAndroid;
+    sToken = settings->TokenAndroid;
+
+    if (sAppID.Len() == 0)
+    {
+        UE_LOG(SDKBOX, Warning, TEXT("No Android app ID specified"));
+    }
+    
+    if (sToken.Len() == 0)
+    {
+        UE_LOG(SDKBOX, Warning, TEXT("No Android security token specified"));
+    }
+    
     if (JNIEnv* Env = FAndroidApplication::GetJavaEnv())
     {
         static jmethodID Method = FJavaWrapper::FindMethod(Env,
@@ -133,9 +187,8 @@ void USdkboxFyberFunctions::FyberInitialize(const FString &appID, const FString 
                                                            "(Ljava/lang/String;Ljava/lang/String;)V",
                                                            false);
         
-
-        jstring jAppID         = Env->NewStringUTF(TCHAR_TO_UTF8(*appID));
-        jstring jSecurityToken = Env->NewStringUTF(TCHAR_TO_UTF8(*securityToken));
+        jstring jAppID         = Env->NewStringUTF(TCHAR_TO_UTF8(*sAppID));
+        jstring jSecurityToken = Env->NewStringUTF(TCHAR_TO_UTF8(*sToken));
         
         FJavaWrapper::CallVoidMethod(Env, FJavaWrapper::GameActivityThis, Method, jAppID, jSecurityToken);
         
@@ -143,8 +196,6 @@ void USdkboxFyberFunctions::FyberInitialize(const FString &appID, const FString 
         Env->DeleteLocalRef(jSecurityToken);
     }
 #endif
-    
-    
 }
 
 void USdkboxFyberFunctions::FyberShutdown()
