@@ -214,8 +214,18 @@ void USdkboxFyberFunctions::FyberShowOfferWall()
 
 void USdkboxFyberFunctions::FyberRequestRewardedVideo(const FString& placementId)
 {
+#if PLATFORM_IOS
+    dispatch_async(dispatch_get_main_queue(), ^{
+        FYBRewardedVideoController *rewardedVideoController   = [FyberSDK rewardedVideoController];
+        rewardedVideoController.virtualCurrencyClientDelegate = sfd;
+        rewardedVideoController.delegate                      = sfd;
+        
+        [rewardedVideoController requestVideo];
+        
+        UE_LOG(SDKBOX, Log, TEXT("requesting rewarded video..."));
+    });
     
-#if PLATFORM_ANDROID
+#elif PLATFORM_ANDROID
     if (JNIEnv* Env = FAndroidApplication::GetJavaEnv())
     {
         static jmethodID Method = FJavaWrapper::FindMethod(Env,
