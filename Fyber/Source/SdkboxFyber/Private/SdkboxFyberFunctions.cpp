@@ -25,18 +25,13 @@
 #endif
 
 
-void USdkboxFyberFunctions::FyberInitialize(const FString &appID, const FString &securityToken)
 {
-#if PLATFORM_IOS || PLATFORM_ANDROID
-    //sdkbox::PluginFyber::init("123", TCHAR_TO_ANSI(*_SettingsToJSONString()));
     
     
-    // public void AndroidThunkJava_FyberInit(java.lang.String, java.lang.String);
-    // descriptor: (Ljava/lang/String;Ljava/lang/String;)V
     
 #endif
 
-#if PLATFORM_ANDROID
+void USdkboxFyberFunctions::FyberInitialize(const FString &appID, const FString &securityToken)
     if (JNIEnv* Env = FAndroidApplication::GetJavaEnv())
     {
         static jmethodID Method = FJavaWrapper::FindMethod(Env,
