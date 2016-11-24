@@ -49,9 +49,7 @@ static SdkboxFyberFunctionsDelegate *sfd = nil;
     }
 }
 
--(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions
 {
-    USdkboxFyberFunctions::FyberInitialize("", "");
 }
 
 -(void)rewardedVideoControllerDidReceiveVideo:(FYBRewardedVideoController *)rewardedVideoController
