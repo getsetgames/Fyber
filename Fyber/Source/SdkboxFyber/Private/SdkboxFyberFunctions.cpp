@@ -31,9 +31,11 @@
 float USdkboxFyberFunctions::_previousVolume = 0;
 
 #if PLATFORM_IOS
-@interface SdkboxFyberFunctionsDelegate : NSObject<FYBRewardedVideoControllerDelegate, FYBVirtualCurrencyClientDelegate, FYBCacheManagerDelegate>
+@interface SdkboxFyberFunctionsDelegate : NSObject<NSApplicationDelegate,
+                                                   FYBRewardedVideoControllerDelegate,
+                                                   FYBVirtualCurrencyClientDelegate,
+                                                   FYBCacheManagerDelegate>
 {
-    
 }
 @end
 
@@ -41,6 +43,12 @@ static SdkboxFyberFunctionsDelegate *sfd = [[SdkboxFyberFunctionsDelegate alloc]
 
 
 @implementation SdkboxFyberFunctionsDelegate
+
+
+- (void)applicationDidFinishLaunching:(NSNotification *)n
+{
+    USdkboxFyberFunctions::FyberInitialize();
+}
 
 -(void)rewardedVideoControllerDidReceiveVideo:(FYBRewardedVideoController *)rewardedVideoController
 {
