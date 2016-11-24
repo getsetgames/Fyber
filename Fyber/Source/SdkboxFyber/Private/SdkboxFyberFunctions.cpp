@@ -53,7 +53,7 @@ static SdkboxFyberFunctionsDelegate *sfd = nil;
     }
 }
 
-- (void)applicationDidFinishLaunching:(NSNotification *)n
+-(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions
 {
     USdkboxFyberFunctions::FyberInitialize();
 }
