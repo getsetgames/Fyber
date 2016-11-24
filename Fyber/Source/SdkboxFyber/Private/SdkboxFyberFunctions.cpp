@@ -39,11 +39,19 @@ float USdkboxFyberFunctions::_previousVolume = 0;
 }
 @end
 
-static SdkboxFyberFunctionsDelegate *sfd = [[SdkboxFyberFunctionsDelegate alloc] init];
+static SdkboxFyberFunctionsDelegate *sfd = nil;
 
 
 @implementation SdkboxFyberFunctionsDelegate
 
+
++(void)load
+{
+    if (sfd == nil)
+    {
+        sfd = [[SdkboxFyberFunctionsDelegate alloc] init];
+    }
+}
 
 - (void)applicationDidFinishLaunching:(NSNotification *)n
 {
