@@ -31,10 +31,7 @@
 float USdkboxFyberFunctions::_previousVolume = 0;
 
 #if PLATFORM_IOS
-@interface SdkboxFyberFunctionsDelegate : NSObject<UIApplicationDelegate,
-                                                   FYBRewardedVideoControllerDelegate,
-                                                   FYBVirtualCurrencyClientDelegate,
-                                                   FYBCacheManagerDelegate>
+@interface SdkboxFyberFunctionsDelegate : NSObject<FYBRewardedVideoControllerDelegate, FYBVirtualCurrencyClientDelegate, FYBCacheManagerDelegate>
 {
 }
 @end
