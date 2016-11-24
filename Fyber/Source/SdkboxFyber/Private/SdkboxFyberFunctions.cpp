@@ -55,9 +55,23 @@ static SdkboxFyberFunctionsDelegate *sfd = nil;
     
     if (self)
     {
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(applicationDidFinishLaunching:)
+                                                     name:UIApplicationDidFinishLaunchingNotification
+                                                   object:nil];
     }
     
     return self;
+}
+
+-(void)applicationDidFinishLaunching:(NSNotification *)n
+{
+    NSDictionary *dLaunchOptionsUrl = n.userInfo[@"UIApplicationLaunchOptionsURLKey"];
+    
+    if (!dLaunchOptionsUrl)
+    {
+         USdkboxFyberFunctions::FyberInitialize("", "");
+    }
 }
 
 -(void)rewardedVideoControllerDidReceiveVideo:(FYBRewardedVideoController *)rewardedVideoController
