@@ -41,10 +41,9 @@ static SdkboxFyberFunctionsDelegate *sfd = nil;
 
 @implementation SdkboxFyberFunctionsDelegate
 
-
 +(void)load
 {
-    if (sfd == nil)
+    if (!sfd)
     {
         sfd = [[SdkboxFyberFunctionsDelegate alloc] init];
     }
