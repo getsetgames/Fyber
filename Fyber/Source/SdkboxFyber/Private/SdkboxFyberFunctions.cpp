@@ -49,7 +49,15 @@ static SdkboxFyberFunctionsDelegate *sfd = nil;
     }
 }
 
+-(id)init
 {
+    self = [super init];
+    
+    if (self)
+    {
+    }
+    
+    return self;
 }
 
 -(void)rewardedVideoControllerDidReceiveVideo:(FYBRewardedVideoController *)rewardedVideoController
