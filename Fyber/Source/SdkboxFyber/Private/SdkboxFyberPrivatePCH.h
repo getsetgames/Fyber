@@ -24,7 +24,6 @@
 
 #include "ISdkboxFyber.h"
 #include "SdkboxFyberSettings.h"
-#include "SdkboxFyberListener.h"
 #include "SdkboxFyberFunctions.h"
 #include "SdkboxFyberComponent.h"
 
