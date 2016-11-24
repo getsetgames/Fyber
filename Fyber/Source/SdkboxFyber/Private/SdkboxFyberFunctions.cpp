@@ -55,7 +55,7 @@ static SdkboxFyberFunctionsDelegate *sfd = nil;
 
 -(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions
 {
-    USdkboxFyberFunctions::FyberInitialize();
+    USdkboxFyberFunctions::FyberInitialize("", "");
 }
 
 -(void)rewardedVideoControllerDidReceiveVideo:(FYBRewardedVideoController *)rewardedVideoController
