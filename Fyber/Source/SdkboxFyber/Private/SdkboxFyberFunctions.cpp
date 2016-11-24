@@ -70,7 +70,7 @@ static SdkboxFyberFunctionsDelegate *sfd = nil;
     
     if (!dLaunchOptionsUrl)
     {
-         USdkboxFyberFunctions::FyberInitialize("", "");
+        // USdkboxFyberFunctions::FyberInitialize("", "");
     }
 }
 
