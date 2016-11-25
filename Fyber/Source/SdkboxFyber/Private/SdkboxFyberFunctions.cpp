@@ -155,7 +155,7 @@ static SdkboxFyberFunctionsDelegate *sfd = nil;
 //
 -(void)cacheManagerDidCompletePrecachingWithVideosAvailable:(BOOL)videosAvailable
 {
-   UE_LOG(SDKBOX, Log, TEXT("completing pre-caching result: %d"), videosAvailable);
+   UE_LOG(SDKBOX, Log, TEXT("completed pre-caching result: %d"), videosAvailable);
 }
 
 @end
