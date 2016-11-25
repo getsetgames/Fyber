@@ -92,9 +92,6 @@ import com.fyber.ads.AdFormat;
 import com.fyber.requesters.RequestCallback;
 import com.fyber.requesters.RequestError;
 import com.fyber.utils.FyberLogger;
-
-static Intent gFyberRewardedVideoIntent;
-
     </insert>
   </gameActivityImportAdditions>
 
@@ -152,6 +149,8 @@ catch(Exception ex)
 
 <gameActivityClassAdditions>
     <insert>
+static Intent gFyberRewardedVideoIntent;
+
 public void AndroidThunkJava_FyberInit(String appID, String securityToken)
 {
   String sFyberAppId         = "</insert><insertValue value="$S(sFyberAppId)" /><insert>";
