@@ -177,10 +177,18 @@ void USdkboxFyberFunctions::FyberInitialize(const FString &appID, const FString 
     {
         UE_LOG(SDKBOX, Warning, TEXT("No iOS app ID specified"));
     }
+    else
+    {
+        UE_LOG(SDKBOX, Log, TEXT("Found iOS app ID:%s"), *sAppID);
+    }
     
     if (sToken.Len() == 0)
     {
         UE_LOG(SDKBOX, Warning, TEXT("No iOS security token specified"));
+    }
+    else
+    {
+        UE_LOG(SDKBOX, Log, TEXT("Found iOS security token:%s"), *sToken);
     }
     
     dispatch_async(dispatch_get_main_queue(), ^{
