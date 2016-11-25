@@ -192,23 +192,31 @@ void USdkboxFyberFunctions::FyberInitialize(const FString &appID, const FString 
     }
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        if (settings->DebugEnable)
-        {
-            [FyberSDK setLoggingLevel:FYBLogLevelDebug];
-        }
-        else
-        {
-            [FyberSDK setLoggingLevel:FYBLogLevelOff];
-        }
         
-        [FyberSDK cacheManager].delegate = sfd;
-        
-        [FyberSDK instance].shouldShowToastOnReward = settings->ToastMessages;
+        @try
+        {
+            if (settings->DebugEnable)
+            {
+                [FyberSDK setLoggingLevel:FYBLogLevelDebug];
+            }
+            else
+            {
+                [FyberSDK setLoggingLevel:FYBLogLevelOff];
+            }
+            
+            [FyberSDK cacheManager].delegate = sfd;
+            
+            [FyberSDK instance].shouldShowToastOnReward = settings->ToastMessages;
 
-        FYBSDKOptions *options = [FYBSDKOptions optionsWithAppId:sAppID.GetNSString() securityToken:sToken.GetNSString()];
-        options.startVideoPrecaching = !settings->DisableVideoPreCaching;
-        
-        [FyberSDK startWithOptions:options];
+            FYBSDKOptions *options = [FYBSDKOptions optionsWithAppId:sAppID.GetNSString() securityToken:sToken.GetNSString()];
+            options.startVideoPrecaching = !settings->DisableVideoPreCaching;
+            
+            [FyberSDK startWithOptions:options];
+        }
+        @catch(NSException *e)
+        {
+            UE_LOG(SDKBOX, Error, TEXT("Error starting Fyber SDK:%s"), *FString([e description]));
+        }
     });
     
 #elif PLATFORM_ANDROID
