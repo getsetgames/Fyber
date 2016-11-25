@@ -73,15 +73,15 @@ namespace UnrealBuildTool.Rules
                 }
 			);
 
-
 			if (Target.Platform == UnrealTargetPlatform.IOS)
 			{
 				PrivateIncludePaths.Add(Path.Combine(ModulePath, "..", "..", "lib", "iOS", "fyber-sdk-lib"));
 				PublicAdditionalLibraries.Add(Path.Combine(ModulePath, "..", "..", "lib", "iOS", "fyber-sdk-lib", "libFyberSDK-8.6.0.a"));
-	
+
 				PublicAdditionalFrameworks.Add(
 					new UEBuildFramework(
-						"Fyber_UnityAds_1.5.5-r1", "../../lib/iOS/Fyber_UnityAds_1.5.5-r1.embeddedframework.zip", "Resources/UnityAds.bundle"
+						"UnityAds",
+						"../../lib/iOS/UnityAds.embeddedframework.zip"
 					)
 				);
 
@@ -90,6 +90,9 @@ namespace UnrealBuildTool.Rules
                     {
                         "SystemConfiguration",
                         "AdSupport",
+                        "AVFoundation",
+                        "CoreFoundation",
+                        "CoreMedia",
                         "CoreGraphics",
                         "CoreLocation",
                         "CoreTelephony",
@@ -107,9 +110,6 @@ namespace UnrealBuildTool.Rules
 			}
 			else if (Target.Platform == UnrealTargetPlatform.Android)
 			{
-                //PublicAdditionalLibraries.Add(Path.Combine(ModulePath, "../../lib/Android/PluginFyber.a"));
-			    //PublicAdditionalLibraries.Add(Path.Combine(ModulePath, "../../lib/Android/sdkbox.a"));
-
 				PrivateDependencyModuleNames.AddRange(new string[] { "Launch" });
 				AdditionalPropertiesForReceipt.Add(new ReceiptProperty("AndroidPlugin", Path.Combine(ModulePath, "SdkboxFyber_APL.xml")));
 			}
