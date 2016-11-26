@@ -93,7 +93,7 @@ static SdkboxFyberFunctionsDelegate *sfd = nil;
     UE_LOG(SDKBOX, Log, TEXT("started rewawarded video"));
     
     USdkboxFyberComponent::OnBrandEngageClientChangeStatusDelegate.Broadcast(EFyberRewardedVideoEnum::RWE_REWARDED_VIDEO_STARTED, "");
-    USdkboxFyberFunctions::PushVolumeChange();
+    //USdkboxFyberFunctions::PushVolumeChange();
 }
 
 -(void)rewardedVideoController:(FYBRewardedVideoController *)rewardedVideoController didFailToStartVideoWithError:(NSError *)error
@@ -101,7 +101,7 @@ static SdkboxFyberFunctionsDelegate *sfd = nil;
     UE_LOG(SDKBOX, Log, TEXT("failed to start rewarded video: error - %s"), *FString([error localizedDescription]));
     
     USdkboxFyberComponent::OnBrandEngageClientChangeStatusDelegate.Broadcast(EFyberRewardedVideoEnum::RWE_REWARDED_VIDEO_ERROR, "");
-    USdkboxFyberFunctions::PopVolumeChange();
+    //USdkboxFyberFunctions::PopVolumeChange();
 }
 
 -(void)rewardedVideoController:(FYBRewardedVideoController *)rewardedVideoController didDismissVideoWithReason:(FYBRewardedVideoControllerDismissReason)reason
@@ -347,27 +347,48 @@ void USdkboxFyberFunctions::FyberRequestDeltaOfCoins(const FString& currencyId)
 
 void USdkboxFyberFunctions::PushVolumeChange()
 {
-    const USdkboxFyberSettings* settings = GetDefault<USdkboxFyberSettings>();
-    if (settings && settings->DisableSoundWhenWatchingVideo && 0 > _previousVolume)
-        _previousVolume = USdkboxFyberFunctions::SetMasterVolume(0);
+    //const USdkboxFyberSettings* settings = GetDefault<USdkboxFyberSettings>();
+    //if (settings && settings->DisableSoundWhenWatchingVideo && 0 > _previousVolume)
+        //_previousVolume = USdkboxFyberFunctions::SetMasterVolume(0);
 }
 
 void USdkboxFyberFunctions::PopVolumeChange()
 {
-    const USdkboxFyberSettings* settings = GetDefault<USdkboxFyberSettings>();
-    if (settings && settings->DisableSoundWhenWatchingVideo && 0 <= _previousVolume)
-        _previousVolume = USdkboxFyberFunctions::SetMasterVolume(_previousVolume);
+    //const USdkboxFyberSettings* settings = GetDefault<USdkboxFyberSettings>();
+    //if (settings && settings->DisableSoundWhenWatchingVideo && 0 <= _previousVolume)
+        //_previousVolume = USdkboxFyberFunctions::SetMasterVolume(_previousVolume);
 }
 
 float USdkboxFyberFunctions::SetMasterVolume(float Volume)
 {
-    FAudioDevice* AudioDevice = GEngine->GetMainAudioDevice();
-    
-    if (!AudioDevice)
-        return -1;
-    
-    float previousVolume = AudioDevice->GetTransientMasterVolume();
-    AudioDevice->SetTransientMasterVolume(Volume);
+//    FAudioDevice* AudioDevice = GEngine->GetMainAudioDevice();
+//    
+//    if (!AudioDevice)
+//        return -1;
+//    
+//    if (!IsInAudioThread())
+//    {
+//        //FAudioDevice* AudioDevice = this;
+//        FAudioThread::RunCommandOnAudioThread([AudioDevice, Volume]()
+//                                              {
+//                                                  //AudioDevice->HandlePause(bGameTicking, bGlobalPause);
+//                                                  float previousVolume = AudioDevice->GetTransientMasterVolume();
+//                                                  AudioDevice->SetTransientMasterVolume(Volume);
+//                                                  
+//                                                  return previousVolume;
+//                                              });//, GET_STATID(STAT_AudioHandlePause));
+//        
+//       // return;
+//    }
+//    else
+//    {
+//        float previousVolume = AudioDevice->GetTransientMasterVolume();
+//        AudioDevice->SetTransientMasterVolume(Volume);
+//        
+//        UE_LOG(SDKBOX, Log, TEXT("previousVolume: %.02f"), previousVolume);
+//        
+//        return previousVolume;
+//    }
     
     /*
     const TMap<USoundClass*, FSoundClassProperties> &kSoundClassPropertyMap = AudioDevice->GetSoundClassPropertyMap();
@@ -386,8 +407,8 @@ float USdkboxFyberFunctions::SetMasterVolume(float Volume)
             }
         }*/
     
-    UE_LOG(SDKBOX, Log, TEXT("previousVolume: %.02f"), previousVolume);
+//    return previousVolume;
     
-    return previousVolume;
+    return 0;
 }
 
