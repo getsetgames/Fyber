@@ -147,6 +147,7 @@ catch(Exception ex)
 
   <gameActivityOnActivityResultAdditions>
     <insert>
+static Intent gFyberRewardedVideoIntent = null;
 
     </insert>
   </gameActivityOnActivityResultAdditions>
@@ -197,12 +198,14 @@ public void AndroidThunkJava_FyberRequestVideo(String placementID)
             @Override
             public void onAdNotAvailable(AdFormat adFormat) 
             {
+              gFyberRewardedVideoIntent = null;
               Log.debug("Request for " + adFormat + " not available");
             }
 
             @Override
             public void onRequestError(RequestError requestError) 
             {
+              gFyberRewardedVideoIntent = null;
               Log.debug("Something went wrong with the request: " + requestError.getDescription());   
             }
           }).request(_activity);
