@@ -63,9 +63,13 @@
 
   </androidManifestUpdates>
 
-  <prebuildCopies>
-      <copyFile src="$S(PluginDir)/../../lib/Android/libs/fyber-sdk-8.5.1.jar" dst="$S(BuildDir)/libs/fyber-sdk-8.5.1.jar" />
-  </prebuildCopies>
+  <AARImports>
+    <insertValue value="repositories $S(PluginDir)/../../Source/ThirdParty/AndroidRepository"/>
+    <insertNewline/>
+    <insert>
+com.fyber,fyber-sdk,8.6.0
+    </insert>
+  </AARImports>
 
   <resourceCopies>
 
