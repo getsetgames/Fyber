@@ -75,10 +75,12 @@ com.fyber,fyber-sdk,8.6.0
 
   </resourceCopies>
 
-
   <buildXmlPropertyAdditions>
     <insert>
-
+<![CDATA[
+    <property name="java.target" value="1.7" />
+    <property name="java.source" value="1.7" />
+]]>
     </insert>
   </buildXmlPropertyAdditions>
 
