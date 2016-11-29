@@ -31,9 +31,6 @@ public:
 	UFUNCTION(BlueprintCallable, meta = (Keywords = "SDKBOX Fyber"), Category = "SDKBOX")
 	static void FyberInitialize(const FString &appID, const FString &securityToken);
 
-	UFUNCTION(BlueprintCallable, meta = (Keywords = "SDKBOX Fyber"), Category = "SDKBOX")
-	static void FyberShutdown();
-
     /**
      * Presents the Fyber Mobile OfferWall as a child view controller of your own view controller.
      */
@@ -70,13 +67,4 @@ public:
      */
 	UFUNCTION(BlueprintCallable, meta = (Keywords = "SDKBOX Fyber"), Category = "SDKBOX")
     static void FyberRequestDeltaOfCoins(const FString& currencyId = "");
-
-    static void PushVolumeChange();
-    static void PopVolumeChange();
-    static float SetMasterVolume(float Volume);
-    
-protected:
-    
-    static float _previousVolume;
-
 };

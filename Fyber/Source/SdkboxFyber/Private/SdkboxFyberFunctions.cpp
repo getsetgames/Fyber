@@ -28,8 +28,6 @@
 #include "AndroidApplication.h"
 #endif
 
-float USdkboxFyberFunctions::_previousVolume = 0;
-
 #if PLATFORM_IOS
 @interface SdkboxFyberFunctionsDelegate : NSObject<FYBRewardedVideoControllerDelegate, FYBVirtualCurrencyClientDelegate, FYBCacheManagerDelegate>
 {
@@ -46,31 +44,6 @@ static SdkboxFyberFunctionsDelegate *sfd = nil;
     if (!sfd)
     {
         sfd = [[SdkboxFyberFunctionsDelegate alloc] init];
-    }
-}
-
--(id)init
-{
-    self = [super init];
-    
-    if (self)
-    {
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(applicationDidFinishLaunching:)
-                                                     name:UIApplicationDidFinishLaunchingNotification
-                                                   object:nil];
-    }
-    
-    return self;
-}
-
--(void)applicationDidFinishLaunching:(NSNotification *)n
-{
-    NSDictionary *dLaunchOptionsUrl = n.userInfo[@"UIApplicationLaunchOptionsURLKey"];
-    
-    if (!dLaunchOptionsUrl)
-    {
-        // USdkboxFyberFunctions::FyberInitialize("", "");
     }
 }
 
@@ -93,7 +66,6 @@ static SdkboxFyberFunctionsDelegate *sfd = nil;
     UE_LOG(SDKBOX, Log, TEXT("started rewawarded video"));
     
     USdkboxFyberComponent::OnBrandEngageClientChangeStatusDelegate.Broadcast(EFyberRewardedVideoEnum::RWE_REWARDED_VIDEO_STARTED, "");
-    //USdkboxFyberFunctions::PushVolumeChange();
 }
 
 -(void)rewardedVideoController:(FYBRewardedVideoController *)rewardedVideoController didFailToStartVideoWithError:(NSError *)error
@@ -101,7 +73,6 @@ static SdkboxFyberFunctionsDelegate *sfd = nil;
     UE_LOG(SDKBOX, Log, TEXT("failed to start rewarded video: error - %s"), *FString([error localizedDescription]));
     
     USdkboxFyberComponent::OnBrandEngageClientChangeStatusDelegate.Broadcast(EFyberRewardedVideoEnum::RWE_REWARDED_VIDEO_ERROR, "");
-    //USdkboxFyberFunctions::PopVolumeChange();
 }
 
 -(void)rewardedVideoController:(FYBRewardedVideoController *)rewardedVideoController didDismissVideoWithReason:(FYBRewardedVideoControllerDismissReason)reason
@@ -294,10 +265,6 @@ void USdkboxFyberFunctions::FyberInitialize(const FString &appID, const FString 
 #endif
 }
 
-void USdkboxFyberFunctions::FyberShutdown()
-{
-#if PLATFORM_IOS || PLATFORM_ANDROID
-
 #endif
 }
 
@@ -385,72 +352,5 @@ void USdkboxFyberFunctions::FyberRequestDeltaOfCoins(const FString& currencyId)
 #if PLATFORM_IOS
 #elif PLATFORM_ANDROID
 #endif
-}
-
-void USdkboxFyberFunctions::PushVolumeChange()
-{
-    //const USdkboxFyberSettings* settings = GetDefault<USdkboxFyberSettings>();
-    //if (settings && settings->DisableSoundWhenWatchingVideo && 0 > _previousVolume)
-        //_previousVolume = USdkboxFyberFunctions::SetMasterVolume(0);
-}
-
-void USdkboxFyberFunctions::PopVolumeChange()
-{
-    //const USdkboxFyberSettings* settings = GetDefault<USdkboxFyberSettings>();
-    //if (settings && settings->DisableSoundWhenWatchingVideo && 0 <= _previousVolume)
-        //_previousVolume = USdkboxFyberFunctions::SetMasterVolume(_previousVolume);
-}
-
-float USdkboxFyberFunctions::SetMasterVolume(float Volume)
-{
-//    FAudioDevice* AudioDevice = GEngine->GetMainAudioDevice();
-//    
-//    if (!AudioDevice)
-//        return -1;
-//    
-//    if (!IsInAudioThread())
-//    {
-//        //FAudioDevice* AudioDevice = this;
-//        FAudioThread::RunCommandOnAudioThread([AudioDevice, Volume]()
-//                                              {
-//                                                  //AudioDevice->HandlePause(bGameTicking, bGlobalPause);
-//                                                  float previousVolume = AudioDevice->GetTransientMasterVolume();
-//                                                  AudioDevice->SetTransientMasterVolume(Volume);
-//                                                  
-//                                                  return previousVolume;
-//                                              });//, GET_STATID(STAT_AudioHandlePause));
-//        
-//       // return;
-//    }
-//    else
-//    {
-//        float previousVolume = AudioDevice->GetTransientMasterVolume();
-//        AudioDevice->SetTransientMasterVolume(Volume);
-//        
-//        UE_LOG(SDKBOX, Log, TEXT("previousVolume: %.02f"), previousVolume);
-//        
-//        return previousVolume;
-//    }
-    
-    /*
-    const TMap<USoundClass*, FSoundClassProperties> &kSoundClassPropertyMap = AudioDevice->GetSoundClassPropertyMap();
-    
-    	for (auto i = kSoundClassPropertyMap.CreateIterator(); i; ++i)
-    	{
-    		USoundClass* SoundClass = i.Key();
-    		FString SoundClassName;
-    
-    		// Test if the Split function works then, if the name was the right one
-    		if (SoundClass->GetFullName().Split(L".", nullptr, &SoundClassName, ESearchCase::CaseSensitive) && SoundClassName.Equals("Master"))
-    		{
-    			previousVolume = SoundClass->Properties.Volume;
-    			SoundClass->Properties.Volume = Volume;
-    			break;
-            }
-        }*/
-    
-//    return previousVolume;
-    
-    return 0;
 }
 
