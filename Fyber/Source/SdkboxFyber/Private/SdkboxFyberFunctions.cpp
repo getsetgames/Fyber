@@ -160,6 +160,48 @@ static SdkboxFyberFunctionsDelegate *sfd = nil;
 
 @end
 
+#elif PLATFORM_ANDROID
+
+extern "C" void Java_com_epicgames_ue4_GameActivity_nativeFyberOnAdAvailable(JNIEnv* jenv, jobject thiz)
+{
+    USdkboxFyberComponent::OnBrandEngageClientReceiveOffersDelegate.Broadcast(true);
+}
+
+extern "C" void Java_com_epicgames_ue4_GameActivity_nativeFyberOnAdNotAvailable(JNIEnv* jenv, jobject thiz)
+{
+    USdkboxFyberComponent::OnBrandEngageClientReceiveOffersDelegate.Broadcast(false);
+}
+
+extern "C" void Java_com_epicgames_ue4_GameActivity_nativeFyberOnRequestError(JNIEnv* jenv, jobject thiz)
+{
+    USdkboxFyberComponent::OnBrandEngageClientChangeStatusDelegate.Broadcast(EFyberRewardedVideoEnum::RWE_REWARDED_VIDEO_ERROR, "");
+}
+
+extern "C" void Java_com_epicgames_ue4_GameActivity_nativeFyberShowRewardedVideo(JNIEnv* jenv, jobject thiz)
+{
+    USdkboxFyberComponent::OnBrandEngageClientChangeStatusDelegate.Broadcast(EFyberRewardedVideoEnum::RWE_REWARDED_VIDEO_STARTED, "");
+}
+
+extern "C" void Java_com_epicgames_ue4_GameActivity_nativeFyberRewardedVideoFinished(JNIEnv* jenv, jobject thiz)
+{
+    USdkboxFyberComponent::OnBrandEngageClientChangeStatusDelegate.Broadcast(EFyberRewardedVideoEnum::RWE_REWARDED_VIDEO_FINISHED, "");
+}
+
+extern "C" void Java_com_epicgames_ue4_GameActivity_nativeFyberRewardedVideoAborted(JNIEnv* jenv, jobject thiz)
+{
+    USdkboxFyberComponent::OnBrandEngageClientChangeStatusDelegate.Broadcast(EFyberRewardedVideoEnum::RWE_REWARDED_VIDEO_ABORTED, "");
+}
+
+extern "C" void Java_com_epicgames_ue4_GameActivity_nativeFyberRewardedVideoError(JNIEnv* jenv, jobject thiz)
+{
+    USdkboxFyberComponent::OnBrandEngageClientChangeStatusDelegate.Broadcast(EFyberRewardedVideoEnum::RWE_REWARDED_VIDEO_ERROR, "");
+}
+
+extern "C" void Java_com_epicgames_ue4_GameActivity_nativeFyberRewardedVideoUserEngaged(JNIEnv* jenv, jobject thiz)
+{
+    USdkboxFyberComponent::OnBrandEngageClientChangeStatusDelegate.Broadcast(EFyberRewardedVideoEnum::RWE_REWARDED_VIDEO_USER_ENGAGED, "");
+}
+
 #endif
 
 void USdkboxFyberFunctions::FyberInitialize(const FString &appID, const FString &securityToken)

@@ -93,6 +93,7 @@ com.fyber,fyber-sdk,8.6.0
 import com.fyber.Fyber;
 import com.fyber.requesters.RewardedVideoRequester;
 import com.fyber.ads.AdFormat;
+import com.fyber.ads.videos.RewardedVideoActivity;
 import com.fyber.requesters.RequestCallback;
 import com.fyber.requesters.RequestError;
 import com.fyber.utils.FyberLogger;
@@ -145,16 +146,20 @@ catch(Exception ex)
     </insert>
   </gameActivityOnResumeAdditions>
 
-  <gameActivityOnActivityResultAdditions>
-    <insert>
-static Intent gFyberRewardedVideoIntent = null;
-
-    </insert>
-  </gameActivityOnActivityResultAdditions>
-
 <gameActivityClassAdditions>
     <insert>
-static Intent gFyberRewardedVideoIntent;
+static Intent gFyberRewardedVideoIntent = null;
+static final int REWARDED_VIDEO_REQUEST_CODE = 9340;
+
+public native void nativeFyberOnAdAvailable();
+public native void nativeFyberOnAdNotAvailable();
+public native void nativeFyberOnRequestError();
+public native void nativeFyberShowRewardedVideo();
+
+public native void nativeFyberRewardedVideoFinished();
+public native void nativeFyberRewardedVideoAborted();
+public native void nativeFyberRewardedVideoError();
+public native void nativeFyberRewardedVideoUserEngaged();
 
 public void AndroidThunkJava_FyberInit(String appID, String securityToken)
 {
@@ -192,12 +197,14 @@ public void AndroidThunkJava_FyberRequestVideo(String placementID)
             @Override
             public void onAdAvailable(Intent intent) 
             {
+              nativeFyberOnAdAvailable();
               gFyberRewardedVideoIntent = intent;
             }
 
             @Override
             public void onAdNotAvailable(AdFormat adFormat) 
             {
+              nativeFyberOnAdNotAvailable();
               gFyberRewardedVideoIntent = null;
               Log.debug("Request for " + adFormat + " not available");
             }
@@ -205,6 +212,7 @@ public void AndroidThunkJava_FyberRequestVideo(String placementID)
             @Override
             public void onRequestError(RequestError requestError) 
             {
+              nativeFyberOnRequestError();
               gFyberRewardedVideoIntent = null;
               Log.debug("Something went wrong with the request: " + requestError.getDescription());   
             }
@@ -224,7 +232,8 @@ public void AndroidThunkJava_FyberShowRewardedVideo()
         @Override
         public void run() 
         {
-          startActivityForResult(gFyberRewardedVideoIntent, 0);
+          nativeFyberShowRewardedVideo();
+          startActivityForResult(gFyberRewardedVideoIntent, REWARDED_VIDEO_REQUEST_CODE);
         }
     });
   }
@@ -236,6 +245,55 @@ public void AndroidThunkJava_FyberShowRewardedVideo()
 
 </insert>
   </gameActivityClassAdditions>
+
+<gameActivityOnActivityResultAdditions>
+    <insert><![CDATA[
+
+// Fyber SDK rewarded video callbacks
+//
+if (resultCode == RESULT_OK && requestCode == REWARDED_VIDEO_REQUEST_CODE) 
+{    
+    Log.debug("Rewarded video completed.  Evaluating results...");
+
+    // Check the engagement status
+    //
+    String engagementResult = data.getStringExtra(RewardedVideoActivity.ENGAGEMENT_STATUS);
+    
+    if (engagementResult == RewardedVideoActivity.REQUEST_STATUS_PARAMETER_FINISHED_VALUE)
+    {
+        // The user watched the entire video and will be rewarded
+        //
+        nativeFyberRewardedVideoFinished();
+        Log.debug("The video ad was dismissed because the user completed it");
+    }
+    else if (engagementResult == "USER_ENGAGED")
+    {
+        nativeFyberRewardedVideoUserEngaged();
+        Log.debug("User engaged with video");
+    }
+    else if (engagementResult == RewardedVideoActivity.REQUEST_STATUS_PARAMETER_ABORTED_VALUE)
+    {
+        // The user stopped the video early and will not be rewarded
+        //
+        nativeFyberRewardedVideoAborted();
+        Log.debug("The video ad was dismissed because the user explicitly closed it");
+    }
+    else if (engagementResult == RewardedVideoActivity.REQUEST_STATUS_PARAMETER_ERROR)
+    {
+        // An error occurred while showing the video and the user will not be rewarded
+        //
+        nativeFyberRewardedVideoError();
+        Log.debug("The video ad was dismissed error during playing");
+    }
+    else
+    {
+        nativeFyberRewardedVideoError();
+        Log.debug("An unknown error occurred");
+    }
+}
+
+    ]]></insert>
+</gameActivityOnActivityResultAdditions>
   
   <proguardAdditions>
     <insert>
