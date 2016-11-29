@@ -262,9 +262,8 @@ void USdkboxFyberFunctions::FyberInitialize(const FString &appID, const FString 
         Env->DeleteLocalRef(jAppID);
         Env->DeleteLocalRef(jSecurityToken);
     }
-#endif
-}
-
+#else
+    UE_LOG(SDKBOX, Warning, TEXT("Cannot run Fyber on this platform"));
 #endif
 }
 
@@ -303,6 +302,8 @@ void USdkboxFyberFunctions::FyberRequestRewardedVideo(const FString& placementId
         
         Env->DeleteLocalRef(jPlacementId);
     }
+#else
+    USdkboxFyberComponent::OnBrandEngageClientReceiveOffersDelegate.Broadcast(false);
 #endif
 }
 
@@ -330,6 +331,8 @@ void USdkboxFyberFunctions::FyberShowRewardedVideo()
         
         FJavaWrapper::CallVoidMethod(Env, FJavaWrapper::GameActivityThis, Method);
     }
+#else
+    USdkboxFyberComponent::OnBrandEngageClientChangeStatusDelegate.Broadcast(EFyberRewardedVideoEnum::RWE_REWARDED_VIDEO_ERROR, "");
 #endif
 }
 
@@ -337,6 +340,7 @@ void USdkboxFyberFunctions::FyberRequestInterstitial()
 {
 #if PLATFORM_IOS
 #elif PLATFORM_ANDROID
+#else
 #endif
 }
 
@@ -344,6 +348,7 @@ void USdkboxFyberFunctions::FyberShowInterstitial()
 {
 #if PLATFORM_IOS
 #elif PLATFORM_ANDROID
+#else
 #endif
 }
 
@@ -351,6 +356,7 @@ void USdkboxFyberFunctions::FyberRequestDeltaOfCoins(const FString& currencyId)
 {
 #if PLATFORM_IOS
 #elif PLATFORM_ANDROID
+#else
 #endif
 }
 
