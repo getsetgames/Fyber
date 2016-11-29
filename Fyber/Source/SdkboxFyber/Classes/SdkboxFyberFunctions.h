@@ -21,8 +21,7 @@
 #include "SdkboxFyberFunctions.generated.h"
 
 UCLASS(NotBlueprintable)
-class USdkboxFyberFunctions
-    : public UObject 
+class USdkboxFyberFunctions : public UObject
 {
 	GENERATED_BODY()
 	
