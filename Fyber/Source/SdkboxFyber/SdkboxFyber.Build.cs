@@ -85,6 +85,13 @@ namespace UnrealBuildTool.Rules
 					)
 				);
 
+				PublicAdditionalFrameworks.Add(
+					new UEBuildFramework(
+						"UnityAds",
+						"../../lib/iOS/Fyber_UnityAds_2.0.5-r2.embeddedframework.zip"
+					)
+				);
+
                 PublicFrameworks.AddRange(
                     new string[]
                     {
