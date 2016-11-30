@@ -68,6 +68,9 @@
     <insertNewline/>
     <insert>
 com.fyber,fyber-sdk,8.6.0
+com.fyber,fyber-annotations,1.2.0
+com.fyber,fyber-annotations-compiler,1.3.2 
+com.fyber.mediation,unityads,2.0.5-r1
     </insert>
   </AARImports>
 
@@ -99,8 +102,16 @@ import com.fyber.ads.videos.RewardedVideoActivity;
 import com.fyber.requesters.RequestCallback;
 import com.fyber.requesters.RequestError;
 import com.fyber.utils.FyberLogger;
+import com.fyber.annotations.FyberSDK;
     </insert>
   </gameActivityImportAdditions>
+
+  <gameActivityPostImportAdditions>
+    <insert>
+@FyberSDK
+    </insert>
+  </gameActivityPostImportAdditions>
+
 
   <gameActivityOnCreateAdditions>
     <if condition="bDistribution">
