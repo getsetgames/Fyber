@@ -91,6 +91,12 @@ import com.fyber.ads.AdFormat;
 import com.fyber.ads.videos.RewardedVideoActivity;
 import com.fyber.requesters.RequestCallback;
 import com.fyber.requesters.RequestError;
+
+import com.fyber.requesters.VirtualCurrencyCallback;
+import com.fyber.requesters.VirtualCurrencyRequester;
+import com.fyber.currency.VirtualCurrencyResponse;
+import com.fyber.currency.VirtualCurrencyErrorResponse;
+
 import com.fyber.utils.FyberLogger;
 import com.fyber.annotations.FyberSDK;
     </insert>
@@ -164,6 +170,10 @@ public native void nativeFyberRewardedVideoAborted();
 public native void nativeFyberRewardedVideoError();
 public native void nativeFyberRewardedVideoUserEngaged();
 
+public native void nativeFyberVirtualCurrencyRewardOnSuccess(String currencyId, String currencyName, double deltaOfCoins, String latestTransactionId);
+public native void nativeFyberVirtualCurrencyRewardOnError(String erroCode, String errorType, String errorMessage);
+public native void nativeFyberVirtualCurrencyRewardOnRequestError();
+
 public void AndroidThunkJava_FyberInit(String appID, String securityToken)
 {
   String sFyberAppId         = "</insert><insertValue value="$S(sFyberAppId)" /><insert>";
@@ -195,6 +205,66 @@ public void AndroidThunkJava_FyberRequestVideo(String placementID)
         @Override
         public void run() 
         {
+
+            VirtualCurrencyCallback virtualCurrencyCallback = new VirtualCurrencyCallback() 
+            {
+              @Override
+              public void onSuccess(VirtualCurrencyResponse virtualCurrencyResponse) 
+              {
+                // Reward your user based on the deltaOfCoins parameter
+                String currencyId          = virtualCurrencyResponse.getCurrencyId();
+                String currencyName        = virtualCurrencyResponse.getCurrencyName();
+                double deltaOfCoins        = virtualCurrencyResponse.getDeltaOfCoins();
+                String latestTransactionId = virtualCurrencyResponse.getLatestTransactionId();
+
+                Log.debug("Virtual currency reward request success currencyId:" + currencyId + " currency name:" + currencyName + " delta of coins:" + deltaOfCoins + " transactionId:" + latestTransactionId);
+
+                nativeFyberVirtualCurrencyRewardOnSuccess(currencyId, currencyName, deltaOfCoins, latestTransactionId);
+              }
+    
+              @Override
+              public void onRequestError(RequestError requestError) 
+              {
+                // No reward has been returned, so nothing can be provided to the user
+                Log.debug("Virtual currency reward request error: " + requestError.getDescription());
+
+                nativeFyberVirtualCurrencyRewardOnRequestError();
+              }
+
+              @Override
+              public void onError(VirtualCurrencyErrorResponse virtualCurrencyErrorResponse) 
+              {
+                String errorCode    = virtualCurrencyErrorResponse.getErrorCode();
+                String errorMessage = virtualCurrencyErrorResponse.getErrorMessage();
+                String errorType    = "ERROR_OTHER";
+
+                Log.debug("Virtual currency reward error: " + errorCode + " type:" + errorType + " message:" + errorMessage);
+
+                switch (virtualCurrencyErrorResponse.getError())
+                {
+                    case ERROR_INVALID_RESPONSE:
+                        errorType = "ERROR_INVALID_RESPONSE";
+                        break;
+
+                    case ERROR_INVALID_RESPONSE_SIGNATURE:
+                        errorType = "ERROR_INVALID_RESPONSE_SIGNATURE";
+                        break;
+
+                    case SERVER_RETURNED_ERROR:
+                        errorType = "SERVER_RETURNED_ERROR";
+                        break;
+
+                    case ERROR_OTHER:
+                        errorType = "ERROR_OTHER";
+                        break;
+                }
+
+                nativeFyberVirtualCurrencyRewardOnError(errorCode, errorType, errorMessage);
+              }
+          };
+
+          VirtualCurrencyRequester virtualCurrencyRequester = VirtualCurrencyRequester.create(virtualCurrencyCallback);
+
           RewardedVideoRequester.create(new RequestCallback() 
           {
             @Override
@@ -219,7 +289,7 @@ public void AndroidThunkJava_FyberRequestVideo(String placementID)
               gFyberRewardedVideoIntent = null;
               Log.debug("Something went wrong with the request: " + requestError.getDescription());   
             }
-          }).request(_activity);
+          }).withVirtualCurrencyRequester(virtualCurrencyRequester).request(_activity);
         }
     });
 }

@@ -133,6 +133,8 @@ static SdkboxFyberFunctionsDelegate *sfd = nil;
 
 #elif PLATFORM_ANDROID
 
+// Video request errors
+//
 extern "C" void Java_com_epicgames_ue4_GameActivity_nativeFyberOnAdAvailable(JNIEnv* jenv, jobject thiz)
 {
     USdkboxFyberComponent::OnBrandEngageClientReceiveOffersDelegate.Broadcast(true);
@@ -148,6 +150,8 @@ extern "C" void Java_com_epicgames_ue4_GameActivity_nativeFyberOnRequestError(JN
     USdkboxFyberComponent::OnBrandEngageClientChangeStatusDelegate.Broadcast(EFyberRewardedVideoEnum::RWE_REWARDED_VIDEO_ERROR, "");
 }
 
+// Video playing callbacks
+//
 extern "C" void Java_com_epicgames_ue4_GameActivity_nativeFyberShowRewardedVideo(JNIEnv* jenv, jobject thiz)
 {
     USdkboxFyberComponent::OnBrandEngageClientChangeStatusDelegate.Broadcast(EFyberRewardedVideoEnum::RWE_REWARDED_VIDEO_STARTED, "");
@@ -171,6 +175,60 @@ extern "C" void Java_com_epicgames_ue4_GameActivity_nativeFyberRewardedVideoErro
 extern "C" void Java_com_epicgames_ue4_GameActivity_nativeFyberRewardedVideoUserEngaged(JNIEnv* jenv, jobject thiz)
 {
     USdkboxFyberComponent::OnBrandEngageClientChangeStatusDelegate.Broadcast(EFyberRewardedVideoEnum::RWE_REWARDED_VIDEO_USER_ENGAGED, "");
+}
+
+// Virtual currency reward callbacks
+//
+extern "C" void Java_com_epicgames_ue4_GameActivity_nativeFyberVirtualCurrencyRewardOnRequestError(JNIEnv* jenv, jobject thiz)
+{
+    USdkboxFyberComponent::OnVirtualCurrencyConnectorFailedDelegate.Broadcast(1,
+                                                                              FString(""),
+                                                                              FString(""));
+}
+
+extern "C" void Java_com_epicgames_ue4_GameActivity_nativeFyberVirtualCurrencyRewardOnError
+(
+    JNIEnv* jenv,
+    jobject thiz,
+    jstring errorCode,
+    jstring errorType,
+    jstring errorMessage
+)
+{
+    const char* sErrorCode    = jenv->GetStringUTFChars(errorCode,    0);
+    const char* sErrorType    = jenv->GetStringUTFChars(errorType,    0);
+    const char* sErrorMessage = jenv->GetStringUTFChars(errorMessage, 0);
+    
+    USdkboxFyberComponent::OnVirtualCurrencyConnectorFailedDelegate.Broadcast(1,
+                                                                              FString(UTF8_TO_TCHAR(sErrorCode)),
+                                                                              FString(UTF8_TO_TCHAR(sErrorMessage)));
+    
+    jenv->ReleaseStringUTFChars(errorCode,    sErrorCode);
+    jenv->ReleaseStringUTFChars(errorType,    sErrorType);
+    jenv->ReleaseStringUTFChars(errorMessage, sErrorMessage);
+}
+
+extern "C" void Java_com_epicgames_ue4_GameActivity_nativeFyberVirtualCurrencyRewardOnSuccess
+(
+    JNIEnv* jenv,
+    jobject thiz,
+    jstring currencyId,
+    jstring currencyName,
+    jdouble deltaOfCoins,
+    jstring latestTransactionId)
+{
+    const char* sCurrencyId          = jenv->GetStringUTFChars(currencyId,          0);
+    const char* sCurrencyName        = jenv->GetStringUTFChars(currencyName,        0);
+    const char* sLatestTransactionId = jenv->GetStringUTFChars(latestTransactionId, 0);
+    
+    USdkboxFyberComponent::OnVirtualCurrencyConnectorSuccessDelegate.Broadcast(deltaOfCoins,
+                                                                               FString(sCurrencyId),
+                                                                               FString(sCurrencyName),
+                                                                               FString(sLatestTransactionId));
+
+    jenv->ReleaseStringUTFChars(currencyId,          sCurrencyId);
+    jenv->ReleaseStringUTFChars(currencyName,        sCurrencyName);
+    jenv->ReleaseStringUTFChars(latestTransactionId, sLatestTransactionId);
 }
 
 #endif
