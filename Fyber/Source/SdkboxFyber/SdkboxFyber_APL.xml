@@ -165,7 +165,7 @@ static final int REWARDED_VIDEO_REQUEST_CODE = 9340;
 public native void nativeFyberOnAdAvailable();
 public native void nativeFyberOnAdNotAvailable();
 public native void nativeFyberOnRequestError();
-public native void nativeFyberShowRewardedVideo();
+public native void nativeFyberShowRewardedVideo(boolean wasVideoStarted);
 
 public native void nativeFyberRewardedVideoFinished();
 public native void nativeFyberRewardedVideoAborted();
@@ -300,23 +300,27 @@ public void AndroidThunkJava_FyberRequestVideo(String placementID)
 public void AndroidThunkJava_FyberShowRewardedVideo()
 {
   // Will show the last video that was requested
-  //
-  if (gFyberRewardedVideoIntent != null)
-  {          
-    _activity.runOnUiThread(new Runnable() 
-    {
-        @Override
-        public void run() 
-        {
-          nativeFyberShowRewardedVideo();
-          startActivityForResult(gFyberRewardedVideoIntent, REWARDED_VIDEO_REQUEST_CODE);
-        }
-    });
-  }
-  else
+  //      
+  _activity.runOnUiThread(new Runnable() 
   {
-    Log.debug("There is no current intent cached for a rewarded video");
-  }
+      @Override
+      public void run() 
+      {
+        if (gFyberRewardedVideoIntent != null)
+        {    
+          Log.debug("Starting rewarded video...");   
+
+          startActivityForResult(gFyberRewardedVideoIntent, REWARDED_VIDEO_REQUEST_CODE);
+
+          nativeFyberShowRewardedVideo(true);         
+        }
+        else
+        {
+          nativeFyberShowRewardedVideo(false); 
+          Log.debug("There is no current intent cached for a rewarded video");
+        }
+      }
+  });
 }
 
 </insert>
