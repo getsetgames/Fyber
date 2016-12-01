@@ -274,6 +274,7 @@ public void AndroidThunkJava_FyberRequestVideo(String placementID)
             {
               nativeFyberOnAdAvailable();
               gFyberRewardedVideoIntent = intent;
+              Log.debug("Ad is available");
             }
 
             @Override
