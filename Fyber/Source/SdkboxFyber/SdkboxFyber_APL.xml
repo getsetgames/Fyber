@@ -174,7 +174,7 @@ public native void nativeFyberRewardedVideoUserEngaged();
 
 public native void nativeFyberVirtualCurrencyRewardOnSuccess(String currencyId, String currencyName, double deltaOfCoins, String latestTransactionId);
 public native void nativeFyberVirtualCurrencyRewardOnError(String erroCode, String errorType, String errorMessage);
-public native void nativeFyberVirtualCurrencyRewardOnRequestError();
+public native void nativeFyberVirtualCurrencyRewardOnRequestError(String errorMessage);
 
 public void AndroidThunkJava_FyberInit(String appID, String securityToken)
 {
@@ -230,7 +230,7 @@ public void AndroidThunkJava_FyberRequestVideo(String placementID)
                 // No reward has been returned, so nothing can be provided to the user
                 Log.debug("Virtual currency reward request error: " + requestError.getDescription());
 
-                nativeFyberVirtualCurrencyRewardOnRequestError();
+                nativeFyberVirtualCurrencyRewardOnRequestError(requestError.getDescription());
               }
 
               @Override
