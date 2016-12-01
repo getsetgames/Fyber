@@ -191,11 +191,15 @@ extern "C" void Java_com_epicgames_ue4_GameActivity_nativeFyberRewardedVideoUser
 
 // Virtual currency reward callbacks
 //
-extern "C" void Java_com_epicgames_ue4_GameActivity_nativeFyberVirtualCurrencyRewardOnRequestError(JNIEnv* jenv, jobject thiz)
+extern "C" void Java_com_epicgames_ue4_GameActivity_nativeFyberVirtualCurrencyRewardOnRequestError(JNIEnv* jenv, jobject thiz, jstring errorMessage)
 {
+    const char* sErrorMessage = jenv->GetStringUTFChars(errorMessage, 0);
+    
     USdkboxFyberComponent::OnVirtualCurrencyConnectorFailedDelegate.Broadcast(1,
                                                                               FString(""),
-                                                                              FString(""));
+                                                                              FString(UTF8_TO_TCHAR(sErrorMessage)));
+    
+    jenv->ReleaseStringUTFChars(errorMessage, sErrorMessage);
 }
 
 extern "C" void Java_com_epicgames_ue4_GameActivity_nativeFyberVirtualCurrencyRewardOnError
