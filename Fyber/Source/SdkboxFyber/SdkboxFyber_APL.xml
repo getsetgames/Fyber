@@ -267,6 +267,8 @@ public void AndroidThunkJava_FyberRequestVideo(String placementID)
 
           VirtualCurrencyRequester virtualCurrencyRequester = VirtualCurrencyRequester.create(virtualCurrencyCallback);
 
+          boolean bToastMessages = </insert><insertValue value="$B(bToastMessages)" /><insert>;
+            
           RewardedVideoRequester.create(new RequestCallback() 
           {
             @Override
