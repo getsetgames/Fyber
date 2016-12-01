@@ -294,7 +294,7 @@ public void AndroidThunkJava_FyberRequestVideo(String placementID)
               gFyberRewardedVideoIntent = null;
               Log.debug("Something went wrong with the request: " + requestError.getDescription());   
             }
-          }).withVirtualCurrencyRequester(virtualCurrencyRequester).request(_activity);
+          }).withVirtualCurrencyRequester(virtualCurrencyRequester).notifyUserOnCompletion(bToastMessages).request(_activity);
         }
     });
 }
