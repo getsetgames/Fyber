@@ -3,11 +3,12 @@
   <init>
 	   <log text="SDKBOX Fyber APL Init"/>
 
-	   <setBoolFromProperty result="bDisableVideoPreCaching" ini="Engine" section="/Script/SdkboxFyber.SdkboxFyberSettings" property="DisableVideoPreCaching" default="false"/>
-     <setIntFromProperty  result="iCloseButtonDelay" ini="Engine" section="/Script/SdkboxFyber.SdkboxFyberSettings" property="VideoCloseButtonDelayLength" default="0"/>
+	   <setBoolFromProperty result="bDisableVideoPreCaching" ini="Engine" section="/Script/SdkboxFyber.SdkboxFyberSettings" property="DisableVideoPreCaching"      default="false"/>
+     <setIntFromProperty  result="iCloseButtonDelay"       ini="Engine" section="/Script/SdkboxFyber.SdkboxFyberSettings" property="VideoCloseButtonDelayLength" default="0"/>
+     <setBoolFromProperty result="bToastMessages"          ini="Engine" section="/Script/SdkboxFyber.SdkboxFyberSettings" property="ToastMessages"               default="false"/>
 
-      <setStringFromProperty result="sFyberAppId"         ini="Engine" section="/Script/SdkboxFyber.SdkboxFyberSettings" property="AppIDAndroid"         default=""/>
-      <setStringFromProperty result="sFyberSecurityToken" ini="Engine" section="/Script/SdkboxFyber.SdkboxFyberSettings" property="TokenAndroid" default=""/>
+     <setStringFromProperty result="sFyberAppId"         ini="Engine" section="/Script/SdkboxFyber.SdkboxFyberSettings" property="AppIDAndroid" default=""/>
+     <setStringFromProperty result="sFyberSecurityToken" ini="Engine" section="/Script/SdkboxFyber.SdkboxFyberSettings" property="TokenAndroid" default=""/>
   </init>
 
   <androidManifestUpdates>
