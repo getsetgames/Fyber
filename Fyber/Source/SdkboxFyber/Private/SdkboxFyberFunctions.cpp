@@ -145,9 +145,14 @@ extern "C" void Java_com_epicgames_ue4_GameActivity_nativeFyberOnAdNotAvailable(
     USdkboxFyberComponent::OnBrandEngageClientReceiveOffersDelegate.Broadcast(false);
 }
 
-extern "C" void Java_com_epicgames_ue4_GameActivity_nativeFyberOnRequestError(JNIEnv* jenv, jobject thiz)
+extern "C" void Java_com_epicgames_ue4_GameActivity_nativeFyberOnRequestError(JNIEnv* jenv, jobject thiz, jstring errorMessage)
 {
-    USdkboxFyberComponent::OnBrandEngageClientChangeStatusDelegate.Broadcast(EFyberRewardedVideoEnum::RWE_REWARDED_VIDEO_ERROR, "");
+    const char* sErrorMessage = jenv->GetStringUTFChars(errorMessage, 0);
+    
+    USdkboxFyberComponent::OnBrandEngageClientChangeStatusDelegate.Broadcast(EFyberRewardedVideoEnum::RWE_REWARDED_VIDEO_ERROR,
+                                                                             FString(UTF8_TO_TCHAR(sErrorMessage)));
+    
+    jenv->ReleaseStringUTFChars(errorMessage, sErrorMessage);
 }
 
 // Video playing callbacks
