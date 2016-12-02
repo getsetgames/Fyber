@@ -168,7 +168,7 @@ static final int REWARDED_VIDEO_REQUEST_CODE = 9340;
 
 public native void nativeFyberOnAdAvailable();
 public native void nativeFyberOnAdNotAvailable();
-public native void nativeFyberOnRequestError();
+public native void nativeFyberOnRequestError(String errorMessage);
 public native void nativeFyberShowRewardedVideo(boolean wasVideoStarted);
 
 public native void nativeFyberRewardedVideoFinished();
@@ -294,7 +294,7 @@ public void AndroidThunkJava_FyberRequestVideo(String placementID)
             @Override
             public void onRequestError(RequestError requestError) 
             {
-              nativeFyberOnRequestError();
+              nativeFyberOnRequestError(requestError.getDescription());
               gFyberRewardedVideoIntent = null;
               Log.debug("Something went wrong with the request: " + requestError.getDescription());   
             }
