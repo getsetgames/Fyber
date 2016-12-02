@@ -149,8 +149,8 @@ extern "C" void Java_com_epicgames_ue4_GameActivity_nativeFyberOnRequestError(JN
 {
     const char* sErrorMessage = jenv->GetStringUTFChars(errorMessage, 0);
     
-    USdkboxFyberComponent::OnBrandEngageClientChangeStatusDelegate.Broadcast(EFyberRewardedVideoEnum::RWE_REWARDED_VIDEO_ERROR,
-                                                                             FString(UTF8_TO_TCHAR(sErrorMessage)));
+    USdkboxFyberComponent::OnBrandEngageClientReceiveOffersDelegate.Broadcast(false);
+    
     
     jenv->ReleaseStringUTFChars(errorMessage, sErrorMessage);
 }
