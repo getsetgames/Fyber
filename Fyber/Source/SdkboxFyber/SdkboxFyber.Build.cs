@@ -80,14 +80,14 @@ namespace UnrealBuildTool.Rules
 
 				PublicAdditionalFrameworks.Add(
 					new UEBuildFramework(
-						"UnityAds",
+				 		"UnityAds",
 						"../../lib/iOS/UnityAds.embeddedframework.zip"
 					)
 				);
 
 				PublicAdditionalFrameworks.Add(
 					new UEBuildFramework(
-						"UnityAds",
+						"Fyber_UnityAds_2.0.5-r2",
 						"../../lib/iOS/Fyber_UnityAds_2.0.5-r2.embeddedframework.zip"
 					)
 				);
