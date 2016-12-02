@@ -84,6 +84,10 @@ com.fyber.mediation,unityads,2.0.5-r1
     </insert>
   </buildXmlPropertyAdditions>
 
+  <prebuildCopies>
+    <copyDir src="$S(PluginDir)/../../lib/Android/src/" dst="$S(BuildDir)/src" />
+  </prebuildCopies>
+
   <gameActivityImportAdditions>
     <insert>
 import com.fyber.Fyber;
