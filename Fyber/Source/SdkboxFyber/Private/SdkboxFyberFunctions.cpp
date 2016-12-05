@@ -47,18 +47,20 @@ static SdkboxFyberFunctionsDelegate *sfd = nil;
     }
 }
 
+// Video request callbacks
+//
 -(void)rewardedVideoControllerDidReceiveVideo:(FYBRewardedVideoController *)rewardedVideoController
 {
     UE_LOG(SDKBOX, Log, TEXT("did receive rewarded video"));
     
-    USdkboxFyberComponent::OnBrandEngageClientReceiveOffersDelegate.Broadcast(true);
+    USdkboxFyberComponent::OnBrandEngageClientReceiveOffersDelegate.Broadcast(true, "");
 }
 
 -(void)rewardedVideoController:(FYBRewardedVideoController *)rewardedVideoController didFailToReceiveVideoWithError:(NSError *)error
 {
-    UE_LOG(SDKBOX, Log, TEXT("did fail to receive rewarded video: error - %s"), *FString([error localizedDescription]));
+    UE_LOG(SDKBOX, Log, TEXT("did fail to receive rewarded video: error - %s"), *FString([error description]));
     
-    USdkboxFyberComponent::OnBrandEngageClientReceiveOffersDelegate.Broadcast(false);
+    USdkboxFyberComponent::OnBrandEngageClientReceiveOffersDelegate.Broadcast(false, FString([error localizedDescription]));
 }
 
 -(void)rewardedVideoControllerDidStartVideo:(FYBRewardedVideoController *)rewardedVideoController
@@ -68,11 +70,13 @@ static SdkboxFyberFunctionsDelegate *sfd = nil;
     USdkboxFyberComponent::OnBrandEngageClientChangeStatusDelegate.Broadcast(EFyberRewardedVideoEnum::RWE_REWARDED_VIDEO_STARTED, "");
 }
 
+// Video status change callbacks
+//
 -(void)rewardedVideoController:(FYBRewardedVideoController *)rewardedVideoController didFailToStartVideoWithError:(NSError *)error
 {
-    UE_LOG(SDKBOX, Log, TEXT("failed to start rewarded video: error - %s"), *FString([error localizedDescription]));
+    UE_LOG(SDKBOX, Log, TEXT("failed to start rewarded video: error - %s"), *FString([error description]));
     
-    USdkboxFyberComponent::OnBrandEngageClientChangeStatusDelegate.Broadcast(EFyberRewardedVideoEnum::RWE_REWARDED_VIDEO_ERROR, "");
+    USdkboxFyberComponent::OnBrandEngageClientChangeStatusDelegate.Broadcast(EFyberRewardedVideoEnum::RWE_REWARDED_VIDEO_ERROR, FString([error localizedDescription]));
 }
 
 -(void)rewardedVideoController:(FYBRewardedVideoController *)rewardedVideoController didDismissVideoWithReason:(FYBRewardedVideoControllerDismissReason)reason
@@ -119,7 +123,7 @@ static SdkboxFyberFunctionsDelegate *sfd = nil;
     
     USdkboxFyberComponent::OnVirtualCurrencyConnectorFailedDelegate.Broadcast(1,
                                                                               FString([[NSNumber numberWithInteger:error.code] stringValue]),
-                                                                              FString(error.localizedDescription));
+                                                                              FString([error localizedDescription]));
 }
 
 // Cache manager callbacks
@@ -137,20 +141,19 @@ static SdkboxFyberFunctionsDelegate *sfd = nil;
 //
 extern "C" void Java_com_epicgames_ue4_GameActivity_nativeFyberOnAdAvailable(JNIEnv* jenv, jobject thiz)
 {
-    USdkboxFyberComponent::OnBrandEngageClientReceiveOffersDelegate.Broadcast(true);
+    USdkboxFyberComponent::OnBrandEngageClientReceiveOffersDelegate.Broadcast(true, "");
 }
 
 extern "C" void Java_com_epicgames_ue4_GameActivity_nativeFyberOnAdNotAvailable(JNIEnv* jenv, jobject thiz)
 {
-    USdkboxFyberComponent::OnBrandEngageClientReceiveOffersDelegate.Broadcast(false);
+    USdkboxFyberComponent::OnBrandEngageClientReceiveOffersDelegate.Broadcast(false, FString(""));
 }
 
 extern "C" void Java_com_epicgames_ue4_GameActivity_nativeFyberOnRequestError(JNIEnv* jenv, jobject thiz, jstring errorMessage)
 {
     const char* sErrorMessage = jenv->GetStringUTFChars(errorMessage, 0);
     
-    USdkboxFyberComponent::OnBrandEngageClientReceiveOffersDelegate.Broadcast(false);
-    
+    USdkboxFyberComponent::OnBrandEngageClientReceiveOffersDelegate.Broadcast(false, FString(UTF8_TO_TCHAR(sErrorMessage)));
     
     jenv->ReleaseStringUTFChars(errorMessage, sErrorMessage);
 }
@@ -169,6 +172,8 @@ extern "C" void Java_com_epicgames_ue4_GameActivity_nativeFyberShowRewardedVideo
     }
 }
 
+// Video status change callbacks
+//
 extern "C" void Java_com_epicgames_ue4_GameActivity_nativeFyberRewardedVideoFinished(JNIEnv* jenv, jobject thiz)
 {
     USdkboxFyberComponent::OnBrandEngageClientChangeStatusDelegate.Broadcast(EFyberRewardedVideoEnum::RWE_REWARDED_VIDEO_FINISHED, "");
@@ -282,6 +287,8 @@ void USdkboxFyberFunctions::FyberInitialize(const FString &appID, const FString 
         
         @try
         {
+            [FyberSDK setLoggingLevel:FYBLogLevelDebug];
+            
             if (settings->DebugEnable)
             {
                 [FyberSDK setLoggingLevel:FYBLogLevelDebug];
@@ -377,7 +384,7 @@ void USdkboxFyberFunctions::FyberRequestRewardedVideo(const FString& placementId
         Env->DeleteLocalRef(jPlacementId);
     }
 #else
-    USdkboxFyberComponent::OnBrandEngageClientReceiveOffersDelegate.Broadcast(false);
+    USdkboxFyberComponent::OnBrandEngageClientReceiveOffersDelegate.Broadcast(false, "");
 #endif
 }
 

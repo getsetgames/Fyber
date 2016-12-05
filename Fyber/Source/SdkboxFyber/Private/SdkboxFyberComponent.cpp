@@ -25,7 +25,7 @@ USdkboxFyberComponent::FBoolDelegate                            USdkboxFyberComp
 USdkboxFyberComponent::FVoidDelegate                            USdkboxFyberComponent::OnInterstitialDidShowDelegate;
 USdkboxFyberComponent::FStringDelegate                          USdkboxFyberComponent::OnInterstitialDismissDelegate;
 USdkboxFyberComponent::FVoidDelegate                            USdkboxFyberComponent::OnInterstitialFailedDelegate;
-USdkboxFyberComponent::FBoolDelegate                            USdkboxFyberComponent::OnBrandEngageClientReceiveOffersDelegate;
+USdkboxFyberComponent::FRewardedVideoDelegate                   USdkboxFyberComponent::OnBrandEngageClientReceiveOffersDelegate;
 USdkboxFyberComponent::FRewardedVideoEnumDelegate               USdkboxFyberComponent::OnBrandEngageClientChangeStatusDelegate;
 USdkboxFyberComponent::FOfferWallEnumDelegate                   USdkboxFyberComponent::OnOfferWallFinishDelegate;
 
