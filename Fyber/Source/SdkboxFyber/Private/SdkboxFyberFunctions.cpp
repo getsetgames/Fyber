@@ -360,6 +360,8 @@ void USdkboxFyberFunctions::FyberRequestRewardedVideo(const FString& placementId
 #if PLATFORM_IOS
     dispatch_async(dispatch_get_main_queue(), ^{
         FYBRewardedVideoController *rewardedVideoController   = [FyberSDK rewardedVideoController];
+        
+        rewardedVideoController.shouldShowToastOnCompletion   = GetDefault<USdkboxFyberSettings>()->ToastMessages;
         rewardedVideoController.virtualCurrencyClientDelegate = sfd;
         rewardedVideoController.delegate                      = sfd;
         
@@ -393,6 +395,8 @@ void USdkboxFyberFunctions::FyberShowRewardedVideo()
 #if PLATFORM_IOS
     dispatch_async(dispatch_get_main_queue(), ^{
         FYBRewardedVideoController *rewardedVideoController   = [FyberSDK rewardedVideoController];
+        
+        rewardedVideoController.shouldShowToastOnCompletion   = GetDefault<USdkboxFyberSettings>()->ToastMessages;
         rewardedVideoController.virtualCurrencyClientDelegate = sfd;
         rewardedVideoController.delegate                      = sfd;
      
