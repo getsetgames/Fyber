@@ -278,24 +278,27 @@ public void AndroidThunkJava_FyberRequestVideo(String placementID)
             @Override
             public void onAdAvailable(Intent intent) 
             {
-              nativeFyberOnAdAvailable();
               gFyberRewardedVideoIntent = intent;
+              nativeFyberOnAdAvailable();
+              
               Log.debug("Ad is available");
             }
 
             @Override
             public void onAdNotAvailable(AdFormat adFormat) 
             {
-              nativeFyberOnAdNotAvailable();
               gFyberRewardedVideoIntent = null;
+              nativeFyberOnAdNotAvailable();
+              
               Log.debug("Request for " + adFormat + " not available");
             }
 
             @Override
             public void onRequestError(RequestError requestError) 
             {
-              nativeFyberOnRequestError(requestError.getDescription());
               gFyberRewardedVideoIntent = null;
+              nativeFyberOnRequestError(requestError.getDescription());
+              
               Log.debug("Something went wrong with the request: " + requestError.getDescription());   
             }
           }).withVirtualCurrencyRequester(virtualCurrencyRequester).notifyUserOnCompletion(bToastMessages).request(_activity);
