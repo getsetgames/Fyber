@@ -347,8 +347,6 @@ if (resultCode == RESULT_OK && requestCode == REWARDED_VIDEO_REQUEST_CODE)
     // Check the engagement status
     //
     String engagementResult = data.getStringExtra(RewardedVideoActivity.ENGAGEMENT_STATUS);
-    
-    if (engagementResult == RewardedVideoActivity.REQUEST_STATUS_PARAMETER_FINISHED_VALUE)
     if (engagementResult.equals(RewardedVideoActivity.REQUEST_STATUS_PARAMETER_FINISHED_VALUE))
     {
         // The user watched the entire video and will be rewarded
