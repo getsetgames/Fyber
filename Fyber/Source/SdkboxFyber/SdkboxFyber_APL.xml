@@ -349,25 +349,26 @@ if (resultCode == RESULT_OK && requestCode == REWARDED_VIDEO_REQUEST_CODE)
     String engagementResult = data.getStringExtra(RewardedVideoActivity.ENGAGEMENT_STATUS);
     
     if (engagementResult == RewardedVideoActivity.REQUEST_STATUS_PARAMETER_FINISHED_VALUE)
+    if (engagementResult.equals(RewardedVideoActivity.REQUEST_STATUS_PARAMETER_FINISHED_VALUE))
     {
         // The user watched the entire video and will be rewarded
         //
         nativeFyberRewardedVideoFinished();
         Log.debug("The video ad was dismissed because the user completed it");
     }
-    else if (engagementResult == "USER_ENGAGED")
+    else if (engagementResult.equals("USER_ENGAGED"))
     {
         nativeFyberRewardedVideoUserEngaged();
         Log.debug("User engaged with video");
     }
-    else if (engagementResult == RewardedVideoActivity.REQUEST_STATUS_PARAMETER_ABORTED_VALUE)
+    else if (engagementResult.equals(RewardedVideoActivity.REQUEST_STATUS_PARAMETER_ABORTED_VALUE))
     {
         // The user stopped the video early and will not be rewarded
         //
         nativeFyberRewardedVideoAborted();
         Log.debug("The video ad was dismissed because the user explicitly closed it");
     }
-    else if (engagementResult == RewardedVideoActivity.REQUEST_STATUS_PARAMETER_ERROR)
+    else if (engagementResult.equals(RewardedVideoActivity.REQUEST_STATUS_PARAMETER_ERROR))
     {
         // An error occurred while showing the video and the user will not be rewarded
         //
