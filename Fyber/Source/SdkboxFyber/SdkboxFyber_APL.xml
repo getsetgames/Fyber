@@ -338,15 +338,13 @@ public void AndroidThunkJava_FyberShowRewardedVideo()
 <gameActivityOnActivityResultAdditions>
     <insert><![CDATA[
 
-// Fyber SDK rewarded video callbacks
-//
-if (resultCode == RESULT_OK && requestCode == REWARDED_VIDEO_REQUEST_CODE) 
-{    
-    Log.debug("Rewarded video completed.  Evaluating results...");
-
-    // Check the engagement status
+  if (resultCode == RESULT_OK && requestCode == REWARDED_VIDEO_REQUEST_CODE) {
+    // check the engagement status
     //
     String engagementResult = data.getStringExtra(RewardedVideoActivity.ENGAGEMENT_STATUS);
+   
+    Log.debug("Rewarded video completed.  Engagement result:" + engagementResult + " evaluating enagement result for further action...");    
+
     if (engagementResult.equals(RewardedVideoActivity.REQUEST_STATUS_PARAMETER_FINISHED_VALUE))
     {
         // The user watched the entire video and will be rewarded
