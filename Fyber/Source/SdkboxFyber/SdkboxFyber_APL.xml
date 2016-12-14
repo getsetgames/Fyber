@@ -3,12 +3,13 @@
   <init>
 	   <log text="SDKBOX Fyber APL Init"/>
 
-	   <setBoolFromProperty result="bDisableVideoPreCaching" ini="Engine" section="/Script/SdkboxFyber.SdkboxFyberSettings" property="DisableVideoPreCaching"      default="false"/>
-     <setIntFromProperty  result="iCloseButtonDelay"       ini="Engine" section="/Script/SdkboxFyber.SdkboxFyberSettings" property="VideoCloseButtonDelayLength" default="0"/>
-     <setBoolFromProperty result="bToastMessages"          ini="Engine" section="/Script/SdkboxFyber.SdkboxFyberSettings" property="ToastMessages"               default="false"/>
+	   <setBoolFromProperty result="bDisableVideoPreCaching"    ini="Engine" section="/Script/SdkboxFyber.SdkboxFyberSettings" property="DisableVideoPreCaching"            default="false"/>
+     <setIntFromProperty  result="iCloseButtonDelay"          ini="Engine" section="/Script/SdkboxFyber.SdkboxFyberSettings" property="VideoCloseButtonDelayLength"       default="0"/>
+     <setBoolFromProperty result="bToastMessages"             ini="Engine" section="/Script/SdkboxFyber.SdkboxFyberSettings" property="ToastMessages"                     default="false"/>
+     <setBoolFromProperty result="bGarbageCollectOnCallbacks" ini="Engine" section="/Script/SdkboxFyber.SdkboxFyberSettings" property="GarbageCollectOnCallbacksAndroid"  default="false"/>
 
      <setStringFromProperty result="sFyberAppId"         ini="Engine" section="/Script/SdkboxFyber.SdkboxFyberSettings" property="AppIDAndroid" default=""/>
-     <setStringFromProperty result="sFyberSecurityToken" ini="Engine" section="/Script/SdkboxFyber.SdkboxFyberSettings" property="TokenAndroid" default=""/>
+     <setStringFromProperty result="sFyberSecurityToken" ini="Engine" section="/Script/SdkboxFyber.SdkboxFyberSettings" property="TokenAndroid" default=""/>     
   </init>
 
   <androidManifestUpdates>
@@ -163,7 +164,8 @@ catch(Exception ex)
 <gameActivityClassAdditions>
     <insert>
 volatile Intent gFyberRewardedVideoIntent = null;
-
+final boolean gSdkboxFyberCollectGarbageOnCallbacks = </insert><insertValue value="$B(bGarbageCollectOnCallbacks)" /><insert>;
+        
 static final int REWARDED_VIDEO_REQUEST_CODE = 9340;
 
 public native void nativeFyberOnAdAvailable();
@@ -217,6 +219,11 @@ public void AndroidThunkJava_FyberRequestVideo(String placementID)
               @Override
               public void onSuccess(VirtualCurrencyResponse virtualCurrencyResponse) 
               {
+                if (gSdkboxFyberCollectGarbageOnCallbacks)
+                {               
+                  System.gc();
+                }
+
                 // Reward your user based on the deltaOfCoins parameter
                 String currencyId          = virtualCurrencyResponse.getCurrencyId();
                 String currencyName        = virtualCurrencyResponse.getCurrencyName();
@@ -231,6 +238,11 @@ public void AndroidThunkJava_FyberRequestVideo(String placementID)
               @Override
               public void onRequestError(RequestError requestError) 
               {
+                if (gSdkboxFyberCollectGarbageOnCallbacks)
+                {               
+                  System.gc();
+                }
+
                 // No reward has been returned, so nothing can be provided to the user
                 Log.debug("Virtual currency reward request error: " + requestError.getDescription());
 
@@ -240,6 +252,11 @@ public void AndroidThunkJava_FyberRequestVideo(String placementID)
               @Override
               public void onError(VirtualCurrencyErrorResponse virtualCurrencyErrorResponse) 
               {
+                if (gSdkboxFyberCollectGarbageOnCallbacks)
+                {               
+                  System.gc();
+                }
+
                 String errorCode    = virtualCurrencyErrorResponse.getErrorCode();
                 String errorMessage = virtualCurrencyErrorResponse.getErrorMessage();
                 String errorType    = "ERROR_OTHER";
@@ -278,6 +295,11 @@ public void AndroidThunkJava_FyberRequestVideo(String placementID)
             @Override
             public void onAdAvailable(Intent intent) 
             {
+              if (gSdkboxFyberCollectGarbageOnCallbacks)
+              {               
+                System.gc();
+              }
+
               gFyberRewardedVideoIntent = intent;
               nativeFyberOnAdAvailable();
               
@@ -287,6 +309,11 @@ public void AndroidThunkJava_FyberRequestVideo(String placementID)
             @Override
             public void onAdNotAvailable(AdFormat adFormat) 
             {
+              if (gSdkboxFyberCollectGarbageOnCallbacks)
+              {               
+                System.gc();
+              }
+
               gFyberRewardedVideoIntent = null;
               nativeFyberOnAdNotAvailable();
               
@@ -296,6 +323,11 @@ public void AndroidThunkJava_FyberRequestVideo(String placementID)
             @Override
             public void onRequestError(RequestError requestError) 
             {
+              if (gSdkboxFyberCollectGarbageOnCallbacks)
+              {               
+                System.gc();
+              }
+
               gFyberRewardedVideoIntent = null;
               nativeFyberOnRequestError(requestError.getDescription());
               
@@ -347,6 +379,11 @@ public void AndroidThunkJava_FyberShowRewardedVideo()
 
     if (engagementResult.equals(RewardedVideoActivity.REQUEST_STATUS_PARAMETER_FINISHED_VALUE))
     {
+        if (gSdkboxFyberCollectGarbageOnCallbacks)
+        {               
+          System.gc();
+        }
+
         // The user watched the entire video and will be rewarded
         //
         nativeFyberRewardedVideoFinished();
@@ -354,11 +391,21 @@ public void AndroidThunkJava_FyberShowRewardedVideo()
     }
     else if (engagementResult.equals("USER_ENGAGED"))
     {
+        if (gSdkboxFyberCollectGarbageOnCallbacks)
+        {               
+          System.gc();
+        }
+
         nativeFyberRewardedVideoUserEngaged();
         Log.debug("User engaged with video");
     }
     else if (engagementResult.equals(RewardedVideoActivity.REQUEST_STATUS_PARAMETER_ABORTED_VALUE))
     {
+        if (gSdkboxFyberCollectGarbageOnCallbacks)
+        {               
+          System.gc();
+        }
+
         // The user stopped the video early and will not be rewarded
         //
         nativeFyberRewardedVideoAborted();
@@ -366,6 +413,11 @@ public void AndroidThunkJava_FyberShowRewardedVideo()
     }
     else if (engagementResult.equals(RewardedVideoActivity.REQUEST_STATUS_PARAMETER_ERROR))
     {
+        if (gSdkboxFyberCollectGarbageOnCallbacks)
+        {               
+          System.gc();
+        }
+
         // An error occurred while showing the video and the user will not be rewarded
         //
         nativeFyberRewardedVideoError();
@@ -373,10 +425,15 @@ public void AndroidThunkJava_FyberShowRewardedVideo()
     }
     else
     {
-        nativeFyberRewardedVideoError();
+        if (gSdkboxFyberCollectGarbageOnCallbacks)
+        {               
+          System.gc();
+        }
+
+        nativeFyberRewardedVideoAborted();
         Log.debug("An unknown error occurred");
     }
-}
+  }
 
     ]]></insert>
 </gameActivityOnActivityResultAdditions>
