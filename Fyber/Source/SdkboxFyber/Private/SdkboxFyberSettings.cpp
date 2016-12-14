@@ -31,4 +31,5 @@ USdkboxFyberSettings::USdkboxFyberSettings(const FObjectInitializer& ObjectIniti
 	, ToastMessages(true)
 	, VideoCloseButtonDelayLength(0)
 	, DisableSoundWhenWatchingVideo(false)
+    , GarbageCollectOnCallbacksAndroid(false)
 {}

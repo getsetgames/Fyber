@@ -56,4 +56,7 @@ public:
 
 	UPROPERTY(Config, EditAnywhere, Category=General, meta=(DisplayName="Disable sound when watching video"))
 	bool DisableSoundWhenWatchingVideo;
+    
+    UPROPERTY(Config, EditAnywhere, Category=Android, meta=(DisplayName="Run garbage collection on callbacks"))
+    bool GarbageCollectOnCallbacksAndroid;    
 };
