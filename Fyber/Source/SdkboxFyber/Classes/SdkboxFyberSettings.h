@@ -33,16 +33,16 @@ public:
 	UPROPERTY(Config, EditAnywhere, Category=General, meta=(DisplayName="Debug Enable"))
 	bool DebugEnable;
 
-	UPROPERTY(Config, EditAnywhere, Category=General, meta=(DisplayName="App ID iOS"))
+	UPROPERTY(Config, EditAnywhere, Category=IOS, meta=(DisplayName="App ID iOS"))
 	FString AppIDiOS;
 
-	UPROPERTY(Config, EditAnywhere, Category=General, meta=(DisplayName="Token iOS"))
+	UPROPERTY(Config, EditAnywhere, Category=IOS, meta=(DisplayName="Token iOS"))
 	FString TokeniOS;
 
-	UPROPERTY(Config, EditAnywhere, Category=General, meta=(DisplayName="App ID Android"))
+	UPROPERTY(Config, EditAnywhere, Category=Android, meta=(DisplayName="App ID Android"))
 	FString AppIDAndroid;
 
-	UPROPERTY(Config, EditAnywhere, Category=General, meta=(DisplayName="Token Android"))
+	UPROPERTY(Config, EditAnywhere, Category=Android, meta=(DisplayName="Token Android"))
 	FString TokenAndroid;
 
 	UPROPERTY(Config, EditAnywhere, Category=General, meta=(DisplayName="Disable Video Pre-Caching"))
