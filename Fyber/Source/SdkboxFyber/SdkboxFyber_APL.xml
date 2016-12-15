@@ -58,6 +58,18 @@
       <addAttribute tag="$UnityAdsActivity"  name="android:hardwareAccelerated" value="true"/>
       <addElement    tag="application"       name="UnityAdsActivity"/>
 
+      <addElements tag="application">
+        <activity android:name="com.unity3d.ads.adunit.AdUnitActivity"
+                  android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen"
+                  android:hardwareAccelerated="true"
+                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+
+        <activity android:name="com.unity3d.ads.adunit.AdUnitSoftwareActivity"
+                  android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen"
+                  android:hardwareAccelerated="false"
+                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+      </addElements>
+
       <setElement result="CloseButtonDelayMetaData" value="meta-data"/>
       <addAttribute tag="$CloseButtonDelayMetaData" name="android:name" value="FYBVideoPlayerOptionCloseButtonDelay"/>
       <addAttribute tag="$CloseButtonDelayMetaData" name="android:value" value="$I(iCloseButtonDelay)"/>
