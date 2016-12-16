@@ -141,178 +141,70 @@ static SdkboxFyberFunctionsDelegate *sfd = nil;
 //
 extern "C" void Java_com_epicgames_ue4_GameActivity_nativeFyberOnAdAvailable(JNIEnv* jenv, jobject thiz)
 {
-    UE_LOG(SDKBOX, Log, TEXT("nativeFyberOnAdAvailable"));
-    
-    FSimpleDelegateGraphTask::CreateAndDispatchWhenReady
-    (
-        FSimpleDelegateGraphTask::FDelegate::CreateLambda([=]()
-        {
-            USdkboxFyberComponent::OnBrandEngageClientReceiveOffersDelegate.Broadcast(true, "");
-        }),
-     
-        TStatId(),
-        NULL,
-        ENamedThreads::GameThread
-     );
+    USdkboxFyberComponent::OnBrandEngageClientReceiveOffersDelegate.Broadcast(true, "");
 }
 
 extern "C" void Java_com_epicgames_ue4_GameActivity_nativeFyberOnAdNotAvailable(JNIEnv* jenv, jobject thiz)
 {
-    UE_LOG(SDKBOX, Log, TEXT("nativeFyberOnAdNotAvailable"));
-    
-    FSimpleDelegateGraphTask::CreateAndDispatchWhenReady
-    (
-        FSimpleDelegateGraphTask::FDelegate::CreateLambda([=]()
-        {
-            USdkboxFyberComponent::OnBrandEngageClientReceiveOffersDelegate.Broadcast(false, FString(""));
-        }),
-     
-        TStatId(),
-        NULL,
-        ENamedThreads::GameThread
-     );
+    USdkboxFyberComponent::OnBrandEngageClientReceiveOffersDelegate.Broadcast(false, FString(""));
 }
 
 extern "C" void Java_com_epicgames_ue4_GameActivity_nativeFyberOnRequestError(JNIEnv* jenv, jobject thiz, jstring errorMessage)
 {
-    UE_LOG(SDKBOX, Log, TEXT("nativeFyberOnRequestError"));
+    const char* sErrorMessage = jenv->GetStringUTFChars(errorMessage, 0);
     
-    FSimpleDelegateGraphTask::CreateAndDispatchWhenReady
-    (
-        FSimpleDelegateGraphTask::FDelegate::CreateLambda([=]()
-        {
-            const char* sErrorMessage = jenv->GetStringUTFChars(errorMessage, 0);
+    USdkboxFyberComponent::OnBrandEngageClientReceiveOffersDelegate.Broadcast(false, FString(UTF8_TO_TCHAR(sErrorMessage)));
     
-            USdkboxFyberComponent::OnBrandEngageClientReceiveOffersDelegate.Broadcast(false, FString(UTF8_TO_TCHAR(sErrorMessage)));
-    
-            jenv->ReleaseStringUTFChars(errorMessage, sErrorMessage);
-        }),
-     
-        TStatId(),
-        NULL,
-        ENamedThreads::GameThread
-     );
+    jenv->ReleaseStringUTFChars(errorMessage, sErrorMessage);
 }
 
 // Video playing callbacks
 //
 extern "C" void Java_com_epicgames_ue4_GameActivity_nativeFyberShowRewardedVideo(JNIEnv* jenv, jobject thiz, jboolean wasVideoStarted)
 {
-    UE_LOG(SDKBOX, Log, TEXT("nativeFyberShowRewardedVideo"));
-    
-    FSimpleDelegateGraphTask::CreateAndDispatchWhenReady
-    (
-        FSimpleDelegateGraphTask::FDelegate::CreateLambda([=]()
-        {
-            if (wasVideoStarted)
-            {
-                USdkboxFyberComponent::OnBrandEngageClientChangeStatusDelegate.Broadcast(EFyberRewardedVideoEnum::RWE_REWARDED_VIDEO_STARTED, "");
-            }
-            else
-            {
-                USdkboxFyberComponent::OnBrandEngageClientChangeStatusDelegate.Broadcast(EFyberRewardedVideoEnum::RWE_REWARDED_VIDEO_ERROR, "");
-            }
-        }),
-     
-        TStatId(),
-        NULL,
-        ENamedThreads::GameThread
-     );
+    if (wasVideoStarted)
+    {
+        USdkboxFyberComponent::OnBrandEngageClientChangeStatusDelegate.Broadcast(EFyberRewardedVideoEnum::RWE_REWARDED_VIDEO_STARTED, "");
+    }
+    else
+    {
+        USdkboxFyberComponent::OnBrandEngageClientChangeStatusDelegate.Broadcast(EFyberRewardedVideoEnum::RWE_REWARDED_VIDEO_ERROR, "");
+    }
 }
 
 // Video status change callbacks
 //
 extern "C" void Java_com_epicgames_ue4_GameActivity_nativeFyberRewardedVideoFinished(JNIEnv* jenv, jobject thiz)
 {
-    UE_LOG(SDKBOX, Log, TEXT("nativeFyberRewardedVideoFinished"));
-    
-    FSimpleDelegateGraphTask::CreateAndDispatchWhenReady
-    (
-        FSimpleDelegateGraphTask::FDelegate::CreateLambda([=]()
-        {
-            USdkboxFyberComponent::OnBrandEngageClientChangeStatusDelegate.Broadcast(EFyberRewardedVideoEnum::RWE_REWARDED_VIDEO_FINISHED, "");
-        }),
-     
-        TStatId(),
-        NULL,
-        ENamedThreads::GameThread
-     );
+    USdkboxFyberComponent::OnBrandEngageClientChangeStatusDelegate.Broadcast(EFyberRewardedVideoEnum::RWE_REWARDED_VIDEO_FINISHED, "");
 }
 
 extern "C" void Java_com_epicgames_ue4_GameActivity_nativeFyberRewardedVideoAborted(JNIEnv* jenv, jobject thiz)
 {
-    UE_LOG(SDKBOX, Log, TEXT("nativeFyberRewardedVideoAborted"));
-    
-    FSimpleDelegateGraphTask::CreateAndDispatchWhenReady
-    (
-        FSimpleDelegateGraphTask::FDelegate::CreateLambda([=]()
-        {
-            USdkboxFyberComponent::OnBrandEngageClientChangeStatusDelegate.Broadcast(EFyberRewardedVideoEnum::RWE_REWARDED_VIDEO_ABORTED, "");
-        }),
-     
-        TStatId(),
-        NULL,
-        ENamedThreads::GameThread
-     );
+    USdkboxFyberComponent::OnBrandEngageClientChangeStatusDelegate.Broadcast(EFyberRewardedVideoEnum::RWE_REWARDED_VIDEO_ABORTED, "");
 }
 
 extern "C" void Java_com_epicgames_ue4_GameActivity_nativeFyberRewardedVideoError(JNIEnv* jenv, jobject thiz)
 {
-    UE_LOG(SDKBOX, Log, TEXT("nativeFyberRewardedVideoError"));
-    
-    FSimpleDelegateGraphTask::CreateAndDispatchWhenReady
-    (
-        FSimpleDelegateGraphTask::FDelegate::CreateLambda([=]()
-        {
-            USdkboxFyberComponent::OnBrandEngageClientChangeStatusDelegate.Broadcast(EFyberRewardedVideoEnum::RWE_REWARDED_VIDEO_ERROR, "");
-        }),
-     
-        TStatId(),
-        NULL,
-        ENamedThreads::GameThread
-     );
+    USdkboxFyberComponent::OnBrandEngageClientChangeStatusDelegate.Broadcast(EFyberRewardedVideoEnum::RWE_REWARDED_VIDEO_ERROR, "");
 }
 
 extern "C" void Java_com_epicgames_ue4_GameActivity_nativeFyberRewardedVideoUserEngaged(JNIEnv* jenv, jobject thiz)
 {
-    UE_LOG(SDKBOX, Log, TEXT("nativeFyberRewardedVideoUserEngaged"));
-    
-    FSimpleDelegateGraphTask::CreateAndDispatchWhenReady
-    (
-        FSimpleDelegateGraphTask::FDelegate::CreateLambda([=]()
-        {
-            USdkboxFyberComponent::OnBrandEngageClientChangeStatusDelegate.Broadcast(EFyberRewardedVideoEnum::RWE_REWARDED_VIDEO_USER_ENGAGED, "");
-        }),
-     
-        TStatId(),
-        NULL,
-        ENamedThreads::GameThread
-     );
+    USdkboxFyberComponent::OnBrandEngageClientChangeStatusDelegate.Broadcast(EFyberRewardedVideoEnum::RWE_REWARDED_VIDEO_USER_ENGAGED, "");
 }
 
 // Virtual currency reward callbacks
 //
 extern "C" void Java_com_epicgames_ue4_GameActivity_nativeFyberVirtualCurrencyRewardOnRequestError(JNIEnv* jenv, jobject thiz, jstring errorMessage)
 {
-    UE_LOG(SDKBOX, Log, TEXT("nativeFyberVirtualCurrencyRewardOnRequestError"));
+    const char* sErrorMessage = jenv->GetStringUTFChars(errorMessage, 0);
     
-    FSimpleDelegateGraphTask::CreateAndDispatchWhenReady
-    (
-        FSimpleDelegateGraphTask::FDelegate::CreateLambda([=]()
-        {
-            const char* sErrorMessage = jenv->GetStringUTFChars(errorMessage, 0);
-            
-            USdkboxFyberComponent::OnVirtualCurrencyConnectorFailedDelegate.Broadcast(1,
-                                                                                      FString(""),
-                                                                                      FString(UTF8_TO_TCHAR(sErrorMessage)));
-            
-            jenv->ReleaseStringUTFChars(errorMessage, sErrorMessage);
-        }),
-     
-        TStatId(),
-        NULL,
-        ENamedThreads::GameThread
-     );
+    USdkboxFyberComponent::OnVirtualCurrencyConnectorFailedDelegate.Broadcast(1,
+                                                                              FString(""),
+                                                                              FString(UTF8_TO_TCHAR(sErrorMessage)));
+    
+    jenv->ReleaseStringUTFChars(errorMessage, sErrorMessage);
 }
 
 extern "C" void Java_com_epicgames_ue4_GameActivity_nativeFyberVirtualCurrencyRewardOnError
@@ -324,29 +216,17 @@ extern "C" void Java_com_epicgames_ue4_GameActivity_nativeFyberVirtualCurrencyRe
     jstring errorMessage
 )
 {
-    UE_LOG(SDKBOX, Log, TEXT("nativeFyberVirtualCurrencyRewardOnError"));
+    const char* sErrorCode    = jenv->GetStringUTFChars(errorCode,    0);
+    const char* sErrorType    = jenv->GetStringUTFChars(errorType,    0);
+    const char* sErrorMessage = jenv->GetStringUTFChars(errorMessage, 0);
     
-    FSimpleDelegateGraphTask::CreateAndDispatchWhenReady
-    (
-        FSimpleDelegateGraphTask::FDelegate::CreateLambda([=]()
-        {
-            const char* sErrorCode    = jenv->GetStringUTFChars(errorCode,    0);
-            const char* sErrorType    = jenv->GetStringUTFChars(errorType,    0);
-            const char* sErrorMessage = jenv->GetStringUTFChars(errorMessage, 0);
-            
-            USdkboxFyberComponent::OnVirtualCurrencyConnectorFailedDelegate.Broadcast(1,
-                                                                                      FString(UTF8_TO_TCHAR(sErrorCode)),
-                                                                                      FString(UTF8_TO_TCHAR(sErrorMessage)));
-            
-            jenv->ReleaseStringUTFChars(errorCode,    sErrorCode);
-            jenv->ReleaseStringUTFChars(errorType,    sErrorType);
-            jenv->ReleaseStringUTFChars(errorMessage, sErrorMessage);
-        }),
-     
-        TStatId(),
-        NULL,
-        ENamedThreads::GameThread
-     );
+    USdkboxFyberComponent::OnVirtualCurrencyConnectorFailedDelegate.Broadcast(1,
+                                                                              FString(UTF8_TO_TCHAR(sErrorCode)),
+                                                                              FString(UTF8_TO_TCHAR(sErrorMessage)));
+    
+    jenv->ReleaseStringUTFChars(errorCode,    sErrorCode);
+    jenv->ReleaseStringUTFChars(errorType,    sErrorType);
+    jenv->ReleaseStringUTFChars(errorMessage, sErrorMessage);
 }
 
 extern "C" void Java_com_epicgames_ue4_GameActivity_nativeFyberVirtualCurrencyRewardOnSuccess
@@ -358,30 +238,18 @@ extern "C" void Java_com_epicgames_ue4_GameActivity_nativeFyberVirtualCurrencyRe
     jdouble deltaOfCoins,
     jstring latestTransactionId)
 {
-    UE_LOG(SDKBOX, Log, TEXT("nativeFyberVirtualCurrencyRewardOnSuccess"));
+    const char* sCurrencyId          = jenv->GetStringUTFChars(currencyId,          0);
+    const char* sCurrencyName        = jenv->GetStringUTFChars(currencyName,        0);
+    const char* sLatestTransactionId = jenv->GetStringUTFChars(latestTransactionId, 0);
     
-    FSimpleDelegateGraphTask::CreateAndDispatchWhenReady
-    (
-        FSimpleDelegateGraphTask::FDelegate::CreateLambda([=]()
-        {
-            const char* sCurrencyId          = jenv->GetStringUTFChars(currencyId,          0);
-            const char* sCurrencyName        = jenv->GetStringUTFChars(currencyName,        0);
-            const char* sLatestTransactionId = jenv->GetStringUTFChars(latestTransactionId, 0);
-            
-            USdkboxFyberComponent::OnVirtualCurrencyConnectorSuccessDelegate.Broadcast(deltaOfCoins,
-                                                                                       FString(sCurrencyId),
-                                                                                       FString(sCurrencyName),
-                                                                                       FString(sLatestTransactionId));
+    USdkboxFyberComponent::OnVirtualCurrencyConnectorSuccessDelegate.Broadcast(deltaOfCoins,
+                                                                               FString(sCurrencyId),
+                                                                               FString(sCurrencyName),
+                                                                               FString(sLatestTransactionId));
 
-            jenv->ReleaseStringUTFChars(currencyId,          sCurrencyId);
-            jenv->ReleaseStringUTFChars(currencyName,        sCurrencyName);
-            jenv->ReleaseStringUTFChars(latestTransactionId, sLatestTransactionId);
-        }),
-     
-        TStatId(),
-        NULL,
-        ENamedThreads::GameThread
-     );
+    jenv->ReleaseStringUTFChars(currencyId,          sCurrencyId);
+    jenv->ReleaseStringUTFChars(currencyName,        sCurrencyName);
+    jenv->ReleaseStringUTFChars(latestTransactionId, sLatestTransactionId);
 }
 
 #endif
