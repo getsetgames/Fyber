@@ -462,13 +462,11 @@ public void AndroidThunkJava_FyberShowRewardedVideo()
 -keep class com.sponsorpay.publisher.mbe.mediation.SPBrandEngageMediationJSInterface {
     void setValue(java.lang.String);
 }
--keep class android.webkit.JavascriptInterface
+-keep class android.webkit.JavascriptInterface { *; }
 
 -keepattributes SourceFile,LineNumberTable
 -keepattributes JavascriptInterface
--keep class com.unity3d.ads.android.**
-{ *; }
-
+-keep class com.unity3d.ads.** { *; }
 
 # google play service
 -keep class com.google.android.gms.** { *; }
@@ -494,6 +492,11 @@ public void AndroidThunkJava_FyberShowRewardedVideo()
 #sdkbox
 -keep class com.sdkbox.** { *; }
 -dontwarn com.sdkbox.**
+
+-keep class com.unity3d.ads.android.video.UnityAdsVideoView { <init>(...); }
+-keep class com.unity3d.ads.android.view.UnityAdsFullscreenActivity { <init>(...); }
+
+
 ]]>
     </insert>
   </proguardAdditions>
