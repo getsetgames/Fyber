@@ -175,7 +175,7 @@ catch(Exception ex)
 
 <gameActivityClassAdditions>
     <insert>
-volatile Intent gFyberRewardedVideoIntent = null;
+private volatile Intent gFyberRewardedVideoIntent;
 final boolean gSdkboxFyberCollectGarbageOnCallbacks = </insert><insertValue value="$B(bGarbageCollectOnCallbacks)" /><insert>;
         
 static final int REWARDED_VIDEO_REQUEST_CODE = 9340;
@@ -312,7 +312,7 @@ public void AndroidThunkJava_FyberRequestVideo(String placementID)
                 System.gc();
               }
 
-              gFyberRewardedVideoIntent = intent;
+              gFyberRewardedVideoIntent = new Intent(intent);
               nativeFyberOnAdAvailable();
               
               Log.debug("Ad is available");
@@ -383,6 +383,8 @@ public void AndroidThunkJava_FyberShowRewardedVideo()
     <insert><![CDATA[
 
   if (resultCode == RESULT_OK && requestCode == REWARDED_VIDEO_REQUEST_CODE) {
+    gFyberRewardedVideoIntent = null;
+
     // check the engagement status
     //
     String engagementResult = data.getStringExtra(RewardedVideoActivity.ENGAGEMENT_STATUS);
