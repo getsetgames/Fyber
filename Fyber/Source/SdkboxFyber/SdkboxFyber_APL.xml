@@ -75,6 +75,12 @@
       <addAttribute tag="$CloseButtonDelayMetaData" name="android:value" value="$I(iCloseButtonDelay)"/>
       <addElement tag="application" name="CloseButtonDelayMetaData"/>
 
+      <!-- SSL video permissions -->
+      <setElement result="SSLVideosMetaData" value="meta-data"/>
+      <addAttribute tag="$SSLVideosMetaData" name="android:name" value="FYBEnableSSLRewardedVideo"/>
+      <addAttribute tag="$SSLVideosMetaData" name="android:value" value="true"/>
+      <addElement tag="application" name="SSLVideosMetaData"/>
+
   </androidManifestUpdates>
 
   <AARImports>
