@@ -133,6 +133,61 @@ static SdkboxFyberFunctionsDelegate *sfd = nil;
    UE_LOG(SDKBOX, Log, TEXT("completed pre-caching result: %d"), videosAvailable);
 }
 
+// Interstitial callbacks
+//
+-(void)interstitialControllerDidReceiveInterstitial:(FYBInterstitialController *)interstitialController
+{
+    UE_LOG(SDKBOX, Log, TEXT("interstitialControllerDidReceiveInterstitial:interstitalController"));
+    USdkboxFyberComponent::OnInterstitialReceiveOffersDelegate.Broadcast(true, "");
+}
+
+-(void)interstitialController:(FYBInterstitialController *)interstitialController didFailToReceiveInterstitialWithError:(NSError *)error
+{
+     UE_LOG(SDKBOX, Log, TEXT("interstitialController:didFailToReceiveInterstitialWithError: - %s"), *FString([error description]));
+     USdkboxFyberComponent::OnInterstitialReceiveOffersDelegate.Broadcast(false, FString([error localizedDescription]));
+}
+
+-(void)interstitialControllerDidPresentInterstitial:(FYBInterstitialController *)interstitialController
+{
+    UE_LOG(SDKBOX, Log, TEXT("interstitialControllerDidPresentInterstitial:"));
+    USdkboxFyberComponent::OnInterstitialChangeStatusDelegate.Broadcast(EFyberInterstitialEnum::ISE_INTERSTITIAL_PRESENTED, "");
+}
+
+-(void)interstitialController:(FYBInterstitialController *)interstitialController didFailToPresentInterstitialWithError:(NSError *)error
+{
+    UE_LOG(SDKBOX, Log, TEXT("interstitialController:didFailToPresentInterstitialWithError - %s"), *FString([error description]));
+    USdkboxFyberComponent::OnInterstitialChangeStatusDelegate.Broadcast(EFyberInterstitialEnum::ISE_INTERSTITIAL_PRESENTED, FString([error localizedDescription]));
+}
+
+(void)interstitialController:(FYBInterstitialController *)interstitialController didDismissInterstitialWithReason:(FYBInterstitialControllerDismissReason)reason{
+    
+    NSString *reasonDescription = @"";
+    
+    switch (reason)
+    {
+        case FYBInterstitialControllerDismissReasonUserEngaged:
+            reasonDescription = @"user clicked on ad";
+            USdkboxFyberComponent::OnInterstitialChangeStatusDelegate.Broadcast(EFyberInterstitialEnum::ISE_INTERSTITIAL_USER_ENGAGED, "");
+            break;
+        
+        case FYBInterstitialControllerDismissReasonAborted:
+            reasonDescription = @"user closed/aborted ad";
+            USdkboxFyberComponent::OnInterstitialChangeStatusDelegate.Broadcast(EFyberInterstitialEnum::ISE_INTERSTITIAL_DISMISSED, "");
+            break;
+            
+        case FYBInterstitialControllerDismissReasonError:
+            reasonDescription = @"error dimissing ad";
+            USdkboxFyberComponent::OnInterstitialChangeStatusDelegate.Broadcast(EFyberInterstitialEnum::ISE_INTERSTITIAL_ERROR, "");
+            break;
+            
+        default:
+            USdkboxFyberComponent::OnInterstitialChangeStatusDelegate.Broadcast(EFyberInterstitialEnum::ISE_INTERSTITIAL_DISMISSED, "");
+            break;
+    }
+    
+    UE_LOG(SDKBOX, Log, TEXT("interstitialController:didDismissInterstitialWithReason - %s"), *FString(reasonDescription));
+}
+
 @end
 
 #elif PLATFORM_ANDROID
