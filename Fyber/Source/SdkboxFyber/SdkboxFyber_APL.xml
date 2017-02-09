@@ -194,6 +194,16 @@ final boolean gSdkboxFyberCollectGarbageOnCallbacks = </insert><insertValue valu
 static final int REWARDED_VIDEO_REQUEST_CODE = 9340;
 static final int INTERSTITIAL_REQUEST_CODE   = 9341;
 
+public native void nativeFyberOnInterstitialAdAvailable();
+public native void nativeFyberOnInterstitialAdNotAvailable();
+public native void nativeFyberOnInterstitialRequestError(String errorMessage);
+
+public native void nativeFyberInterstitialClicked();
+public native void nativeFyberInterstitialClosed();
+public native void nativeFyberInterstitialError();
+public native void nativeFyberInterstitialUnknownReason();
+
+public native void nativeFyberShowInterstital(boolean wasInterstitialShown);
 public native void nativeFyberOnAdAvailable();
 public native void nativeFyberOnAdNotAvailable();
 public native void nativeFyberOnRequestError(String errorMessage);
