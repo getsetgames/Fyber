@@ -159,8 +159,8 @@ static SdkboxFyberFunctionsDelegate *sfd = nil;
     USdkboxFyberComponent::OnInterstitialChangeStatusDelegate.Broadcast(EFyberInterstitialEnum::ISE_INTERSTITIAL_PRESENTED, FString([error localizedDescription]));
 }
 
-(void)interstitialController:(FYBInterstitialController *)interstitialController didDismissInterstitialWithReason:(FYBInterstitialControllerDismissReason)reason{
-    
+-(void)interstitialController:(FYBInterstitialController *)interstitialController didDismissInterstitialWithReason:(FYBInterstitialControllerDismissReason)reason
+{
     NSString *reasonDescription = @"";
     
     switch (reason)
