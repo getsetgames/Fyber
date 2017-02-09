@@ -553,6 +553,12 @@ void USdkboxFyberFunctions::FyberRequestInterstitial()
 void USdkboxFyberFunctions::FyberShowInterstitial()
 {
 #if PLATFORM_IOS
+    dispatch_async(dispatch_get_main_queue(), ^{
+        FYBInterstitialController *interstitialController = [FyberSDK interstitialController];
+        interstitialController.delegate = self;
+        
+        [interstitialController presentInterstitialFromViewController:self];
+    });
 #elif PLATFORM_ANDROID
 #else
 #endif
