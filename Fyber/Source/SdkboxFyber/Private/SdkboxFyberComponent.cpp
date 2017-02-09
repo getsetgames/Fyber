@@ -19,12 +19,10 @@
 
 #include "SdkboxFyberPrivatePCH.h"
 
+USdkboxFyberComponent::FInterstitialDelegate     USdkboxFyberComponent::OnInterstitialReceiveOffersDelegate;
+USdkboxFyberComponent::FInterstitialEnumDelegate USdkboxFyberComponent::OnInterstitialChangeStatusDelegate;
 USdkboxFyberComponent::FVirtualCurrencyConnectorFailedDelegate  USdkboxFyberComponent::OnVirtualCurrencyConnectorFailedDelegate;
 USdkboxFyberComponent::FVirtualCurrencyConnectorSuccessDelegate USdkboxFyberComponent::OnVirtualCurrencyConnectorSuccessDelegate;
-USdkboxFyberComponent::FBoolDelegate                            USdkboxFyberComponent::OnCanShowInterstitialDelegate;
-USdkboxFyberComponent::FVoidDelegate                            USdkboxFyberComponent::OnInterstitialDidShowDelegate;
-USdkboxFyberComponent::FStringDelegate                          USdkboxFyberComponent::OnInterstitialDismissDelegate;
-USdkboxFyberComponent::FVoidDelegate                            USdkboxFyberComponent::OnInterstitialFailedDelegate;
 USdkboxFyberComponent::FRewardedVideoDelegate                   USdkboxFyberComponent::OnBrandEngageClientReceiveOffersDelegate;
 USdkboxFyberComponent::FRewardedVideoEnumDelegate               USdkboxFyberComponent::OnBrandEngageClientChangeStatusDelegate;
 USdkboxFyberComponent::FOfferWallEnumDelegate                   USdkboxFyberComponent::OnOfferWallFinishDelegate;
@@ -38,12 +36,10 @@ void USdkboxFyberComponent::OnRegister()
 {
 	Super::OnRegister();
 
+    USdkboxFyberComponent::OnInterstitialReceiveOffersDelegate.AddUObject(this, &USdkboxFyberComponent::OnInterstitialReceiveOffersDelegate_Handler);
+    USdkboxFyberComponent::OnInterstitialChangeStatusDelegate.AddUObject(this, &USdkboxFyberComponent::OnInterstitialChangeStatusDelegate_Handler);
 	USdkboxFyberComponent::OnVirtualCurrencyConnectorFailedDelegate.AddUObject(this, &USdkboxFyberComponent::OnVirtualCurrencyConnectorFailedDelegate_Handler);
 	USdkboxFyberComponent::OnVirtualCurrencyConnectorSuccessDelegate.AddUObject(this, &USdkboxFyberComponent::OnVirtualCurrencyConnectorSuccessDelegate_Handler);
-	USdkboxFyberComponent::OnCanShowInterstitialDelegate.AddUObject(this, &USdkboxFyberComponent::OnCanShowInterstitialDelegate_Handler);
-	USdkboxFyberComponent::OnInterstitialDidShowDelegate.AddUObject(this, &USdkboxFyberComponent::OnInterstitialDidShowDelegate_Handler);
-	USdkboxFyberComponent::OnInterstitialDismissDelegate.AddUObject(this, &USdkboxFyberComponent::OnInterstitialDismissDelegate_Handler);
-	USdkboxFyberComponent::OnInterstitialFailedDelegate.AddUObject(this, &USdkboxFyberComponent::OnInterstitialFailedDelegate_Handler);
 	USdkboxFyberComponent::OnBrandEngageClientReceiveOffersDelegate.AddUObject(this, &USdkboxFyberComponent::OnBrandEngageClientReceiveOffersDelegate_Handler);
 	USdkboxFyberComponent::OnBrandEngageClientChangeStatusDelegate.AddUObject(this, &USdkboxFyberComponent::OnBrandEngageClientChangeStatusDelegate_Handler);
 	USdkboxFyberComponent::OnOfferWallFinishDelegate.AddUObject(this, &USdkboxFyberComponent::OnOfferWallFinishDelegate_Handler);
@@ -53,12 +49,10 @@ void USdkboxFyberComponent::OnUnregister()
 {
 	Super::OnUnregister();
 
+    USdkboxFyberComponent::OnInterstitialReceiveOffersDelegate.RemoveAll(this);
+    USdkboxFyberComponent::OnInterstitialChangeStatusDelegate.RemoveAll(this);
 	USdkboxFyberComponent::OnVirtualCurrencyConnectorFailedDelegate.RemoveAll(this);
 	USdkboxFyberComponent::OnVirtualCurrencyConnectorSuccessDelegate.RemoveAll(this);
-	USdkboxFyberComponent::OnCanShowInterstitialDelegate.RemoveAll(this);
-	USdkboxFyberComponent::OnInterstitialDidShowDelegate.RemoveAll(this);
-	USdkboxFyberComponent::OnInterstitialDismissDelegate.RemoveAll(this);
-	USdkboxFyberComponent::OnInterstitialFailedDelegate.RemoveAll(this);
 	USdkboxFyberComponent::OnBrandEngageClientReceiveOffersDelegate.RemoveAll(this);
 	USdkboxFyberComponent::OnBrandEngageClientChangeStatusDelegate.RemoveAll(this);
 	USdkboxFyberComponent::OnOfferWallFinishDelegate.RemoveAll(this);
