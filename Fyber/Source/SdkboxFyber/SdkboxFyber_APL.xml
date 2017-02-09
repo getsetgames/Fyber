@@ -443,6 +443,30 @@ public void AndroidThunkJava_FyberRequestInterstitial()
       }
   });
 }
+
+public void AndroidThunkJava_FyberShowInterstitial()
+{
+  _activity.runOnUiThread(new Runnable() 
+  {
+    @Override
+    public void run() 
+    {
+      if (gFyberInterstitialIntent != null)
+      {    
+        Log.debug("Showing Fyber interstitial...");   
+
+        startActivityForResult(gFyberInterstitialIntent, INTERSTITIAL_REQUEST_CODE);
+        nativeFyberShowInterstital(true);         
+      }
+      else
+      {
+        Log.debug("There is no current intent cached for an interstitial");
+        nativeFyberShowInterstital(false);           
+      }
+    }
+  }  
+}
+
 </insert>
   </gameActivityClassAdditions>
 
