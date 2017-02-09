@@ -191,9 +191,13 @@ private volatile Intent gFyberInterstitialIntent;
 
 final boolean gSdkboxFyberCollectGarbageOnCallbacks = </insert><insertValue value="$B(bGarbageCollectOnCallbacks)" /><insert>;
         
+// Fyber constants used to identify activities 
+//
 static final int REWARDED_VIDEO_REQUEST_CODE = 9340;
 static final int INTERSTITIAL_REQUEST_CODE   = 9341;
 
+// Fyber interstitials
+//
 public native void nativeFyberOnInterstitialAdAvailable();
 public native void nativeFyberOnInterstitialAdNotAvailable();
 public native void nativeFyberOnInterstitialRequestError(String errorMessage);
@@ -204,6 +208,9 @@ public native void nativeFyberInterstitialError();
 public native void nativeFyberInterstitialUnknownReason();
 
 public native void nativeFyberShowInterstital(boolean wasInterstitialShown);
+
+// Fyber rewarded video
+//
 public native void nativeFyberOnAdAvailable();
 public native void nativeFyberOnAdNotAvailable();
 public native void nativeFyberOnRequestError(String errorMessage);
