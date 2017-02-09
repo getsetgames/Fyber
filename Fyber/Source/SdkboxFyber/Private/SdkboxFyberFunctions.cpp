@@ -535,6 +535,16 @@ void USdkboxFyberFunctions::FyberRequestInterstitial()
     });
     
 #elif PLATFORM_ANDROID
+    if (JNIEnv* Env = FAndroidApplication::GetJavaEnv())
+    {
+        static jmethodID Method = FJavaWrapper::FindMethod(Env,
+                                                           FJavaWrapper::GameActivityClassID,
+                                                           "AndroidThunkJava_FyberRequestInterstitial",
+                                                           "()V",
+                                                           false);
+        
+        FJavaWrapper::CallVoidMethod(Env, FJavaWrapper::GameActivityThis, Method);
+    }
 #else
     USdkboxFyberComponent::OnInterstitialChangeStatusDelegate.Broadcast(EFyberInterstitialEnum::ISE_INTERSTITIAL_ERROR, "");
 #endif
