@@ -560,6 +560,16 @@ void USdkboxFyberFunctions::FyberShowInterstitial()
         [interstitialController presentInterstitialFromViewController:self];
     });
 #elif PLATFORM_ANDROID
+    if (JNIEnv* Env = FAndroidApplication::GetJavaEnv())
+    {
+        static jmethodID Method = FJavaWrapper::FindMethod(Env,
+                                                           FJavaWrapper::GameActivityClassID,
+                                                           "AndroidThunkJava_FyberShowInterstitial",
+                                                           "()V",
+                                                           false);
+        
+        FJavaWrapper::CallVoidMethod(Env, FJavaWrapper::GameActivityThis, Method);
+    }
 #else
 #endif
 }
