@@ -123,7 +123,6 @@ public:
 
 protected:
 
-	void OnOfferWallFinishDelegate_Handler(EFyberOfferWallEnum status) {OnOfferWallFinish.Broadcast(status);};
     // Interstitials
     //
     void OnInterstitialReceiveOffersDelegate_Handler(bool areOffersAvailable, const FString& message)
@@ -159,4 +158,10 @@ protected:
         OnBrandEngageClientChangeStatus.Broadcast(status, message);
     };
     
+    // Offerwall
+    //
+	void OnOfferWallFinishDelegate_Handler(EFyberOfferWallEnum status)
+    {
+        OnOfferWallFinish.Broadcast(status);
+    };
 };
