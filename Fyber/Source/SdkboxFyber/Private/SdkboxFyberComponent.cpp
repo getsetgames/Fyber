@@ -40,7 +40,7 @@ void USdkboxFyberComponent::OnRegister()
     USdkboxFyberComponent::OnInterstitialChangeStatusDelegate.AddUObject(this, &USdkboxFyberComponent::OnInterstitialChangeStatusDelegate_Handler);
 	USdkboxFyberComponent::OnVirtualCurrencyConnectorFailedDelegate.AddUObject(this, &USdkboxFyberComponent::OnVirtualCurrencyConnectorFailedDelegate_Handler);
 	USdkboxFyberComponent::OnVirtualCurrencyConnectorSuccessDelegate.AddUObject(this, &USdkboxFyberComponent::OnVirtualCurrencyConnectorSuccessDelegate_Handler);
-	USdkboxFyberComponent::OnBrandEngageClientReceiveOffersDelegate.AddUObject(this, &USdkboxFyberComponent::OnBrandEngageClientReceiveOffersDelegate_Handler);
+    USdkboxFyberComponent::OnBrandEngageClientReceiveOffersDelegate.AddUObject(this, &USdkboxFyberComponent::OnBrandEngageClientReceiveOffersDelegate_Handler);
 	USdkboxFyberComponent::OnBrandEngageClientChangeStatusDelegate.AddUObject(this, &USdkboxFyberComponent::OnBrandEngageClientChangeStatusDelegate_Handler);
 	USdkboxFyberComponent::OnOfferWallFinishDelegate.AddUObject(this, &USdkboxFyberComponent::OnOfferWallFinishDelegate_Handler);
 }
@@ -53,7 +53,7 @@ void USdkboxFyberComponent::OnUnregister()
     USdkboxFyberComponent::OnInterstitialChangeStatusDelegate.RemoveAll(this);
 	USdkboxFyberComponent::OnVirtualCurrencyConnectorFailedDelegate.RemoveAll(this);
 	USdkboxFyberComponent::OnVirtualCurrencyConnectorSuccessDelegate.RemoveAll(this);
-	USdkboxFyberComponent::OnBrandEngageClientReceiveOffersDelegate.RemoveAll(this);
+    USdkboxFyberComponent::OnBrandEngageClientReceiveOffersDelegate.RemoveAll(this);
 	USdkboxFyberComponent::OnBrandEngageClientChangeStatusDelegate.RemoveAll(this);
 	USdkboxFyberComponent::OnOfferWallFinishDelegate.RemoveAll(this);
 }
