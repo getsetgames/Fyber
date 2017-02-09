@@ -473,70 +473,120 @@ public void AndroidThunkJava_FyberShowInterstitial()
 <gameActivityOnActivityResultAdditions>
     <insert><![CDATA[
 
-  if (resultCode == RESULT_OK && requestCode == REWARDED_VIDEO_REQUEST_CODE) {
-    gFyberRewardedVideoIntent = null;
+  // Fyber rewarded video
+  //
+  if (resultCode == RESULT_OK) 
+  {
+    if (requestCode == REWARDED_VIDEO_REQUEST_CODE)
+    {
+      gFyberRewardedVideoIntent = null;
 
-    // check the engagement status
+      // check the engagement status
+      //
+      String engagementResult = data.getStringExtra(RewardedVideoActivity.ENGAGEMENT_STATUS);
+     
+      Log.debug("Rewarded video completed.  Engagement result:" + engagementResult + " evaluating enagement result for further action...");    
+
+      if (engagementResult.equals(RewardedVideoActivity.REQUEST_STATUS_PARAMETER_FINISHED_VALUE))
+      {
+          if (gSdkboxFyberCollectGarbageOnCallbacks)
+          {               
+            System.gc();
+          }
+
+          // The user watched the entire video and will be rewarded
+          //
+          nativeFyberRewardedVideoFinished();
+          Log.debug("The video ad was dismissed because the user completed it");
+      }
+      else if (engagementResult.equals("USER_ENGAGED"))
+      {
+          if (gSdkboxFyberCollectGarbageOnCallbacks)
+          {               
+            System.gc();
+          }
+
+          nativeFyberRewardedVideoUserEngaged();
+          Log.debug("User engaged with video");
+      }
+      else if (engagementResult.equals(RewardedVideoActivity.REQUEST_STATUS_PARAMETER_ABORTED_VALUE))
+      {
+          if (gSdkboxFyberCollectGarbageOnCallbacks)
+          {               
+            System.gc();
+          }
+
+          // The user stopped the video early and will not be rewarded
+          //
+          nativeFyberRewardedVideoAborted();
+          Log.debug("The video ad was dismissed because the user explicitly closed it");
+      }
+      else if (engagementResult.equals(RewardedVideoActivity.REQUEST_STATUS_PARAMETER_ERROR))
+      {
+          if (gSdkboxFyberCollectGarbageOnCallbacks)
+          {               
+            System.gc();
+          }
+
+          // An error occurred while showing the video and the user will not be rewarded
+          //
+          nativeFyberRewardedVideoError();
+          Log.debug("The video ad was dismissed error during playing");
+      }
+      else
+      {
+          if (gSdkboxFyberCollectGarbageOnCallbacks)
+          {               
+            System.gc();
+          }
+
+          nativeFyberRewardedVideoAborted();
+          Log.debug("An unknown error occurred");
+      }
+    }
+
+    // Fyber intestitials
     //
-    String engagementResult = data.getStringExtra(RewardedVideoActivity.ENGAGEMENT_STATUS);
-   
-    Log.debug("Rewarded video completed.  Engagement result:" + engagementResult + " evaluating enagement result for further action...");    
-
-    if (engagementResult.equals(RewardedVideoActivity.REQUEST_STATUS_PARAMETER_FINISHED_VALUE))
+    else if (requestCode == INTERSTITIAL_REQUEST_CODE) 
     {
-        if (gSdkboxFyberCollectGarbageOnCallbacks)
-        {               
-          System.gc();
-        }
+      gFyberInterstitialIntent = null;
 
-        // The user watched the entire video and will be rewarded
+      // Check the ad status
+      //
+      InterstitialAdCloseReason adStatus = (InterstitialAdCloseReason) data.getSerializableExtra(InterstitialActivity.AD_STATUS);
+      
+      if (adStatus.equals(InterstitialAdCloseReason.ReasonUserClickedOnAd)) 
+      {
+        // The user clicked on the interstitial, which closed the ad
         //
-        nativeFyberRewardedVideoFinished();
-        Log.debug("The video ad was dismissed because the user completed it");
-    }
-    else if (engagementResult.equals("USER_ENGAGED"))
-    {
-        if (gSdkboxFyberCollectGarbageOnCallbacks)
-        {               
-          System.gc();
-        }
+        Log.debug("The interstitial ad was dismissed because the user clicked it");
 
-        nativeFyberRewardedVideoUserEngaged();
-        Log.debug("User engaged with video");
-    }
-    else if (engagementResult.equals(RewardedVideoActivity.REQUEST_STATUS_PARAMETER_ABORTED_VALUE))
-    {
-        if (gSdkboxFyberCollectGarbageOnCallbacks)
-        {               
-          System.gc();
-        }
-
-        // The user stopped the video early and will not be rewarded
+        nativeFyberInterstitialClicked();
+      } 
+      else if (adStatus.equals(InterstitialAdCloseReason.ReasonUserClosedAd)) 
+      {
+        // The user deliberately closed the interstitial without clicking on it
         //
-        nativeFyberRewardedVideoAborted();
-        Log.debug("The video ad was dismissed because the user explicitly closed it");
-    }
-    else if (engagementResult.equals(RewardedVideoActivity.REQUEST_STATUS_PARAMETER_ERROR))
-    {
-        if (gSdkboxFyberCollectGarbageOnCallbacks)
-        {               
-          System.gc();
-        }
+        Log.debug("The interstitial ad was dismissed because the user closed it");
 
-        // An error occurred while showing the video and the user will not be rewarded
+        nativeFyberInterstitialClosed();
+      } 
+      else if (adStatus.equals(InterstitialAdCloseReason.ReasonError)) 
+      {
+        // An error occurred, which closed the ad
         //
-        nativeFyberRewardedVideoError();
-        Log.debug("The video ad was dismissed error during playing");
-    }
-    else
-    {
-        if (gSdkboxFyberCollectGarbageOnCallbacks)
-        {               
-          System.gc();
-        }
+        Log.debug("The interstitial ad was dismissed because of an error");
 
-        nativeFyberRewardedVideoAborted();
-        Log.debug("An unknown error occurred");
+        nativeFyberInterstitialError();
+      } 
+      else if (adStatus.equals(InterstitialAdCloseReason.ReasonUnknown)) 
+      {
+        // The interstitial closed, but the reason why is unknown
+        //
+        Log.debug("The interstitial ad was dismissed for an unknown reason");
+
+        nativeFyberInterstitialUnknownReason();
+      }
     }
   }
 
