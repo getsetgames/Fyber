@@ -571,6 +571,7 @@ void USdkboxFyberFunctions::FyberShowInterstitial()
         FJavaWrapper::CallVoidMethod(Env, FJavaWrapper::GameActivityThis, Method);
     }
 #else
+    USdkboxFyberComponent::OnInterstitialChangeStatusDelegate.Broadcast(EFyberInterstitialEnum::ISE_INTERSTITIAL_ERROR, "");
 #endif
 }
 
