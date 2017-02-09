@@ -301,7 +301,7 @@ extern "C" void Java_com_epicgames_ue4_GameActivity_nativeFyberVirtualCurrencyRe
                                                                                FString(sCurrencyId),
                                                                                FString(sCurrencyName),
                                                                                FString(sLatestTransactionId));
-
+    
     jenv->ReleaseStringUTFChars(currencyId,          sCurrencyId);
     jenv->ReleaseStringUTFChars(currencyName,        sCurrencyName);
     jenv->ReleaseStringUTFChars(latestTransactionId, sLatestTransactionId);
