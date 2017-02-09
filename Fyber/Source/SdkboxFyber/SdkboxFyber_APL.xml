@@ -218,6 +218,8 @@ public native void nativeFyberVirtualCurrencyRewardOnError(String erroCode, Stri
 public native void nativeFyberVirtualCurrencyRewardOnRequestError(String errorMessage);
 
 public native void nativeFyberShowRewardedVideo(boolean wasVideoStarted);
+
+
 public void AndroidThunkJava_FyberInit(String appID, String securityToken)
 {
   String sFyberAppId         = "</insert><insertValue value="$S(sFyberAppId)" /><insert>";
@@ -249,7 +251,6 @@ public void AndroidThunkJava_FyberRequestVideo(String placementID)
         @Override
         public void run() 
         {
-
             VirtualCurrencyCallback virtualCurrencyCallback = new VirtualCurrencyCallback() 
             {
               @Override
