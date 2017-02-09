@@ -307,6 +307,52 @@ extern "C" void Java_com_epicgames_ue4_GameActivity_nativeFyberVirtualCurrencyRe
     jenv->ReleaseStringUTFChars(latestTransactionId, sLatestTransactionId);
 }
 
+// Interstitials
+//
+extern "C" void Java_com_epicgames_ue4_GameActivity_nativeFyberOnInterstitialAdAvailable(JNIEnv* jenv, jobject thiz)
+{
+ USdkboxFyberComponent::OnBrandEngageClientReceiveOffersDelegate.Broadcast(true, "");
+}
+
+extern "C" void Java_com_epicgames_ue4_GameActivity_nativeFyberOnInterstitialAdNotAvailable(JNIEnv* jenv, jobject thiz)
+{
+    USdkboxFyberComponent::OnBrandEngageClientReceiveOffersDelegate.Broadcast(false, "");
+}
+
+extern "C" void Java_com_epicgames_ue4_GameActivity_nativeFyberOnInterstitialRequestError(JNIEnv* jenv, jobject thiz, jstring errorMessage)
+{
+    const char* sErrorMessage = jenv->GetStringUTFChars(errorMessage, 0);
+    
+    USdkboxFyberComponent::OnInterstitialReceiveOffersDelegate.Broadcast(false, FString(UTF8_TO_TCHAR(sErrorMessage)));
+    
+    jenv->ReleaseStringUTFChars(errorMessage, sErrorMessage);
+}
+
+extern "C" void Java_com_epicgames_ue4_GameActivity_nativeFyberInterstitialClicked(JNIEnv* jenv, jobject thiz)
+{
+    USdkboxFyberComponent::OnInterstitialChangeStatusDelegate.Broadcast(EFyberInterstitialEnum::ISE_INTERSTITIAL_USER_ENGAGED, "");
+}
+
+extern "C" void Java_com_epicgames_ue4_GameActivity_nativeFyberInterstitialClosed(JNIEnv* jenv, jobject thiz)
+{
+    USdkboxFyberComponent::OnInterstitialChangeStatusDelegate.Broadcast(EFyberInterstitialEnum::ISE_INTERSTITIAL_DISMISSED, "");
+}
+
+extern "C" void Java_com_epicgames_ue4_GameActivity_nativeFyberInterstitialError(JNIEnv* jenv, jobject thiz)
+{
+    USdkboxFyberComponent::OnInterstitialChangeStatusDelegate.Broadcast(EFyberInterstitialEnum::ISE_INTERSTITIAL_ERROR, "");
+}
+
+extern "C" void Java_com_epicgames_ue4_GameActivity_nativeFyberInterstitialUnknownReason(JNIEnv* jenv, jobject thiz)
+{
+     USdkboxFyberComponent::OnInterstitialChangeStatusDelegate.Broadcast(EFyberInterstitialEnum::ISE_INTERSTITIAL_ERROR, "");
+}
+
+extern "C" void Java_com_epicgames_ue4_GameActivity_nativeFyberShowInterstitial(JNIEnv* jenv, jobject thiz, jboolean wasInterstitialShown)
+{
+    USdkboxFyberComponent::OnInterstitialChangeStatusDelegate.Broadcast(EFyberInterstitialEnum::ISE_INTERSTITIAL_PRESENTED, "");
+}
+
 #endif
 
 void USdkboxFyberFunctions::FyberInitialize(const FString &appID, const FString &securityToken)
