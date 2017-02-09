@@ -400,6 +400,41 @@ public void AndroidThunkJava_FyberShowRewardedVideo()
   });
 }
 
+public void AndroidThunkJava_FyberRequestInterstitial()
+{
+  _activity.runOnUiThread(new Runnable() 
+  {
+      @Override
+      public void run() 
+      {
+        RequestCallback requestCallback = new RequestCallback() 
+        {
+          @Override
+          public void onAdAvailable(Intent intent) 
+          {
+            Log.debug("Interstitial ad is available");   
+            nativeFyberOnInterstitialAdAvailable();          
+          }
+
+          @Override
+          public void onAdNotAvailable(AdFormat adFormat) 
+          {
+            Log.debug("Interstitial ad is not available"); 
+            nativeFyberOnInterstitialAdNotAvailable();
+          }
+
+          @Override
+          public void onRequestError(RequestError requestError) 
+          {
+            Log.debug("Interstitial ad request error: " + requestError.getDescription()); 
+            nativeFyberOnInterstitialRequestError(requestError.getDescription());
+          }
+        };
+
+        InterstitialRequester.create(requestCallback).request(_activity);       
+      }
+  });
+}
 </insert>
   </gameActivityClassAdditions>
 
