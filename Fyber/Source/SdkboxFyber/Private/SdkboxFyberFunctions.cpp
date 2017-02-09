@@ -454,6 +454,7 @@ void USdkboxFyberFunctions::FyberShowOfferWall()
 #if PLATFORM_IOS
 #elif PLATFORM_ANDROID
 #else
+    UE_LOG(SDKBOX, Log, TEXT("FyberShowOfferWall - not implemented"));
 #endif
 }
 
@@ -528,6 +529,7 @@ void USdkboxFyberFunctions::FyberRequestInterstitial()
 #if PLATFORM_IOS
 #elif PLATFORM_ANDROID
 #else
+    USdkboxFyberComponent::OnInterstitialChangeStatusDelegate.Broadcast(EFyberInterstitialEnum::ISE_INTERSTITIAL_ERROR, "");
 #endif
 }
 
@@ -544,6 +546,7 @@ void USdkboxFyberFunctions::FyberRequestDeltaOfCoins(const FString& currencyId)
 #if PLATFORM_IOS
 #elif PLATFORM_ANDROID
 #else
+    UE_LOG(SDKBOX, Log, TEXT("FyberRequestDeltaOfCoins not implemented"));
 #endif
 }
 
