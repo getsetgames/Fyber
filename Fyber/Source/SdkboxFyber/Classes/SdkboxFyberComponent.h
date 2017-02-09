@@ -74,12 +74,12 @@ public:
 	DECLARE_MULTICAST_DELEGATE_ThreeParams(FVirtualCurrencyConnectorFailedDelegate, int32, const FString&, const FString&);
 	DECLARE_MULTICAST_DELEGATE_FourParams(FVirtualCurrencyConnectorSuccessDelegate, float, const FString&, const FString&, const FString&);
 
-	static FVirtualCurrencyConnectorFailedDelegate  OnVirtualCurrencyConnectorFailedDelegate;
-	static FVirtualCurrencyConnectorSuccessDelegate OnVirtualCurrencyConnectorSuccessDelegate;
     // Interstitials
     //
     static FInterstitialDelegate     OnInterstitialReceiveOffersDelegate;
     static FInterstitialEnumDelegate OnInterstitialChangeStatusDelegate;
+    static FVirtualCurrencyConnectorFailedDelegate  OnVirtualCurrencyConnectorFailedDelegate;
+    static FVirtualCurrencyConnectorSuccessDelegate OnVirtualCurrencyConnectorSuccessDelegate;
 	static FRewardedVideoDelegate                   OnBrandEngageClientReceiveOffersDelegate;
 	static FRewardedVideoEnumDelegate               OnBrandEngageClientChangeStatusDelegate;
 	static FOfferWallEnumDelegate                   OnOfferWallFinishDelegate;
@@ -101,19 +101,16 @@ public:
     // Interstitials
     //
     UPROPERTY(BlueprintAssignable)
-	FDynVirtualCurrencyConnectorFailedDelegate      OnVirtualCurrencyConnectorFailed;
-
-    UPROPERTY(BlueprintAssignable)
-	FDynVirtualCurrencyConnectorSuccessDelegate     OnVirtualCurrencyConnectorSuccess;
-
     FDynInterstitialDelegate                       OnInterstitialReceiveOffers;
     
     UPROPERTY(BlueprintAssignable)
     FDynInterstitialEnumDelegate                   OnInterstitialChangeStatus;
     
     UPROPERTY(BlueprintAssignable)
+	FDynVirtualCurrencyConnectorFailedDelegate      OnVirtualCurrencyConnectorFailed;
 
     UPROPERTY(BlueprintAssignable)
+	FDynVirtualCurrencyConnectorSuccessDelegate     OnVirtualCurrencyConnectorSuccess;
 
     UPROPERTY(BlueprintAssignable)
     FDynRewardedVideoDelegate                       OnBrandEngageClientReceiveOffers;
@@ -126,10 +123,6 @@ public:
 
 protected:
 
-	void OnVirtualCurrencyConnectorFailedDelegate_Handler(int32 error, const FString& errorCode, const FString& message) {OnVirtualCurrencyConnectorFailed.Broadcast(error, errorCode, message);}
-	void OnVirtualCurrencyConnectorSuccessDelegate_Handler(float deltaOfCoins, const FString& currencyId, const FString& currencyName, const FString& transactionId) {OnVirtualCurrencyConnectorSuccess.Broadcast(deltaOfCoins, currencyId, currencyName, transactionId);}
-	void OnBrandEngageClientReceiveOffersDelegate_Handler(bool areOffersAvailable, const FString& message) {OnBrandEngageClientReceiveOffers.Broadcast(areOffersAvailable, message);};
-	void OnBrandEngageClientChangeStatusDelegate_Handler(EFyberRewardedVideoEnum status, const FString& message) {OnBrandEngageClientChangeStatus.Broadcast(status, message);};
 	void OnOfferWallFinishDelegate_Handler(EFyberOfferWallEnum status) {OnOfferWallFinish.Broadcast(status);};
     // Interstitials
     //
@@ -141,6 +134,29 @@ protected:
     void OnInterstitialChangeStatusDelegate_Handler(EFyberInterstitialEnum status, const FString& message)
     {
         OnInterstitialChangeStatus.Broadcast(status, message);
+    };
+    
+	void OnVirtualCurrencyConnectorFailedDelegate_Handler(int32 error, const FString& errorCode, const FString& message)
+    {
+        OnVirtualCurrencyConnectorFailed.Broadcast(error, errorCode, message);
+    };
+    
+	void OnVirtualCurrencyConnectorSuccessDelegate_Handler(float deltaOfCoins,
+                                                           const FString& currencyId,
+                                                           const FString& currencyName,
+                                                           const FString& transactionId)
+    {
+        OnVirtualCurrencyConnectorSuccess.Broadcast(deltaOfCoins, currencyId, currencyName, transactionId);
+    };
+    
+    void OnBrandEngageClientReceiveOffersDelegate_Handler(bool areOffersAvailable, const FString& message)
+    {
+        OnBrandEngageClientReceiveOffers.Broadcast(areOffersAvailable, message);
+    };
+    
+	void OnBrandEngageClientChangeStatusDelegate_Handler(EFyberRewardedVideoEnum status, const FString& message)
+    {
+        OnBrandEngageClientChangeStatus.Broadcast(status, message);
     };
     
 };
