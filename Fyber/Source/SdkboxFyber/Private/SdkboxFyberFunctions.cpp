@@ -529,7 +529,7 @@ void USdkboxFyberFunctions::FyberRequestInterstitial()
 #if PLATFORM_IOS
     dispatch_async(dispatch_get_main_queue(), ^{
         FYBInterstitialController *interstitialController = [FyberSDK interstitialController];
-        interstitialController.delegate = self;
+        interstitialController.delegate = sfd;
         
         [interstitialController requestInterstitial];
     });
@@ -555,9 +555,9 @@ void USdkboxFyberFunctions::FyberShowInterstitial()
 #if PLATFORM_IOS
     dispatch_async(dispatch_get_main_queue(), ^{
         FYBInterstitialController *interstitialController = [FyberSDK interstitialController];
-        interstitialController.delegate = self;
+        interstitialController.delegate = sfd;
         
-        [interstitialController presentInterstitialFromViewController:self];
+        [interstitialController presentInterstitialFromViewController:(UIViewController *)[IOSAppDelegate GetDelegate].IOSController];
     });
 #elif PLATFORM_ANDROID
     if (JNIEnv* Env = FAndroidApplication::GetJavaEnv())
