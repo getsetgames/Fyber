@@ -207,7 +207,6 @@ public native void nativeFyberShowInterstital(boolean wasInterstitialShown);
 public native void nativeFyberOnAdAvailable();
 public native void nativeFyberOnAdNotAvailable();
 public native void nativeFyberOnRequestError(String errorMessage);
-public native void nativeFyberShowRewardedVideo(boolean wasVideoStarted);
 
 public native void nativeFyberRewardedVideoFinished();
 public native void nativeFyberRewardedVideoAborted();
@@ -218,6 +217,7 @@ public native void nativeFyberVirtualCurrencyRewardOnSuccess(String currencyId, 
 public native void nativeFyberVirtualCurrencyRewardOnError(String erroCode, String errorType, String errorMessage);
 public native void nativeFyberVirtualCurrencyRewardOnRequestError(String errorMessage);
 
+public native void nativeFyberShowRewardedVideo(boolean wasVideoStarted);
 public void AndroidThunkJava_FyberInit(String appID, String securityToken)
 {
   String sFyberAppId         = "</insert><insertValue value="$S(sFyberAppId)" /><insert>";
