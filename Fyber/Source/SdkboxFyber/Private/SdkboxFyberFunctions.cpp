@@ -29,7 +29,7 @@
 #endif
 
 #if PLATFORM_IOS
-@interface SdkboxFyberFunctionsDelegate : NSObject<FYBRewardedVideoControllerDelegate, FYBVirtualCurrencyClientDelegate, FYBCacheManagerDelegate>
+@interface SdkboxFyberFunctionsDelegate : NSObject<FYBInterstitialControllerDelegate, FYBRewardedVideoControllerDelegate, FYBVirtualCurrencyClientDelegate, FYBCacheManagerDelegate>
 {
 }
 @end
