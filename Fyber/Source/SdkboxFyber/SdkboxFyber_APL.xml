@@ -464,7 +464,7 @@ public void AndroidThunkJava_FyberShowInterstitial()
         nativeFyberShowInterstital(false);           
       }
     }
-  }  
+  });  
 }
 
 </insert>
