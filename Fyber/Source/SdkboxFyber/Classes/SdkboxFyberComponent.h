@@ -22,6 +22,15 @@
 #include "SdkboxFyberComponent.generated.h"
 
 UENUM(BlueprintType)
+enum class EFyberInterstitialEnum : uint8
+{
+    ISE_INTERSTITIAL_PRESENTED    = 1 UMETA(DisplayName="InterstitialPresented"),
+    ISE_INTERSTITIAL_DISMISSED    = 2 UMETA(DisplayName="InterstitialDismissed"),
+    ISE_INTERSTITIAL_ERROR        = 3 UMETA(DisplayName="InterstitialError"),
+    ISE_INTERSTITIAL_USER_ENGAGED = 4 UMETA(DisplayName="InterstitialUserEngaged")
+};
+
+UENUM(BlueprintType)
 enum class EFyberOfferWallEnum : uint8
 {
     OWE_OFFERWALL_PRESENTED = 1 UMETA(DisplayName="OfferWallPresented"),
