@@ -63,12 +63,17 @@ public:
 
     DECLARE_MULTICAST_DELEGATE(FVoidDelegate);
     DECLARE_MULTICAST_DELEGATE_OneParam(FOfferWallEnumDelegate, EFyberOfferWallEnum);
+    
     DECLARE_MULTICAST_DELEGATE_OneParam(FBoolDelegate, bool);
    	DECLARE_MULTICAST_DELEGATE_OneParam(FStringDelegate, const FString&);
+    
     // Interstitials
     //
     DECLARE_MULTICAST_DELEGATE_TwoParams(FInterstitialDelegate, bool, const FString&);
     DECLARE_MULTICAST_DELEGATE_TwoParams(FInterstitialEnumDelegate, EFyberInterstitialEnum, const FString&);
+    
+    // Rewarded video
+    //
     DECLARE_MULTICAST_DELEGATE_TwoParams(FRewardedVideoDelegate, bool, const FString&);
     DECLARE_MULTICAST_DELEGATE_TwoParams(FRewardedVideoEnumDelegate, EFyberRewardedVideoEnum, const FString&);
 	DECLARE_MULTICAST_DELEGATE_ThreeParams(FVirtualCurrencyConnectorFailedDelegate, int32, const FString&, const FString&);
@@ -78,10 +83,16 @@ public:
     //
     static FInterstitialDelegate     OnInterstitialReceiveOffersDelegate;
     static FInterstitialEnumDelegate OnInterstitialChangeStatusDelegate;
+
+    // Rewarded video
+    //
     static FVirtualCurrencyConnectorFailedDelegate  OnVirtualCurrencyConnectorFailedDelegate;
     static FVirtualCurrencyConnectorSuccessDelegate OnVirtualCurrencyConnectorSuccessDelegate;
 	static FRewardedVideoDelegate                   OnBrandEngageClientReceiveOffersDelegate;
 	static FRewardedVideoEnumDelegate               OnBrandEngageClientChangeStatusDelegate;
+    
+    // Offerwall
+    //
 	static FOfferWallEnumDelegate                   OnOfferWallFinishDelegate;
 
     DECLARE_DYNAMIC_MULTICAST_DELEGATE(FDynVoidDelegate);
@@ -93,6 +104,9 @@ public:
     //
     DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FDynInterstitialEnumDelegate, EFyberInterstitialEnum, Status, const FString&, Message);
     DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FDynInterstitialDelegate, bool, areOffersAvailable, const FString&, ResultMessage);
+    
+    // Rewarded video
+    //
     DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FDynRewardedVideoDelegate, bool, areOffersAvailable, const FString&, ResultMessage);
     DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FDynRewardedVideoEnumDelegate, EFyberRewardedVideoEnum, Status, const FString&, Message);
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FDynVirtualCurrencyConnectorFailedDelegate, int32, Error, const FString&, ErrorCode, const FString&, Message);
@@ -106,6 +120,8 @@ public:
     UPROPERTY(BlueprintAssignable)
     FDynInterstitialEnumDelegate                   OnInterstitialChangeStatus;
     
+    // Rewarded video
+    //
     UPROPERTY(BlueprintAssignable)
 	FDynVirtualCurrencyConnectorFailedDelegate      OnVirtualCurrencyConnectorFailed;
 
@@ -118,6 +134,8 @@ public:
     UPROPERTY(BlueprintAssignable)
 	FDynRewardedVideoEnumDelegate                   OnBrandEngageClientChangeStatus;
 
+    // Offerwall
+    //
     UPROPERTY(BlueprintAssignable)
 	FDynOfferWallEnumDelegate                       OnOfferWallFinish;
 
@@ -135,6 +153,8 @@ protected:
         OnInterstitialChangeStatus.Broadcast(status, message);
     };
     
+    // Rewarded video
+    //
 	void OnVirtualCurrencyConnectorFailedDelegate_Handler(int32 error, const FString& errorCode, const FString& message)
     {
         OnVirtualCurrencyConnectorFailed.Broadcast(error, errorCode, message);
