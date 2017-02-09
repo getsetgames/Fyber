@@ -192,6 +192,7 @@ private volatile Intent gFyberInterstitialIntent;
 final boolean gSdkboxFyberCollectGarbageOnCallbacks = </insert><insertValue value="$B(bGarbageCollectOnCallbacks)" /><insert>;
         
 static final int REWARDED_VIDEO_REQUEST_CODE = 9340;
+static final int INTERSTITIAL_REQUEST_CODE   = 9341;
 
 public native void nativeFyberOnAdAvailable();
 public native void nativeFyberOnAdNotAvailable();
