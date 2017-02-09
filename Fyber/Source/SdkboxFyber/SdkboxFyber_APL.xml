@@ -113,6 +113,10 @@ import com.fyber.Fyber;
 import com.fyber.requesters.RewardedVideoRequester;
 import com.fyber.ads.AdFormat;
 import com.fyber.ads.videos.RewardedVideoActivity;
+import com.fyber.ads.interstitials.InterstitialActivity;
+import com.fyber.ads.interstitials.InterstitialAdCloseReason;
+
+import com.fyber.requesters.InterstitialRequester;
 import com.fyber.requesters.RequestCallback;
 import com.fyber.requesters.RequestError;
 
