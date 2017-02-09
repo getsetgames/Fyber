@@ -19,13 +19,22 @@
 
 #include "SdkboxFyberPrivatePCH.h"
 
+// Interstitial
+//
 USdkboxFyberComponent::FInterstitialDelegate     USdkboxFyberComponent::OnInterstitialReceiveOffersDelegate;
 USdkboxFyberComponent::FInterstitialEnumDelegate USdkboxFyberComponent::OnInterstitialChangeStatusDelegate;
+
+// Rewarded video
+//
 USdkboxFyberComponent::FVirtualCurrencyConnectorFailedDelegate  USdkboxFyberComponent::OnVirtualCurrencyConnectorFailedDelegate;
 USdkboxFyberComponent::FVirtualCurrencyConnectorSuccessDelegate USdkboxFyberComponent::OnVirtualCurrencyConnectorSuccessDelegate;
 USdkboxFyberComponent::FRewardedVideoDelegate                   USdkboxFyberComponent::OnBrandEngageClientReceiveOffersDelegate;
 USdkboxFyberComponent::FRewardedVideoEnumDelegate               USdkboxFyberComponent::OnBrandEngageClientChangeStatusDelegate;
+
+// Offerwall
+//
 USdkboxFyberComponent::FOfferWallEnumDelegate                   USdkboxFyberComponent::OnOfferWallFinishDelegate;
+
 
 USdkboxFyberComponent::USdkboxFyberComponent(const FObjectInitializer& ObjectInitializer)
     : Super(ObjectInitializer)
@@ -36,12 +45,20 @@ void USdkboxFyberComponent::OnRegister()
 {
 	Super::OnRegister();
 
+    // Interstitial
+    //
     USdkboxFyberComponent::OnInterstitialReceiveOffersDelegate.AddUObject(this, &USdkboxFyberComponent::OnInterstitialReceiveOffersDelegate_Handler);
     USdkboxFyberComponent::OnInterstitialChangeStatusDelegate.AddUObject(this, &USdkboxFyberComponent::OnInterstitialChangeStatusDelegate_Handler);
+    
+    // Rewarded video
+    //
 	USdkboxFyberComponent::OnVirtualCurrencyConnectorFailedDelegate.AddUObject(this, &USdkboxFyberComponent::OnVirtualCurrencyConnectorFailedDelegate_Handler);
 	USdkboxFyberComponent::OnVirtualCurrencyConnectorSuccessDelegate.AddUObject(this, &USdkboxFyberComponent::OnVirtualCurrencyConnectorSuccessDelegate_Handler);
     USdkboxFyberComponent::OnBrandEngageClientReceiveOffersDelegate.AddUObject(this, &USdkboxFyberComponent::OnBrandEngageClientReceiveOffersDelegate_Handler);
 	USdkboxFyberComponent::OnBrandEngageClientChangeStatusDelegate.AddUObject(this, &USdkboxFyberComponent::OnBrandEngageClientChangeStatusDelegate_Handler);
+    
+    // Offerwall
+    //
 	USdkboxFyberComponent::OnOfferWallFinishDelegate.AddUObject(this, &USdkboxFyberComponent::OnOfferWallFinishDelegate_Handler);
 }
 
@@ -49,12 +66,20 @@ void USdkboxFyberComponent::OnUnregister()
 {
 	Super::OnUnregister();
 
+    // Interstitial
+    //    
     USdkboxFyberComponent::OnInterstitialReceiveOffersDelegate.RemoveAll(this);
     USdkboxFyberComponent::OnInterstitialChangeStatusDelegate.RemoveAll(this);
+    
+    // Rewarded video
+    //
 	USdkboxFyberComponent::OnVirtualCurrencyConnectorFailedDelegate.RemoveAll(this);
 	USdkboxFyberComponent::OnVirtualCurrencyConnectorSuccessDelegate.RemoveAll(this);
     USdkboxFyberComponent::OnBrandEngageClientReceiveOffersDelegate.RemoveAll(this);
 	USdkboxFyberComponent::OnBrandEngageClientChangeStatusDelegate.RemoveAll(this);
+    
+    // Offerwall
+    //
 	USdkboxFyberComponent::OnOfferWallFinishDelegate.RemoveAll(this);
 }
 
