@@ -187,6 +187,8 @@ catch(Exception ex)
 <gameActivityClassAdditions>
     <insert>
 private volatile Intent gFyberRewardedVideoIntent;
+private volatile Intent gFyberInterstitialIntent;
+
 final boolean gSdkboxFyberCollectGarbageOnCallbacks = </insert><insertValue value="$B(bGarbageCollectOnCallbacks)" /><insert>;
         
 static final int REWARDED_VIDEO_REQUEST_CODE = 9340;
