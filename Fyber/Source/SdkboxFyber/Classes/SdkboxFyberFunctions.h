@@ -49,7 +49,14 @@ public:
     static void FyberShowRewardedVideo();
 
     /**
-     * Check if interstitial ads are available
+     * Fetches the amount of a given currency earned since the last time this method was
+     * invoked for the current user ID / app ID combination.
+     */
+    UFUNCTION(BlueprintCallable, meta = (Keywords = "SDKBOX Fyber"), Category = "SDKBOX")
+    static void FyberRequestDeltaOfCoins(const FString& currencyId = "");
+    
+    /**
+     * Request an interstitial ad
      */
 	UFUNCTION(BlueprintCallable, meta = (Keywords = "SDKBOX Fyber"), Category = "SDKBOX")
     static void FyberRequestInterstitial();
@@ -59,11 +66,4 @@ public:
      */
 	UFUNCTION(BlueprintCallable, meta = (Keywords = "SDKBOX Fyber"), Category = "SDKBOX")
     static void FyberShowInterstitial();
-
-    /**
-     * Fetches the amount of a given currency earned since the last time this method was
-     * invoked for the current user ID / app ID combination.
-     */
-	UFUNCTION(BlueprintCallable, meta = (Keywords = "SDKBOX Fyber"), Category = "SDKBOX")
-    static void FyberRequestDeltaOfCoins(const FString& currencyId = "");
 };
