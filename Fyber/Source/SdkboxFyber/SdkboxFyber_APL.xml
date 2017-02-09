@@ -110,18 +110,19 @@ com.fyber.mediation,unityads,2.0.5-r1
   <gameActivityImportAdditions>
     <insert>
 import com.fyber.Fyber;
-import com.fyber.requesters.RewardedVideoRequester;
+
 import com.fyber.ads.AdFormat;
 import com.fyber.ads.videos.RewardedVideoActivity;
 import com.fyber.ads.interstitials.InterstitialActivity;
 import com.fyber.ads.interstitials.InterstitialAdCloseReason;
 
+import com.fyber.requesters.RewardedVideoRequester;
 import com.fyber.requesters.InterstitialRequester;
 import com.fyber.requesters.RequestCallback;
 import com.fyber.requesters.RequestError;
-
 import com.fyber.requesters.VirtualCurrencyCallback;
 import com.fyber.requesters.VirtualCurrencyRequester;
+
 import com.fyber.currency.VirtualCurrencyResponse;
 import com.fyber.currency.VirtualCurrencyErrorResponse;
 
