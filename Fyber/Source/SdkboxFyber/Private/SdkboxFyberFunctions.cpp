@@ -126,7 +126,7 @@ static SdkboxFyberFunctionsDelegate *sfd = nil;
                                                                               FString([error localizedDescription]));
 }
 
-// Cache manager callbacks
+// Rewarded video cache manager callbacks
 //
 -(void)cacheManagerDidCompletePrecachingWithVideosAvailable:(BOOL)videosAvailable
 {
