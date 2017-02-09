@@ -527,6 +527,13 @@ void USdkboxFyberFunctions::FyberShowRewardedVideo()
 void USdkboxFyberFunctions::FyberRequestInterstitial()
 {
 #if PLATFORM_IOS
+    dispatch_async(dispatch_get_main_queue(), ^{
+        FYBInterstitialController *interstitialController = [FyberSDK interstitialController];
+        interstitialController.delegate = self;
+        
+        [interstitialController requestInterstitial];
+    });
+    
 #elif PLATFORM_ANDROID
 #else
     USdkboxFyberComponent::OnInterstitialChangeStatusDelegate.Broadcast(EFyberInterstitialEnum::ISE_INTERSTITIAL_ERROR, "");
