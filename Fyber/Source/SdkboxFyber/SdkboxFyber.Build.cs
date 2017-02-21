@@ -120,7 +120,12 @@ namespace UnrealBuildTool.Rules
                         "StoreKit",
                         "SystemConfiguration",
                         "CFNetwork",
-                        "UIKit"
+                        "UIKit",
+
+                        "EventKit",
+                        "EventKitUI",
+                        "MessageUI",
+                        "Social"
                     }
                 );
 
