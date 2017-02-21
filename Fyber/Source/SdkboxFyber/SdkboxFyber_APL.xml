@@ -640,6 +640,12 @@ public void AndroidThunkJava_FyberShowInterstitial()
 -keep class com.unity3d.ads.android.video.UnityAdsVideoView { <init>(...); }
 -keep class com.unity3d.ads.android.view.UnityAdsFullscreenActivity { <init>(...); }
 
+-keep class com.adcolony.** { *; }
+-dontwarn com.adcolony.**
+-keepclassmembers class * {
+    @android.webkit.JavascriptInterface <methods>;
+}
+
 
 ]]>
     </insert>
