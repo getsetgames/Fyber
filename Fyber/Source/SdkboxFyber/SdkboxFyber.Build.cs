@@ -122,10 +122,12 @@ namespace UnrealBuildTool.Rules
                         "CFNetwork",
                         "UIKit",
 
+                        "AudioToolbox",
                         "EventKit",
                         "EventKitUI",
                         "MessageUI",
-                        "Social"
+                        "Social",
+                        "WebKit"
                     }
                 );
 
