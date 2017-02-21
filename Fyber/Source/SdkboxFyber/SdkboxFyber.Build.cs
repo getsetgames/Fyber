@@ -78,6 +78,8 @@ namespace UnrealBuildTool.Rules
 				PrivateIncludePaths.Add(Path.Combine(ModulePath, "..", "..", "lib", "iOS", "fyber-sdk-lib"));
 				PublicAdditionalLibraries.Add(Path.Combine(ModulePath, "..", "..", "lib", "iOS", "fyber-sdk-lib", "libFyberSDK-8.6.0.a"));
 
+				// Unity Ads
+				//
 				PublicAdditionalFrameworks.Add(
 					new UEBuildFramework(
 				 		"UnityAds",
