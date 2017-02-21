@@ -92,6 +92,16 @@ namespace UnrealBuildTool.Rules
 					)
 				);
 
+				// AdColony
+				//
+
+				PublicAdditionalFrameworks.Add(
+					new UEBuildFramework(
+						"Fyber_AdColony_2.6.3-r1",
+						"../../lib/iOS/Fyber_AdColony_2.6.3-r1.embeddedframework.zip"
+					)
+				);
+
                 PublicFrameworks.AddRange(
                     new string[]
                     {
