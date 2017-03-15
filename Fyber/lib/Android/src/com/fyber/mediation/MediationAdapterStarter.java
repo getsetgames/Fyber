@@ -2,6 +2,7 @@ package com.fyber.mediation;
 
 import android.app.Activity;
 import com.fyber.mediation.adcolony.AdColonyMediationAdapter;
+import com.fyber.mediation.tapjoy.TapjoyMediationAdapter;
 import com.fyber.mediation.unityads.UnityAdsMediationAdapter;
 import com.fyber.utils.FyberLogger;
 import java.lang.InterruptedException;
@@ -33,6 +34,21 @@ public final class MediationAdapterStarter {
     }
   }
 
+  private static void startTapjoy(final Activity activity, final Map<String, Object> configs, final Map<String, MediationAdapter> map) {
+    try {
+      MediationAdapter adapter = new TapjoyMediationAdapter();
+      FyberLogger.d(TAG, "Starting adapter Tapjoy with version 11.9.1-r1");
+      if (adapter.startAdapter(activity, configs)) {
+        FyberLogger.d(TAG, "Adapter Tapjoy with version 11.9.1-r1 was started successfully");
+        map.put("tapjoy", adapter);
+      } else {
+        FyberLogger.d(TAG, "Adapter Tapjoy with version 11.9.1-r1 was not started successfully");
+      }
+    } catch (Throwable throwable) {
+      FyberLogger.e(TAG, "Exception occurred while loading adapter Tapjoy with version 11.9.1-r1 - " + throwable.getCause());
+    }
+  }
+
   private static void startAdColony(final Activity activity, final Map<String, Object> configs, final Map<String, MediationAdapter> map) {
     try {
       MediationAdapter adapter = new AdColonyMediationAdapter();
@@ -51,6 +67,7 @@ public final class MediationAdapterStarter {
   public static Map<String, MediationAdapter> startAdapters(final Activity activity, final Map<String, Map<String, Object>> configs) {
     Map<String, MediationAdapter> map = new HashMap<>();
     startApplifier(activity, getConfigsForAdapter(configs, "Applifier"), map);
+    startTapjoy(activity, getConfigsForAdapter(configs, "Tapjoy"), map);
     startAdColony(activity, getConfigsForAdapter(configs, "AdColony"), map);
     return map;
   }
