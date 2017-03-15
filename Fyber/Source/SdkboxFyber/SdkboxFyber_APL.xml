@@ -68,6 +68,16 @@
                   android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen"
                   android:hardwareAccelerated="false"
                   android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+
+        <!-- AdColony -->
+        <activity android:name="com.adcolony.sdk.AdColonyInterstitialActivity" 
+                  android:configChanges="keyboardHidden|orientation|screenSize" 
+                  android:hardwareAccelerated="true"/>
+
+        <activity android:name="com.adcolony.sdk.AdColonyAdViewActivity" 
+                  android:configChanges="keyboardHidden|orientation|screenSize" 
+                  android:hardwareAccelerated="true"/>          
+
       </addElements>
 
       <setElement result="CloseButtonDelayMetaData" value="meta-data"/>
