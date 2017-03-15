@@ -73,7 +73,7 @@ public final class MediationAdapterStarter {
   }
 
   public static int getAdaptersCount() {
-    return 1;
+    return 3;
   }
 
   private static Map<String, Object> getConfigsForAdapter(Map<String, Map<String, Object>> configs, String adapter) {
