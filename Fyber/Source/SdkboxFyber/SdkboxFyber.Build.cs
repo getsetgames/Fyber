@@ -106,12 +106,14 @@ namespace UnrealBuildTool.Rules
 
 				// Tapjoy
 				//
-				PublicAdditionalFrameworks.Add(
-					new UEBuildFramework(
-						"Fyber_Tapjoy_11.9.1-r1",
-						"../../lib/iOS/Fyber_Tapjoy_11.9.1-r1.embeddedframework.zip"
+				PublicAdditionalFrameworks.Add( 
+					new UEBuildFramework( 
+						"Fyber_Tapjoy_11.9.1-r1",										// Framework name
+						"../../lib/iOS/Fyber_Tapjoy_11.9.1-r1.embeddedframework.zip",	// Zip name
+						"Resources/TapjoyResources.bundle"								// Resources we need copied and staged
 					)
-				);
+				); 
+
 				
                 PublicFrameworks.AddRange(
                     new string[]
