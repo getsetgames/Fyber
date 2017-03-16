@@ -76,7 +76,8 @@ namespace UnrealBuildTool.Rules
 			if (Target.Platform == UnrealTargetPlatform.IOS)
 			{
 				PrivateIncludePaths.Add(Path.Combine(ModulePath, "..", "..", "lib", "iOS", "fyber-sdk-lib"));
-				PublicAdditionalLibraries.Add(Path.Combine(ModulePath, "..", "..", "lib", "iOS", "fyber-sdk-lib", "libFyberSDK-8.6.0.a"));
+				
+				PublicAdditionalLibraries.Add(Path.Combine(ModulePath, "..", "..", "lib", "iOS", "fyber-sdk-lib", "libFyberSDK-8.6.0.a"));				
 				PublicAdditionalLibraries.Add("c++");
 				PublicAdditionalLibraries.Add("z.1.2.5");
 
