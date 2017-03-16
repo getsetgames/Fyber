@@ -141,7 +141,14 @@ namespace UnrealBuildTool.Rules
                         "EventKitUI",
                         "MessageUI",
                         "Social",
-                        "WebKit"
+                        "WebKit",
+
+                        "CoreData",
+                        "CoreMotion",
+ 
+                        "MapKit",
+                        "MobileCoreServices",
+                        "Security"
                     }
                 );
 
