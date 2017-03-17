@@ -134,6 +134,12 @@ com.fyber.mediation,tapjoy,11.9.1-r1
     <copyDir src="$S(PluginDir)/../../lib/Android/src/" dst="$S(BuildDir)/src" />
   </prebuildCopies>
 
+  <resourceCopies>
+    <!-- AdColony native libraries -->
+    <copyFile src="$S(PluginDir)/../../lib/Android/libs/adcolony/3.0.7-r2/$S(Architecture)/libadcolony.so" dst="$S(BuildDir)/libs/$S(Architecture)/libadcolony.so" />
+    <copyFile src="$S(PluginDir)/../../lib/Android/libs/adcolony/3.0.7-r2/$S(Architecture)/libjs.so"       dst="$S(BuildDir)/libs/$S(Architecture)/libjs.so" />
+  </resourceCopies>
+
   <gameActivityImportAdditions>
     <insert>
 import com.fyber.Fyber;
