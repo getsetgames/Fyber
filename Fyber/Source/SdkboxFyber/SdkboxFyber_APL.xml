@@ -678,6 +678,11 @@ public void AndroidThunkJava_FyberShowInterstitial()
     @android.webkit.JavascriptInterface <methods>;
 }
 
+# tapjoy
+#
+-keep class com.tapjoy.** { *; }
+-dontwarn com.tapjoy.**
+
 
 ]]>
     </insert>
