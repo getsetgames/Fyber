@@ -665,6 +665,8 @@ public void AndroidThunkJava_FyberShowInterstitial()
     public static final ** CREATOR;
 }
 
+# unity ads
+#
 -keep class com.unity3d.ads.android.video.UnityAdsVideoView { <init>(...); }
 -keep class com.unity3d.ads.android.view.UnityAdsFullscreenActivity { <init>(...); }
 
