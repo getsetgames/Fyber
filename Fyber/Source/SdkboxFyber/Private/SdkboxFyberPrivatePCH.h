@@ -19,9 +19,6 @@
 
 #pragma once
 
-#include "CoreUObject.h"
-#include "Engine.h"
-
 #include "ISdkboxFyber.h"
 #include "SdkboxFyberSettings.h"
 #include "SdkboxFyberFunctions.h"
