@@ -17,6 +17,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 
+#include "SdkboxFyberComponent.h"
 #include "SdkboxFyberPrivatePCH.h"
 
 // Interstitial

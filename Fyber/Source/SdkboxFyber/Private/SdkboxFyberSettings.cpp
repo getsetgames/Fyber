@@ -17,8 +17,8 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "SdkboxFyberPrivatePCH.h"
 #include "SdkboxFyberSettings.h"
+#include "SdkboxFyberPrivatePCH.h"
 
 USdkboxFyberSettings::USdkboxFyberSettings(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)

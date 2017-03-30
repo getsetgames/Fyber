@@ -17,6 +17,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 
+#include "SdkboxFyberFunctions.h"
 #include "SdkboxFyberPrivatePCH.h"
 #include "AudioDevice.h"
 
