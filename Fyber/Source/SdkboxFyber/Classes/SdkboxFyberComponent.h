@@ -19,6 +19,7 @@
 
 #pragma once
 
+#include "Components/ActorComponent.h"
 #include "SdkboxFyberComponent.generated.h"
 
 UENUM(BlueprintType)

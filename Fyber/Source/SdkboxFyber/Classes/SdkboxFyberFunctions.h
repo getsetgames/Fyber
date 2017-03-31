@@ -18,6 +18,8 @@
  ****************************************************************************/
 #pragma once
 
+#include "UObject/Object.h"
+#include "UObject/ScriptMacros.h"
 #include "SdkboxFyberFunctions.generated.h"
 
 UCLASS(NotBlueprintable)

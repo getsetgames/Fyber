@@ -19,6 +19,8 @@
 
 #pragma once
 
+#include "UObject/Object.h"
+#include "UObject/ScriptMacros.h"
 #include "SdkboxFyberSettings.generated.h"
 
 UCLASS(config = Engine, defaultconfig)
