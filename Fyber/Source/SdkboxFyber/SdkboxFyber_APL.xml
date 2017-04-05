@@ -195,13 +195,15 @@ import com.fyber.annotations.FyberSDK;
 
   <gameActivityOnPauseAdditions>
     <insert>
-    
+gFyberIsGamePaused = true;
     </insert>
   </gameActivityOnPauseAdditions>
 
   <gameActivityOnResumeAdditions>
     <insert>
 Log.debug("Fyber SDK initialization...");
+
+gFyberIsGamePaused = false;
 
 String sFyberAppId         = "</insert><insertValue value="$S(sFyberAppId)" /><insert>";
 String sFyberSecurityToken = "</insert><insertValue value="$S(sFyberSecurityToken)" /><insert>";
@@ -223,6 +225,8 @@ private volatile Intent gFyberRewardedVideoIntent;
 private volatile Intent gFyberInterstitialIntent;
 
 final boolean gSdkboxFyberCollectGarbageOnCallbacks = </insert><insertValue value="$B(bGarbageCollectOnCallbacks)" /><insert>;
+
+boolean gFyberIsGamePaused = false;
         
 // Fyber constants used to identify activities 
 //
@@ -426,16 +430,22 @@ public void AndroidThunkJava_FyberShowRewardedVideo()
       {
         if (gFyberRewardedVideoIntent != null)
         {    
-          Log.debug("Starting rewarded video...");   
-
-          startActivityForResult(gFyberRewardedVideoIntent, REWARDED_VIDEO_REQUEST_CODE);
-
-          nativeFyberShowRewardedVideo(true);         
+          if (gFyberIsGamePaused)
+          {
+            Log.debug("Game is paused.  Won't play video.  Sending fail back to UE4.");
+            nativeFyberShowRewardedVideo(false);  
+          }
+          else
+          {
+            Log.debug("Starting rewarded video...");   
+            startActivityForResult(gFyberRewardedVideoIntent, REWARDED_VIDEO_REQUEST_CODE);
+            nativeFyberShowRewardedVideo(true);         
+          }
         }
         else
         {
-          nativeFyberShowRewardedVideo(false); 
           Log.debug("There is no current intent cached for a rewarded video");
+          nativeFyberShowRewardedVideo(false);           
         }
       }
   });
