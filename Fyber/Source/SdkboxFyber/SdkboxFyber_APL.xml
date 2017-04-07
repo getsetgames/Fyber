@@ -631,6 +631,23 @@ public void AndroidThunkJava_FyberShowInterstitial()
       }
     }
   }
+  else  
+  {
+    if (requestCode == REWARDED_VIDEO_REQUEST_CODE)
+    {
+      Log.debug("onActivityResult - result:" + resultCode + " request:" + requestCode);
+
+      Log.debug("onActivityResult error - the video ad was dismissed error during playing");
+      nativeFyberRewardedVideoError();
+    }
+    else if (requestCode == INTERSTITIAL_REQUEST_CODE) 
+    {
+      Log.debug("onActivityResult - result:" + resultCode + " request:" + requestCode);
+
+      Log.debug("onActivityResult error - the interstitial ad was dismissed because of an error");
+      nativeFyberInterstitialError();
+    }
+  }
 
     ]]></insert>
 </gameActivityOnActivityResultAdditions>
