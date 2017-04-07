@@ -183,19 +183,19 @@ import com.fyber.annotations.FyberSDK;
 
   <gameActivityOnStartAdditions>
     <insert>
-  
+gFyberIsGameStopped = false;  
     </insert>
   </gameActivityOnStartAdditions>
 
   <gameActivityOnStopAdditions>
     <insert>
-  
+gFyberIsGameStopped = true;
     </insert>
   </gameActivityOnStopAdditions>
 
   <gameActivityOnPauseAdditions>
     <insert>
-gFyberIsGamePaused = true;
+
     </insert>
   </gameActivityOnPauseAdditions>
 
@@ -203,7 +203,6 @@ gFyberIsGamePaused = true;
     <insert>
 Log.debug("Fyber SDK initialization...");
 
-gFyberIsGamePaused = false;
 
 String sFyberAppId         = "</insert><insertValue value="$S(sFyberAppId)" /><insert>";
 String sFyberSecurityToken = "</insert><insertValue value="$S(sFyberSecurityToken)" /><insert>";
@@ -226,7 +225,7 @@ private volatile Intent gFyberInterstitialIntent;
 
 final boolean gSdkboxFyberCollectGarbageOnCallbacks = </insert><insertValue value="$B(bGarbageCollectOnCallbacks)" /><insert>;
 
-boolean gFyberIsGamePaused = false;
+boolean gFyberIsGameStopped = false;
         
 // Fyber constants used to identify activities 
 //
@@ -430,9 +429,9 @@ public void AndroidThunkJava_FyberShowRewardedVideo()
       {
         if (gFyberRewardedVideoIntent != null)
         {    
-          if (gFyberIsGamePaused)
+          if (gFyberIsGameStopped)
           {
-            Log.debug("Game is paused.  Won't play video.  Sending fail back to UE4.");
+            Log.debug("Game is stopped.  Won't play video.  Sending fail back to UE4.");
             nativeFyberShowRewardedVideo(false);  
           }
           else
