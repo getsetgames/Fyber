@@ -183,13 +183,13 @@ import com.fyber.annotations.FyberSDK;
 
   <gameActivityOnStartAdditions>
     <insert>
-gFyberIsGameStopped = false;  
+
     </insert>
   </gameActivityOnStartAdditions>
 
   <gameActivityOnStopAdditions>
     <insert>
-gFyberIsGameStopped = true;
+
     </insert>
   </gameActivityOnStopAdditions>
 
@@ -224,9 +224,7 @@ private volatile Intent gFyberRewardedVideoIntent;
 private volatile Intent gFyberInterstitialIntent;
 
 final boolean gSdkboxFyberCollectGarbageOnCallbacks = </insert><insertValue value="$B(bGarbageCollectOnCallbacks)" /><insert>;
-
-boolean gFyberIsGameStopped = false;
-        
+      
 // Fyber constants used to identify activities 
 //
 static final int REWARDED_VIDEO_REQUEST_CODE = 9340;
@@ -429,17 +427,9 @@ public void AndroidThunkJava_FyberShowRewardedVideo()
       {
         if (gFyberRewardedVideoIntent != null)
         {    
-          if (gFyberIsGameStopped)
-          {
-            Log.debug("Game is stopped.  Won't play video.  Sending fail back to UE4.");
-            nativeFyberShowRewardedVideo(false);  
-          }
-          else
-          {
             Log.debug("Starting rewarded video...");   
             startActivityForResult(gFyberRewardedVideoIntent, REWARDED_VIDEO_REQUEST_CODE);
             nativeFyberShowRewardedVideo(true);         
-          }
         }
         else
         {
