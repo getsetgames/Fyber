@@ -28,7 +28,7 @@ namespace UnrealBuildTool.Rules
 			get { return ModuleDirectory; }
 		}
 
-		public SdkboxFyber(TargetInfo Target)
+		public SdkboxFyber(ReadOnlyTargetRules Target) : base(Target)
 		{
 			PublicIncludePaths.AddRange(
 				new string[] {
