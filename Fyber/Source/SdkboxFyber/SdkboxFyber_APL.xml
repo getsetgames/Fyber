@@ -243,7 +243,7 @@ public native void nativeFyberInterstitialClosed();
 public native void nativeFyberInterstitialError();
 public native void nativeFyberInterstitialUnknownReason();
 
-public native void nativeFyberShowInterstital(boolean wasInterstitialShown);
+public native void nativeFyberShowInterstitial(boolean wasInterstitialShown);
 
 // Fyber rewarded video
 //
@@ -498,12 +498,12 @@ public void AndroidThunkJava_FyberShowInterstitial()
         Log.debug("Showing Fyber interstitial...");   
 
         startActivityForResult(gFyberInterstitialIntent, INTERSTITIAL_REQUEST_CODE);
-        nativeFyberShowInterstital(true);         
+        nativeFyberShowInterstitial(true);
       }
       else
       {
         Log.debug("There is no current intent cached for an interstitial");
-        nativeFyberShowInterstital(false);           
+        nativeFyberShowInterstitial(false);
       }
     }
   });  
