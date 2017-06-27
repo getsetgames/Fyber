@@ -462,8 +462,14 @@ public void AndroidThunkJava_FyberRequestInterstitial()
           @Override
           public void onAdAvailable(Intent intent) 
           {
-            Log.debug("Interstitial ad is available");   
-            nativeFyberOnInterstitialAdAvailable();          
+			if (gSdkboxFyberCollectGarbageOnCallbacks)
+			{
+			  System.gc();
+			}
+			Log.debug("Interstitial ad is available");
+			
+			gFyberInterstitialIntent = new Intent(intent);
+            nativeFyberOnInterstitialAdAvailable();
           }
 
           @Override
