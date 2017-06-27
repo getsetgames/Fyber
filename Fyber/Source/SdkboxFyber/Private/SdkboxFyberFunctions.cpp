@@ -312,7 +312,7 @@ extern "C" void Java_com_epicgames_ue4_GameActivity_nativeFyberVirtualCurrencyRe
 //
 extern "C" void Java_com_epicgames_ue4_GameActivity_nativeFyberOnInterstitialAdAvailable(JNIEnv* jenv, jobject thiz)
 {
- USdkboxFyberComponent::OnBrandEngageClientReceiveOffersDelegate.Broadcast(true, "");
+	USdkboxFyberComponent::OnInterstitialReceiveOffersDelegate.Broadcast(true, "");
 }
 
 extern "C" void Java_com_epicgames_ue4_GameActivity_nativeFyberOnInterstitialAdNotAvailable(JNIEnv* jenv, jobject thiz)
